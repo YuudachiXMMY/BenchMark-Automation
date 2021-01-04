@@ -39,3 +39,4 @@ def key_input(str=''):
         win32api.keybd_event(VK_CODE[c],0,0,0)
         win32api.keybd_event(VK_CODE[c],0,win32con.KEYEVENTF_KEYUP,0)
         time.sleep(0.01)
+

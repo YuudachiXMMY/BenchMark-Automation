@@ -1,7 +1,5 @@
-import script1
-
 def main():
-    script1.main()
+    print("This is runScript.py")
 
 if __name__ == "__main__":
     main()
