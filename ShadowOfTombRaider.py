@@ -1,66 +1,15 @@
-import os
+import os, psutil
+import re
 from re import L
 import time
+import datetime
 import win32gui
 import win32api
 import win32con
-
-# # 设置appdict
-# pyexe = "E:\...\python.exe"
-# appdict = {'qq': '"D:\...\QQScLauncher.exe"',
-#            'pl/sql': '"E:\...\plsqldev.exe"',
-#            'idea': '"E:...\idea64.exe"',
-#            'chrome': '"C:\...\chrome.exe"'}
-# # qq登录按钮位置，pl/sql取消按钮位置，idea第一个工程的位置
-# coorddict = {'qq': [960, 665], 'pl/sql': [1060, 620], 'idea': [700, 245]}
-# namedict = {'qq': 'QQ', 'pl/sql': 'Oracle Logon', 'idea': 'Welcome to IntelliJ IDEA'}
-
-# TASK_NAME = "ShadowOfTombRaider"
-
-# # 打开应用并且鼠标点击按钮（获取按钮的像素坐标很麻烦）
-# def open_by_grab():
-#     pyhd = win32gui.FindWindow(None, pyexe)  # 360会拦截pyexe,可以添加信任或者关闭360
-#     # 设置pyexe窗口属性和位置，太大会挡住一些窗口
-#     win32gui.SetWindowPos(pyhd, win32con.HWND_TOPMOST, 0, 0, 500, 500, win32con.SWP_SHOWWINDOW)
-#     print("py exe 句柄: %s ..." % pyhd)
-#     for key in appdict.keys():
-#         print("启动 %s ..." % key)
-#         os.popen(r'%s' % appdict[key])  # os.system会阻塞
-#         time.sleep(3)
-#         if key == "chrome":
-#             pass
-#         else:
-#             winhd = win32gui.FindWindow(None, namedict[key])  # 根据窗口名获取句柄
-#             while winhd == 0:
-#                 print("等待获取%s窗口 ..." % key)
-#                 time.sleep(3)
-#                 winhd = win32gui.FindWindow(None, namedict[key])
-#             print("获取%s窗口成功,开始登录 ..." % key)
-#             a, b = coorddict[key]
-#             mouse_click(a, b)
-#             time.sleep(3)
-#     print("完毕 ...")
-#     time.sleep(1)
-#     win32gui.SendMessage(pyhd, win32con.WM_CLOSE)
-
-
-# # 模拟鼠标点击
-# def mouse_click(a, b):
-#     time.sleep(1)
-#     win32api.SetCursorPos((a, b))
-#     time.sleep(1)
-#     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0) # 360会拦截虚拟按键,可以添加信任或者关闭360
-#     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
-
-
-# open_by_grab()
-##########################################
-
-
 from PIL import ImageGrab
-import pyautogui as pag
+# import pyautogui as pag
 
-# VK_CODE
+## VK_CODE
 VK_CODE = {
     'backspace':0x08,
     'tab':0x09,
@@ -257,25 +206,34 @@ VK_CODE1 = {
     '"':"'"}
 
 # Global Variable
+WORKING_DIRECTORY = os.getcwd()
 SCREEN_SIZE = (win32api.GetSystemMetrics(win32con.SM_CXSCREEN), win32api.GetSystemMetrics(win32con.SM_CYSCREEN))
-STEAM_DIRECTORY = "D://SteamLibrary//steamapps//common"
 GAME_DIRECTORY = "Shadow of the Tomb Raider"
 GAME_EXECUTOR = "SOTTR.exe"
 GAME_NAME = "Shadow of the Tomb Raider"
+CONFIG_SETTINGS = ["config_settings/Shadow_of_the_Tomb_Raider_2k_ultra.reg", "config_settings/Shadow_of_the_Tomb_Raider_1080p_ultra.reg"]
 
 # Helper Methodes
 def makeScreenShoot():
     return ImageGrab.grab(bbox=(0, 0, SCREEN_SIZE[0], SCREEN_SIZE[1]))
 
 def saveScreenShoot(error=''):
+    '''
+    This function saves screenshoots to the "errors" folder
+    '''
     img = makeScreenShoot()
     screenShootName = '{task}_{time}.jpg'.format(task=GAME_NAME, time=time.strftime("%m_%d_%H_%M_%S", time.localtime()))
     if error != '':
         screenShootName = '[%s] '%error + screenShootName
-    img.save(screenShootName)
+    img.save("errors/%s"%screenShootName)
     print("Saved Screen Shoot: %s"%screenShootName)
 
 def findWindow(task):
+    '''
+    Find a window with 5 tries, each tries have a waiting time of 3 sec.
+    - return 0, if can't find the window and save a screenshoot
+    - return the window's HD, if succeed in finding the window
+    '''
     print("Waiting for %s window..." % task)
     gameHd = win32gui.FindWindow(None, task)
     tries = 0
@@ -283,16 +241,25 @@ def findWindow(task):
         time.sleep(3)
         gameHd = win32gui.FindWindow(None, task)
         if tries > 5:
+            saveScreenShoot("FindWindowFailed")
             print("****** failed ******")
             return 0
         tries += 1
     return gameHd
 
-def key_inputs(str_input=''): #自动识别上档键和下档建并输出
+def key_inputs(str_input=''):
+    ''' NOT BE USED SO FAR
+    Past function to do a series of keyboard actions.
+    # 自动识别上档键和下档建并输出
+    '''
     for c in str_input:
         key_input(c)
 
-def key_input(c): #自动识别上档键和下档建并输出
+def key_input(c):
+    ''' NOT BE USED SO FAR
+    Past function to do a keyboard actions.
+    # 自动识别上档键和下档建并输出
+    '''
     if c in VK_CODE1:
         win32api.keybd_event(VK_CODE[VK_CODE1[c]],0,0,0) #按键
         win32api.keybd_event(VK_CODE[VK_CODE1[c]],0,win32con.KEYEVENTF_KEYUP,0) #释放按键
@@ -303,82 +270,257 @@ def key_input(c): #自动识别上档键和下档建并输出
         time.sleep(0.1)
 
 def key_enter():
-    win32api.keybd_event(VK_CODE["enter"],0,0,0) #按下shift键
-    win32api.keybd_event(VK_CODE["enter"],0,win32con.KEYEVENTF_KEYUP,0)#按下shift键
+    ''' NOT BE USED SO FAR
+    Past function to press shift key.
+    '''
+    win32api.keybd_event(VK_CODE["enter"],0,0,0) # 按下shift键
+    win32api.keybd_event(VK_CODE["enter"],0,win32con.KEYEVENTF_KEYUP,0) # 按下shift键
     time.sleep(0.1)
 
-# STEAM_DIRECTORY = input("Please input your Steam Directory:")
-def main():
+def searchFile(pathname, filename):
+    '''
+    Search for a file
+    - return the matched file name
+    # 参数1要搜索的路径，参数2要搜索的文件名，可以是正则表代式
+    '''
+    matchedFile =[]
+    for root, dirs, files in os.walk(pathname):
+        for file in files:
+            if re.match(filename,file):
+                fname = os.path.abspath(os.path.join(root,file))
+                #print(fname)
+                matchedFile.append(fname)
+    return matchedFile
 
-    # startGame = win32api.ShellExecute(1, 'open', r'{STEAM_DIRECTORY}//{GAME_DIRECTORY}//{GAME_EXECUTOR}'.format(STEAM_DIRECTORY=STEAM_DIRECTORY, GAME_DIRECTORY=GAME_DIRECTORY, GAME_EXECUTOR=GAME_EXECUTOR), '', '', 1)
-    # if not startGame:
-    #     return 0
+def searchLog(DOCUMENT_ROOT, starting_time):
+    f = []
+    c = starting_time
+    while(c < datetime.datetime.now()):
+        c = c + datetime.timedelta(minutes=1)
+        cur_time = ( c ).strftime("%Y-%m-%d_%H.%M")
+        res = searchFile("{DOCUMENT_ROOT}//{GAME_NAME}//".format(DOCUMENT_ROOT=DOCUMENT_ROOT, GAME_NAME=GAME_NAME), "SOTTR_X_%s.*.txt"%(cur_time))
+        if res:
+            f.extend(res)
+            return f
+    return f
 
-    # time.sleep(10)
+def findGameVersion(DOCUMENT_ROOT):
+    '''
+    Seach for Tomb Raider's version, in the .log file of the game file in\
+    system document folder.
+    - return 0, if failed to define the game version
+    - return game version, if succeed
+    '''
+    reg = r'v\d+.\d+ build \d+.\d+_\d+'
+    tar_f = DOCUMENT_ROOT + "//%s.log"%GAME_NAME
+    with open(tar_f) as f:
+        for line in f:
+            if re.search(reg, line):
+                return re.search(reg, line).group()
+    return 0
 
-    # tries = 0
-    # while findWindow(GAME_NAME):
-    #     time.sleep(3)
-    #     key_enter()
+def press_s():
+    '''
+    Execute s key, by calling the .exe file in "keyassist" folder made by tinytask
+    - return 0, if failed
+    - return 1, if succeed
+    '''
+    return win32api.ShellExecute(1, 'open', '%s/keyassist/s.exe'%WORKING_DIRECTORY, '', '', 1)
 
-    #     gameHD = findWindow("%s v1.0 build 298.0_64"%GAME_NAME)
-    #     if gameHD:
-    #         tries = 0
-    #         print("Success!!")
-    #         break
-    #     elif tries > 5:
-    #         saveScreenShoot("OpenFailed")
-    #         print("****** Failed to open Game!!! Process stopped ******")
-    #         return 0
-    #     tries += 1
+def press_enter():
+    '''
+    Execute enter key, by calling the .exe file in "keyassist" folder made by tinytask
+    - return 0, if failed
+    - return 1, if succeed
+    '''
+    return win32api.ShellExecute(1, 'open', '%s/keyassist/enter.exe'%WORKING_DIRECTORY, '', '', 1)
 
-    # print("Waiting...")
-    # # wait for game start
-    # time.sleep(25)
-    gameHD = findWindow("%s v1.0 build 298.0_64"%GAME_NAME)
-    win32gui.SetForegroundWindow(gameHD)
+def press_r():
+    '''
+    Execute r key, by calling the .exe file in "keyassist" folder made by tinytask
+    - return 0, if failed
+    - return 1, if succeed
+    '''
+    return win32api.ShellExecute(1, 'open', '%s/keyassist/r.exe'%WORKING_DIRECTORY, '', '', 1)
+
+def press_w():
+    '''
+    Execute w key, by calling the .exe file in "keyassist" folder made by tinytask
+    - return 0, if failed
+    - return 1, if succeed
+    '''
+    return win32api.ShellExecute(1, 'open', '%s/keyassist/w.exe'%WORKING_DIRECTORY, '', '', 1)
+
+def resetMouse():
+    '''
+    Reset the mouse position to top-left, by calling the .exe file in "keyassist" folder made by tinytask
+    - return 0, if failed
+    - return 1, if succeed
+    '''
+    return win32api.ShellExecute(1, 'open', '%s/keyassist/reset_mouse.exe'%WORKING_DIRECTORY, '', '', 1)
+
+def reactWhole_2k():
+    '''
+    Apply mouse action to get to the graphic screen, by calling the .exe file in "keyassist" folder made by tinytask
+    - return 0, if failed
+    - return 1, if succeed
+    '''
+    return win32api.ShellExecute(1, 'open', '%s/keyassist/full_2k.exe'%WORKING_DIRECTORY, '', '', 1)
+
+def reactWhole_1080():
+    '''
+    Apply mouse action to get to the graphic screen, by calling the .exe file in "keyassist" folder made by tinytask
+    - return 0, if failed
+    - return 1, if succeed
+    '''
+    return win32api.ShellExecute(1, 'open', '%s/keyassist/full_1080.exe'%WORKING_DIRECTORY, '', '', 1)
+
+def startGame(DOCUMENT_ROOT, STEAM_DIRECTORY, GAME_VERSION, loop, reg):
+    exeFile = r'{STEAM_DIRECTORY}//{GAME_DIRECTORY}//{GAME_EXECUTOR}'.format(STEAM_DIRECTORY=STEAM_DIRECTORY, GAME_DIRECTORY=GAME_DIRECTORY, GAME_EXECUTOR=GAME_EXECUTOR)
+
+    ## Start game launcher
+    # - return 0 and end the whole process, if failed
+    # - otherwise, keep running the process
+    tries = 10
+    while tries != 0:
+        startGame = win32api.ShellExecute(1, 'open', exeFile, '', '', 1)
+        if startGame:
+            break
+        if tries == 1 and not startGame:
+            saveScreenShoot("OpenLauncherFailed")
+            print("****** Failed to open Game Launcer!!! Process stopped ******")
+            return 0
+        tries -= 1
+
+    time.sleep(10)
+
+    ## Apply ENTER on the launcher to start game
+    # return 0, if failed to apply ENTER key on he launcher
+    # - otherwise, keep running the process
+    tries = 0
+    while findWindow(GAME_NAME):
+        time.sleep(3)
+        key_enter()
+
+        gameHD = findWindow("{GAME_NAME} {GAME_VERSION}".format(GAME_NAME=GAME_NAME, GAME_VERSION=GAME_VERSION))
+        if gameHD:
+            tries = 0
+            break
+        elif tries > 10:
+            saveScreenShoot("OpenGameFailed")
+            print("****** Failed to open Game!!! Process stopped ******")
+            return 0
+        tries += 1
+
+    ## Give 25 sec for the game to start
+    print("Waiting for game to start...")
+    time.sleep(35)
+
+    resetMouse()
+
     time.sleep(5)
 
+    # ****** IN-GAME ACTIONS ******
+
+    # ## Past code ####
+    # # 1. Press three "s" keys, and then "ENTER" to option screen
+    # # 2. Press three "s" keys, and then "ENTER" to graphic setting
+    # startScripts = press_s()
+    # time.sleep(1)
+    # startScripts = press_s()
+    # time.sleep(1)
+    # startScripts = press_s()
+    # time.sleep(1)
+    # startScripts = press_s()
+    # time.sleep(1)
+    # startScripts = press_enter()
+    # time.sleep(3)
+    # startScripts = press_s()
+    # time.sleep(1)
+    # startScripts = press_s()
+    # time.sleep(1)
+    # startScripts = press_s()
+    # time.sleep(1)
+    # startScripts = press_enter()
+    ####################
+
+    # reactWhole
+    if reg == CONFIG_SETTINGS[0]:
+        startScripts = reactWhole_2k()
+        while(not startScripts):
+            startScripts = reactWhole_2k()
+    elif reg == CONFIG_SETTINGS[0]:
+        startScripts = reactWhole_1080()
+        while(not startScripts):
+            startScripts = reactWhole_1080()
+
+    # 3. Press "r" key to start benchmarking
+    while(loop>0):
+        loop -= 1
+        time.sleep(10)
+
+        print("Start Benchmarking...")
+        startScripts = press_r()
+        time.sleep(0.5)
+        startScripts = press_r()
+        time.sleep(0.5)
+        startScripts = press_r()
+        time.sleep(0.5)
+        startScripts = press_r()
 
 
-    # pag.press('s')
+        starting_time = datetime.datetime.now()
 
-    win32api.PostMessage()
-    time.sleep(1)
-    pag.press('s')
-    time.sleep(1)
-    pag.press('s')
-    time.sleep(1)
-    pag.press('enter')
-    time.sleep(2)
-    pag.press('s')
-    time.sleep(1)
-    pag.press('s')
-    time.sleep(1)
-    pag.press('s')
-    time.sleep(1)
-    pag.press('enter')
-    time.sleep(2)
-    pag.press('r')
+        # Waiting for benchmarking
+        time.sleep(200)
 
-    # # Start Benchmark
-    # key_input("s")
-    # time.sleep(1)
-    # key_input("s")
-    # time.sleep(1)
-    # key_input("s")
-    # time.sleep(1)
-    # key_input("enter")
-    # time.sleep(2)
-    # key_input("sr")
-    # time.sleep(1)
-    # key_input("s")
-    # time.sleep(1)
-    # key_input("s")
-    # time.sleep(1)
-    # key_input("enter")
-    # time.sleep(2)
-    # key_input("R")
-    # time.sleep(2)
+        # Finding logs
+        print("finding logs...")
 
-main()
+        # Search for benckmarking logs for 10 times, each times wait for 2 sec
+        # if failed, add 1 to {loop} variable for an addition benchmarking
+        logs = searchLog(DOCUMENT_ROOT, starting_time)
+        tries = 10
+        while len(logs) == 0:
+            if tries == 0:
+                saveScreenShoot("BenchmarkingFailed")
+                print("****** Failed benchmarking!!! Retry to bench mark again ******")
+                loop += 1
+            logs = searchLog(DOCUMENT_ROOT, starting_time)
+            tries -= 1
+            time.sleep(2)
+        if len(logs) != 0:
+            print("Succeed benchMarking!! Succeed logs: %s"%logs)
+        print("Loop times remained: %s\n"%loop)
+    return gameHD
+
+def killProgress(name):
+    return os.system('taskkill /F /IM %s'%name)
+
+# STEAM_DIRECTORY = input("Please input your Steam Directory:")
+def main(DOCUMENT_ROOT, STEAM_DIRECTORY, loop = 3):
+
+    print("\n")
+
+    GAME_VERSION = "v1.0 build 298.0_64" # This is the latest version at 01/12/2021
+
+    GAME_VERSION = findGameVersion(DOCUMENT_ROOT+GAME_NAME)
+
+    if not GAME_VERSION:
+        saveScreenShoot("FineGameVersionFailed")
+        print("****** Can't define Game version!!! Process Stopped ******")
+        return 0
+
+    for reg in CONFIG_SETTINGS:
+        print("Change to Setting file: %s"%reg)
+        os.system("REG IMPORT %s"%reg)
+        time.sleep(10)
+        statusCode = startGame(DOCUMENT_ROOT, STEAM_DIRECTORY, GAME_VERSION, loop, reg)
+        if not statusCode:
+            saveScreenShoot("OverallError")
+            print("****** Something went wrong!!! Process Stopped ******")
+            return 0
+        statC = killProgress("SOTTR.exe")
+
+    print("###### Finish %s ######\n"%GAME_NAME)
+    return 1
