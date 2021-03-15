@@ -1,12 +1,12 @@
 # BenchMark-Automation
 
-[![Latest Release - Downloads](https://img.shields.io/github/downloads/YuudachiXMMY/BenchMark-Automation/03_01_2021_1/total)](https://github.com/YuudachiXMMY/steamAccountAnalysis/releases/tag/11_27_2020_1)
+[![Latest Release - Downloads](https://github.com/YuudachiXMMY/BenchMark-Automation/releases)
 
 
 ## Release
 
 ### Latest
-Download: [SteamDBCrawler11_27_2020_1.zip](https://github.com/YuudachiXMMY/BenchMark-Automation/builds/release/Build.7z)
+Download: [Build.7z](https://github.com/YuudachiXMMY/BenchMark-Automation/releases/download/03_01_2021_1/Build.7z)
 
 
 ## How to use this program:
