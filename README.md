@@ -1,6 +1,6 @@
 # BenchMark-Automation
 
-[![Latest Release - Downloads](https://github.com/YuudachiXMMY/BenchMark-Automation/releases)
+[![Latest Release - Downloads](https://github.com/YuudachiXMMY/BenchMark-Automation/releases)]
 
 
 ## Release
