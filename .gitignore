@@ -1,10 +1,17 @@
-# Byte-compiled / optimized / DLL files
+    # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
 
 # C extensions
 *.so
+
+# AMD Confidential
+BloodHoundScripts/
+builds/buildTest/BloodHoundScripts/
+builds/resources/BloodHoundScripts/
+main/scripts/BloodHoundScripts.7z
+BloodHoundScripts.7z
 
 # Distribution / packaging
 .Python

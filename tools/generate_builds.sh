@@ -1,1 +1,1 @@
-pyinstaller --distpath="./testBuild" --workpath="./testBuild" --specpath="./testBuild" -F main.py
+pyinstaller --distpath="./builds/buildTest" --workpath="./builds/buildTest" --specpath="./builds/buildTest" -i="C:\Users\Navi\Desktop\BenchMark-Automation\gui\Huskies.ico" -F main.py
