@@ -35,6 +35,10 @@ Set the *global variable* `PROGRAM` by constructing a [ProgramInfo](./main/Progr
 #### `startScripts()`
 Get the current game's run list and loop times from `PROGRAM` and call functions to run the scripts.
 
+### _m.py_
+
+Entirely Same As _main.py_. Is used to build and generate releases.
+
 ### ./lib/*
 
 #### _input.py_

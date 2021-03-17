@@ -7,10 +7,15 @@ __pycache__/
 *.so
 
 # AMD Confidential
+*/BloodHoundScripts/
 BloodHoundScripts/
+
+builds/*/BloodHoundScripts/
 builds/buildTest/BloodHoundScripts/
 builds/resources/BloodHoundScripts/
-main/scripts/BloodHoundScripts.7z
+builds/Build_*/BloodHoundScripts/
+
+*/BloodHoundScripts.7z
 BloodHoundScripts.7z
 
 # Distribution / packaging
