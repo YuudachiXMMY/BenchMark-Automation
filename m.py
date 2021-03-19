@@ -3,7 +3,9 @@ import os, sys, subprocess, signal
 import time
 import psutil
 import win32gui
+import argparse #传参库
 
+# 程序基本库
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
 import lib.utils as utils
@@ -11,6 +13,7 @@ import lib.logger
 import lib.screen
 import main.ProgramInfo as ProgramInfo
 
+# 脚本模块
 import main.scripts.ShadowOfTombRaider as ShadowOfTombRaider
 import main.scripts.SniperEliteV2 as SniperEliteV2
 import main.scripts.BHScripts as BHScripts
@@ -29,6 +32,7 @@ AvP_D3D11_DIRECTORY = ""
 GenshinImpact_Directory = ""
 RUN_LIST = list()
 
+ARGS = None
 PROGRAM = None
 
 logger = lib.logger.logger("main")
@@ -40,6 +44,16 @@ _CURRENT_RUN_LIST = ["3", "4"] # "1", "2", "5", "6" is excluded for some bugs
 overAllLoop = 1
 gameLoop = -1
 stressTest = True
+
+def CMDParam():
+    '''
+    '''
+    parser = argparse.ArgumentParser(description='manual to this script')
+    parser.add_argument('--bhMode', type=str, default=None)
+    # parser.add_argument('--int-input', type=int, default=32)
+    # parser.add_argument('--list-input', type=list, default=[1,2,3])
+    args = parser.parse_args()
+    pass
 
 def initializeProgram():
     '''
@@ -201,7 +215,13 @@ def main():
     # # os.system("python main/runScript.py")
     # # as_cmd = os.system("python main/monitoringSys.py")
 
+
+
+# python cmd_parameter.py --string=python --int-input=10 --list-input=123
+
 if __name__ == "__main__":
+    CMDParam()
+
     main()
 
     # Kill this program itself

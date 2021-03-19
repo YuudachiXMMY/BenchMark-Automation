@@ -31,9 +31,7 @@ RUN_LIST = list()
 
 PROGRAM = None
 
-print("Creating Logger")
 logger = lib.logger.logger("main")
-logger.debug("Created")
 
 # DIY
 _READ_LOCAL = True
@@ -55,11 +53,8 @@ def initializeProgram():
 def startScripts():
     '''
     '''
-    logger.debug("startScripts")
     runList = PROGRAM.getGames()
-    logger.debug(runList)
     loop = PROGRAM.getOverAllLoopTimes()
-    logger.debug(loop)
     while(loop != 0):
         loop = loop - 1
         if "1" in runList:
@@ -67,7 +62,6 @@ def startScripts():
         if "2" in runList:
             pass
         if "3" in runList:
-            logger.debug("SE_V2")
             startSniperEliteV2()
         if "4" in runList:
             startAvP_D3D11()
@@ -187,7 +181,6 @@ def main():
     '''
     Main program of the script
     '''
-    print("Main")
 
     try:
         initializeProgram()
