@@ -1,7 +1,7 @@
 import subprocess
 
 script_path = r".\\BloodHoundScripts\\"
-overallScript = r"RunAllLooped_BHH.ps1"
+overallScript = r"RunBloodHound_Offline.ps1"
 scripts = (script_path+r"Scripts\\")
 POWERSHELL = r"C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"
 

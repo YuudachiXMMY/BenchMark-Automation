@@ -139,7 +139,8 @@ def startGame():
 
     # Quit Game
     time.sleep(10)
-    lib.keyboardUtils.press_alt_f4()
+    # lib.keyboardUtils.press_alt_f4()
+    lib.input.key_alt_f4()
 
     return startGame
 

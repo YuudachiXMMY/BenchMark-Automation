@@ -1,6 +1,7 @@
 import json
 import os, sys, subprocess, signal
 import time
+from typing import Tuple
 import psutil
 import win32gui
 import argparse #传参库
@@ -15,6 +16,7 @@ import main.ProgramInfo as ProgramInfo
 
 # 脚本模块
 import main.scripts.ShadowOfTombRaider as ShadowOfTombRaider
+import main.scripts.AvP_D3D11 as AvP_D3D11
 import main.scripts.SniperEliteV2 as SniperEliteV2
 import main.scripts.BHScripts as BHScripts
 import main.scripts.GenshinImpact as GenshinImpact
@@ -32,6 +34,7 @@ AvP_D3D11_DIRECTORY = ""
 GenshinImpact_Directory = ""
 RUN_LIST = list()
 
+# Global Objects
 ARGS = None
 PROGRAM = None
 
@@ -48,12 +51,15 @@ stressTest = True
 def CMDParam():
     '''
     '''
-    parser = argparse.ArgumentParser(description='manual to this script')
-    parser.add_argument('--bhMode', type=str, default=None)
-    # parser.add_argument('--int-input', type=int, default=32)
-    # parser.add_argument('--list-input', type=list, default=[1,2,3])
-    args = parser.parse_args()
-    pass
+    global ARGS
+    parser = argparse.ArgumentParser(description='Manual to this script')
+    parser.add_argument('--bhMode',
+                        type=int,
+                        default=1,
+                        help="1, to directly run with local settings without user interface; \
+                            0, to show a user interface. \
+                            (default: show a user interface)")
+    ARGS = parser.parse_args() == 1
 
 def initializeProgram():
     '''
@@ -117,7 +123,7 @@ def startSniperEliteV2():
     '''
     Start SniperEliteV2 Script
     '''
-    ## 古墓丽影暗影 2K+1090p Benchmarking
+    ## SniperEliteV2 Benchmarking
     try:
         logger.info("Starting SniperEliteV2 Script")
         statusCode = SniperEliteV2.main(PROGRAM)
@@ -139,10 +145,10 @@ def startAvP_D3D11():
     '''
     Start AvP_D3D11 Script
     '''
-    ## 古墓丽影暗影 2K+1090p Benchmarking
+    ## AvP Benchmarking
     try:
         logger.info("Starting AvP_D3D11 Script")
-        statusCode = SniperEliteV2.main(PROGRAM)
+        statusCode = AvP_D3D11.main(PROGRAM)
     except Exception:
         logger.error('Error in Runing AvP_D3D11.main()', exc_info=True)
     else:
@@ -173,7 +179,7 @@ def startGenshinImpact():
     '''
     Start GenshinImpact Script
     '''
-    ## GenshinImpact
+    ## GenshinImpact Script
     try:
         logger.info("Starting GenshinImpact Script")
         statusCode = GenshinImpact.main(PROGRAM)
@@ -181,10 +187,11 @@ def startGenshinImpact():
         logger.error('Error in Runing GenshinImpact.main()', exc_info=True)
     else:
         try:
-            gameHD = lib.screen.findWindow("{GAME_DIRECTORY}".format(GAME_DIRECTORY="原神"))
+            gameHD = lib.screen.findWindow("{GAME_DIRECTORY}.exe".format(GAME_DIRECTORY="原神"))
             if gameHD != 0:
                 try:
                     statC = utils.killProgress("原神.exe")
+                    # statC = utils.killProgress("launcher.exe")
                 except Exception:
                     logger.warning('Killing process Error: GenshinImpact')
         except Exception:
@@ -197,7 +204,10 @@ def main():
     '''
 
     try:
-        initializeProgram()
+        if ARGS:
+            initializeProgram(language="cn", readLocal=True)
+        else:
+            initializeProgram()
     except Exception:
         print("Error", exc_info=True)
 
@@ -205,7 +215,6 @@ def main():
         startScripts()
     except Exception:
         print("Error", exc_info=True)
-
     input("Press \'ENTER\' to quit:")
 
     # # ## 一个监视内存的小工具，暂时不用实装
