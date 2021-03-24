@@ -1,7 +1,8 @@
-import subprocess
+import subprocess, os
 
-script_path = r".\\BloodHoundScripts\\"
-overallScript = r"RunBloodHound_Offline.ps1"
+WORKING_DIRECTORY = os.getcwd()
+script_path = "%s\\BloodHoundScripts\\"%WORKING_DIRECTORY
+overallScript = r"\\RunBloodHound.ps1"
 scripts = (script_path+r"Scripts\\")
 POWERSHELL = r"C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"
 

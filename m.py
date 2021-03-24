@@ -173,6 +173,7 @@ def startBHScripts():
     except Exception:
         logger.error('Error in Runing BHScripts.main()', exc_info=True)
     else:
+        time.sleep(5400)
         return statusCode
 
 def startGenshinImpact():
