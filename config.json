@@ -9,7 +9,8 @@
 
         "SniperEliteV2_Benchmark_Directory" : "C://Program Files (x86)//Rebellion//SniperEliteV2 Benchmark//bin",
         "AvP_D3D11_Directory" : "C://Program Files (x86)//Rebellion//AvP D3D11 Benchmark",
-        "GenshinImpact_Directory" : "C://Program Files//Genshin Impact"
+        "GenshinImpact_Directory" : "C://Program Files//Genshin Impact",
+        "Office_Directory" : "C://ProgramData//Microsoft//Windows//Start Menu//Programs"
     },
 
     "RUN" : {
@@ -17,7 +18,7 @@
         "Game_loop" : -1,
         "Stress_Test" : 1,
         "Run_List" : {
-            "3" : "SniperEliteV2 Benchmark"
+            "8" : "Office"
         }
     },
 

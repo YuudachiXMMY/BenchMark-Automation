@@ -21,6 +21,7 @@ import main.scripts.SniperEliteV2 as SniperEliteV2
 import main.scripts.BHScripts as BHScripts
 import main.scripts.GenshinImpact as GenshinImpact
 import main.scripts.Fallout4 as Fallout4
+import main.scripts.Office as Office
 
 # HELPER FIELDS
 _TAB = "    "
@@ -92,7 +93,7 @@ def startScripts():
         if "6" in runList:
             startGenshinImpact()
         if "7" in runList:
-            startGenshinImpact()
+            startFallout4()
 
     # Print Overall loop time remained
     if overAllLoop != 0:
@@ -200,6 +201,52 @@ def startGenshinImpact():
                     logger.warning('Killing process Error: GenshinImpact')
         except Exception:
             logger.warning('Error in Finding GenshinImpact Game Window', exc_info=True)
+        return statusCode
+
+def startFallout4():
+    '''
+    Start Fallout4 Script
+    '''
+    ## Fallout4 Script
+    try:
+        logger.info("Starting Fallout4 Script")
+        statusCode = Fallout4.main(PROGRAM)
+    except Exception:
+        logger.error('Error in Runing Fallout4.main()', exc_info=True)
+    else:
+        try:
+            gameHD = lib.screen.findWindow("{GAME_DIRECTORY}.exe".format(GAME_DIRECTORY="Fallout4"))
+            if gameHD != 0:
+                try:
+                    statC = utils.killProgress("Fallout4.exe")
+                    # statC = utils.killProgress("launcher.exe")
+                except Exception:
+                    logger.warning('Killing process Error: Fallout4')
+        except Exception:
+            logger.warning('Error in Finding Fallout4 Game Window', exc_info=True)
+        return statusCode
+
+def startOffice():
+    '''
+    Start Office Script
+    '''
+    ## Office Script
+    try:
+        logger.info("Starting Office Script")
+        statusCode = Office.main(PROGRAM)
+    except Exception:
+        logger.error('Error in Runing Office.main()', exc_info=True)
+    else:
+        try:
+            gameHD = lib.screen.findWindow("{GAME_DIRECTORY}.exe".format(GAME_DIRECTORY="Office"))
+            if gameHD != 0:
+                try:
+                    statC = utils.killProgress("Office.exe")
+                    # statC = utils.killProgress("launcher.exe")
+                except Exception:
+                    logger.warning('Killing process Error: Office')
+        except Exception:
+            logger.warning('Error in Finding Office Game Window', exc_info=True)
         return statusCode
 
 def main():

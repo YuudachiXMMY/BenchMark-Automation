@@ -172,7 +172,7 @@ def start():
                 return 0
             try:
                 logger.info('Killing process: GenshinImpact.main()')
-                gameHD = win32gui.FindWindow("{GAME_NAME}".format(GAME_NAME=GAME_NAME, GAME_VERSION=GAME_VERSION))
+                gameHD = win32gui.FindWindow("{GAME_NAME}".format(GAME_NAME=GAME_NAME))
                 if gameHD != 0:
                     statC = utils.killProgress("launcher.exe")
             except Exception:

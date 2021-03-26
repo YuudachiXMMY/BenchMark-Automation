@@ -22,7 +22,7 @@ stressTest = True
 # Global Variable
 WORKING_DIRECTORY = os.getcwd()
 GAME_DIRECTORY = "Fallout 4"
-GAME_EXECUTOR = "Fallout4Launcher.exe"
+GAME_EXECUTOR = "Fallout4.exe"
 GAME_NAME = "Fallout 4"
 
 DOCUMENT_ROOT = "" #NOT IN USE
@@ -127,6 +127,7 @@ def startGame():
 
         if loop == -1:
             break
+
         else:
             loop -= 1
         logger.info('Loop times remained: %s'%loop)
@@ -171,7 +172,7 @@ def start():
                 return 0
             try:
                 logger.info('Killing process: Fallout4.main()')
-                gameHD = win32gui.FindWindow("{GAME_NAME}".format(GAME_NAME=GAME_NAME, GAME_VERSION=GAME_VERSION))
+                gameHD = win32gui.FindWindow("{GAME_NAME}".format(GAME_NAME=GAME_NAME))
                 if gameHD != 0:
                     statC = utils.killProgress("launcher.exe")
             except Exception:
