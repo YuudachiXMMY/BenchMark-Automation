@@ -29,7 +29,9 @@
             "3" : "SniperEliteV2 Benchmark",
             "4" : "AlienVSPredictor_D3D11 Benchmark",
             "5" : "Blood Hound Scripts",
-            "6" : "Genshin Impact"
+            "6" : "Genshin Impact",
+            "7" : "FallOut4",
+            "8" : "Office"
         },
         "bhGameList" : [
             "Civilization6",

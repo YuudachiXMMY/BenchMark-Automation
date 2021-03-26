@@ -20,6 +20,7 @@ import main.scripts.AvP_D3D11 as AvP_D3D11
 import main.scripts.SniperEliteV2 as SniperEliteV2
 import main.scripts.BHScripts as BHScripts
 import main.scripts.GenshinImpact as GenshinImpact
+import main.scripts.Fallout4 as Fallout4
 
 # HELPER FIELDS
 _TAB = "    "
@@ -89,6 +90,8 @@ def startScripts():
             startBHScripts()
             time.sleep(3420)
         if "6" in runList:
+            startGenshinImpact()
+        if "7" in runList:
             startGenshinImpact()
 
     # Print Overall loop time remained
