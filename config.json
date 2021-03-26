@@ -28,10 +28,11 @@
             "2" : "Sid Meier's Civilization VI",
             "3" : "SniperEliteV2 Benchmark",
             "4" : "AlienVSPredictor_D3D11 Benchmark",
-            "5" : "Blood Hound Scripts",
+            "5" : "BH Scripts",
             "6" : "Genshin Impact",
-            "7" : "FallOut4",
+            "7" : "Fallout 4",
             "8" : "Office"
+
         },
         "bhGameList" : [
             "Civilization6",
