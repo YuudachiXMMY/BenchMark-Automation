@@ -21,7 +21,7 @@ stressTest = True
 
 # Global Variable
 WORKING_DIRECTORY = os.getcwd()
-GAME_DIRECTORY = "Office"
+GAME_DIRECTORY = ""
 GAME_EXECUTOR_LIST = [
     "Excel",
     "PowerPoint",
@@ -67,38 +67,13 @@ def startGame():
             logger.error('Opening Game Launcher Failed! Screenshoot Created: %s'%screenShootName)
             print("****** Failed to open Game Launcher!!! Process stopped ******\n")
             return 0
-        if startGame: ,
+        if startGame:
             logger.info("Open Game Launcher Succeed")
             print("Open Game Launcher Succeed!!")
             break
         else:
             tries -= 1
             time.sleep(1)
-
-    time.sleep(10)
-
-    ## Apply ENTER on the launcher to start game
-    # return 0, if failed to apply ENTER key on he launcher
-    # - otherwise, keep running the process
-    tries = 0
-    while lib.screen.findWindow("Office"):
-
-        logger.info('Opening Game: %s'%GAME_NAME)
-        lib.input.clickLeft(1309, 771)
-
-        time.sleep(10)
-
-        gameHD = lib.screen.findWindow("Office")
-        if gameHD:
-            tries = 0
-            break
-        elif tries > 10:
-            screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "OpenGameFailed")
-            logger.error('Opening Game Failed! Screenshoot Created: %s'%screenShootName)
-            print("****** Failed to open Game!!! Process stopped ******\n")
-            return 0
-        tries += 1
-        time.sleep(3)
 
     logger.info(_TAB+'Waiting for game to start')
     ## Give 25 sec for the game to start
@@ -115,15 +90,6 @@ def startGame():
     loop = LOOP_TIMES
     while(loop!=0):
         time.sleep(5)
-
-        # Login
-        tmp = 10
-        while(tmp!=0):
-            time.sleep(0.5)
-            tmp = tmp - 1
-            lib.input.clickLeft(960, 540)
-
-        time.sleep(20)
 
         logger.info(_TAB+'Starting Testing')
         print("Start Testing...")
