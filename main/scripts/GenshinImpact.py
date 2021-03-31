@@ -150,8 +150,8 @@ def initialize():
     global GAME_DIRECTORY, LOOP_TIMES, STRESS_TEST
 
     GAME_DIRECTORY = PG.getDirectories().get("GenshinImpact_Directory") + "//"
-    LOOP_TIMES = PG.getLoopTimes()
-    STRESS_TEST = PG.isStressTest()
+    LOOP_TIMES = int(PG.getLoopTimes())
+    STRESS_TEST = int(PG.isStressTest())
 
 def start():
     '''

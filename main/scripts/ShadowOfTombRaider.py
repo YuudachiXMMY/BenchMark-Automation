@@ -224,7 +224,7 @@ def initialize():
 
     DOCUMENT_ROOT = PG.getDocumentDir() + "//"
     STEAM_DIRECTORY = PG.getSteamDir().get("1") + "//"
-    LOOP_TIMES = PG.getLoopTimes()
+    LOOP_TIMES = int(PG.getLoopTimes())
 
     GAME_VERSION = "v1.0 build 298.0_64" # This is the latest version at 01/12/2021
     logger.info("Finding Game Version...")

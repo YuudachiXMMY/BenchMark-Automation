@@ -94,6 +94,8 @@ def startScripts():
             startGenshinImpact()
         if "7" in runList:
             startFallout4()
+        if "8" in runList:
+            startOffice()
 
     # Print Overall loop time remained
     if overAllLoop != 0:
@@ -237,16 +239,6 @@ def startOffice():
     except Exception:
         logger.error('Error in Runing Office.main()', exc_info=True)
     else:
-        try:
-            gameHD = lib.screen.findWindow("{GAME_DIRECTORY}.exe".format(GAME_DIRECTORY="Office"))
-            if gameHD != 0:
-                try:
-                    statC = utils.killProgress("Office.exe")
-                    # statC = utils.killProgress("launcher.exe")
-                except Exception:
-                    logger.warning('Killing process Error: Office')
-        except Exception:
-            logger.warning('Error in Finding Office Game Window', exc_info=True)
         return statusCode
 
 def main():

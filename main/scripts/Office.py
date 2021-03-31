@@ -23,9 +23,9 @@ stressTest = True
 WORKING_DIRECTORY = os.getcwd()
 GAME_DIRECTORY = ""
 GAME_EXECUTOR_LIST = [
-    "Excel",
+    "Word",
     "PowerPoint",
-    "Word"
+    "Excel"
 ]
 GAME_EXECUTOR = "Word"
 GAME_NAME = "Word"
@@ -78,12 +78,6 @@ def startGame():
     logger.info(_TAB+'Waiting for game to start')
     ## Give 25 sec for the game to start
     print("Waiting for game to start...")
-    time.sleep(60)
-
-    logger.info(_TAB+'Resetting Mouse Position')
-    lib.keyboardUtils.resetMouse()
-
-    time.sleep(2)
 
     ####################################################################################
     # Start Game
@@ -91,11 +85,19 @@ def startGame():
     while(loop!=0):
         time.sleep(5)
 
+        # Create New
+        tmp = 4
+        while(tmp!=0):
+            time.sleep(0.5)
+            tmp = tmp - 1
+            lib.input.clickLeft(275, 210)
+
         logger.info(_TAB+'Starting Testing')
         print("Start Testing...")
 
         ## Perform random Character control for 5 min
-        lib.keyboardUtils.randomCharacterControl(300)
+        lib.keyboardUtils.randomTyping(10)
+
 
         if loop == -1:
             break
@@ -112,6 +114,8 @@ def startGame():
     time.sleep(10)
     # lib.keyboardUtils.press_alt_f4()
     lib.input.key_alt_f4()
+    time.sleep(2)
+    lib.input.key_enter() #Save to default folder
 
     return startGame
 
@@ -121,8 +125,8 @@ def initialize():
     global GAME_DIRECTORY, LOOP_TIMES, STRESS_TEST
 
     GAME_DIRECTORY = PG.getDirectories().get("Office_Directory") + "//"
-    LOOP_TIMES = PG.getLoopTimes()
-    STRESS_TEST = PG.isStressTest()
+    LOOP_TIMES = int(PG.getLoopTimes())
+    STRESS_TEST = int(PG.isStressTest())
 
 def start():
     '''

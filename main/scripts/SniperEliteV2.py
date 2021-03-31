@@ -155,7 +155,7 @@ def initialize():
 
     DOCUMENT_ROOT = PG.getDocumentDir() + "//"
     BENCH_DIRECTORY = PG.getDirectories().get("SniperEliteV2_Benchmark_Directory") + "//"
-    LOOP_TIMES = PG.getLoopTimes()
+    LOOP_TIMES = int(PG.getLoopTimes())
 
 def start():
     '''

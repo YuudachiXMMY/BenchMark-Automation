@@ -150,8 +150,8 @@ def initialize():
     global STEAM_DIRECTORY, LOOP_TIMES, STRESS_TEST
 
     STEAM_DIRECTORY = PG.getSteamDir().get("1") + "//"
-    LOOP_TIMES = PG.getLoopTimes()
-    STRESS_TEST = PG.isStressTest()
+    LOOP_TIMES = int(PG.getLoopTimes())
+    STRESS_TEST = int(PG.isStressTest())
 
 def start():
     '''
