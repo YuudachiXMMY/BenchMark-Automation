@@ -19,7 +19,7 @@ I recommend using 7zip to extract the main contents of this program.
 
 ### Run program:
 1. Edit `config.json` using any text editor ;
-2. Run `man.exe` as **administrator**;
+2. Run `m.exe` as **administrator**;
 3. Follow the instructions in the program and have fun :)
 
 
