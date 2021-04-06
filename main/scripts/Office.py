@@ -99,8 +99,7 @@ def startGame():
 
         ## Perform random Character control for 5 min
         # lib.keyboardUtils.randomTyping(10)
-        # lib.keyboardUtils.randomRotate(10)
-        time.sleep(1)
+        lib.keyboardUtils.randomRotate(60)
 
         if loop == -1:
             break
@@ -118,7 +117,7 @@ def startGame():
     # lib.keyboardUtils.press_alt_f4()
     lib.input.key_alt_f4()
     time.sleep(2)
-    lib.input.key_enter() #Save to default folder
+    # lib.input.key_enter() #Save to default folder
 
     return startGame
 
