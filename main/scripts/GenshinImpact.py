@@ -170,13 +170,13 @@ def start():
                 logger.warning(_TAB+'Screenshoot Created: %s'%screenShootName)
                 print("****** Something went wrong!!! Process Stopped ******\n")
                 return 0
-            try:
-                logger.info('Killing process: GenshinImpact.main()')
-                gameHD = win32gui.FindWindow("{GAME_NAME}".format(GAME_NAME=GAME_NAME))
-                if gameHD != 0:
-                    statC = utils.killProgress("launcher.exe")
-            except Exception:
-                logger.warning('Killing process: GenshinImpact.main()')
+            # try:
+            #     logger.info('Killing process: GenshinImpact.main()')
+            #     gameHD = win32gui.FindWindow("{GAME_NAME}".format(GAME_NAME=GAME_NAME))
+            #     if gameHD != 0:
+            #         statC = utils.killProgress("launcher.exe")
+            # except Exception:
+            #     logger.warning('Killing process: GenshinImpact.main()')
         logger.info("Finish GenshinImpact")
         print("###### Finish %s ######"%GAME_NAME)
         return statC

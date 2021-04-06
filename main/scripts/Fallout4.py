@@ -170,13 +170,13 @@ def start():
                 logger.warning(_TAB+'Screenshoot Created: %s'%screenShootName)
                 print("****** Something went wrong!!! Process Stopped ******\n")
                 return 0
-            try:
-                logger.info('Killing process: Fallout4.main()')
-                gameHD = win32gui.FindWindow("{GAME_NAME}".format(GAME_NAME=GAME_NAME))
-                if gameHD != 0:
-                    statC = utils.killProgress("launcher.exe")
-            except Exception:
-                logger.warning('Killing process: Fallout4.main()')
+            # try:
+            #     logger.info('Killing process: Fallout4.main()')
+            #     gameHD = win32gui.FindWindow("{GAME_NAME}".format(GAME_NAME=GAME_NAME))
+            #     if gameHD != 0:
+            #         statC = utils.killProgress("launcher.exe")
+            # except Exception:
+            #     logger.warning('Killing process: Fallout4.main()')
         logger.info("Finish Fallout4")
         print("###### Finish %s ######"%GAME_NAME)
         return statC

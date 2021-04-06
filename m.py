@@ -274,7 +274,11 @@ def main():
 if __name__ == "__main__":
     CMDParam()
 
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print()
+        print("*"*5+' Ctrl+C key input detected. Program Stopped! '+"*"*5)
 
     # Kill this program itself
-    os.kill(os.getpid(), signal.SIGKILL)
+    # os.kill(os.getpid(), signal.SIGKILL)

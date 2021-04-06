@@ -27,6 +27,7 @@ GAME_EXECUTOR_LIST = [
     "PowerPoint",
     "Excel"
 ]
+GAME_EXECUTOR_LIST = utils.searchFile("resources/office", "")
 GAME_EXECUTOR = "Word"
 GAME_NAME = "Word"
 
@@ -53,7 +54,8 @@ def startGame():
     '''
     Scripts to start benchmarking
     '''
-    exeFile = r'{GAME_DIRECTORY}//{GAME_EXECUTOR}'.format(GAME_DIRECTORY=GAME_DIRECTORY, GAME_EXECUTOR=GAME_EXECUTOR)
+    # exeFile = r'{GAME_DIRECTORY}//{GAME_EXECUTOR}'.format(GAME_DIRECTORY=GAME_DIRECTORY, GAME_EXECUTOR=GAME_EXECUTOR)
+    exeFile = r"%s"%GAME_EXECUTOR
 
     ## Start game launcher
     # - return 0 and end the whole process, if failed
@@ -86,18 +88,19 @@ def startGame():
         time.sleep(5)
 
         # Create New
-        tmp = 4
-        while(tmp!=0):
-            time.sleep(0.5)
-            tmp = tmp - 1
-            lib.input.clickLeft(275, 210)
+        # tmp = 4
+        # while(tmp!=0):
+        #     time.sleep(0.5)
+        #     tmp = tmp - 1
+        #     lib.input.clickLeft(275, 210)
 
         logger.info(_TAB+'Starting Testing')
         print("Start Testing...")
 
         ## Perform random Character control for 5 min
-        lib.keyboardUtils.randomTyping(10)
-
+        # lib.keyboardUtils.randomTyping(10)
+        # lib.keyboardUtils.randomRotate(10)
+        time.sleep(1)
 
         if loop == -1:
             break
@@ -133,11 +136,11 @@ def start():
     '''
     global GAME_EXECUTOR, GAME_NAME
 
-    for tar in GAME_EXECUTOR_LIST:
-        GAME_NAME = tar
-        GAME_EXECUTOR = tar
-        statC = 0
-        try:
+    try:
+        for tar in GAME_EXECUTOR_LIST:
+            GAME_NAME = tar
+            GAME_EXECUTOR = tar
+            statC = 0
             # Start Game
             try:
                 statusCode = startGame()
@@ -150,18 +153,18 @@ def start():
                     logger.warning(_TAB+'Screenshoot Created: %s'%screenShootName)
                     print("****** Something went wrong!!! Process Stopped ******\n")
                     return 0
-                try:
-                    logger.info('Killing process: Office.main()')
-                    gameHD = win32gui.FindWindow("{GAME_NAME}".format(GAME_NAME=GAME_NAME))
-                    if gameHD != 0:
-                        statC = utils.killProgress("launcher.exe")
-                except Exception:
-                    logger.warning('Killing process: Office.main()')
-            logger.info("Finish Office")
-            print("###### Finish %s ######"%GAME_NAME)
-            return statC
-        except Exception:
-            logger.error('Unknown Error: Office.main()', exc_info=True)
+                # try:
+                #     logger.info('Killing process: Office.main()')
+                #     gameHD = win32gui.FindWindow("{GAME_NAME}".format(GAME_NAME=GAME_NAME))
+                #     if gameHD != 0:
+                #         statC = utils.killProgress("launcher.exe")
+                # except Exception:
+                #     logger.warning('Killing process: Office.main()')
+        logger.info("Finish Office")
+        print("###### Finish %s ######"%GAME_NAME)
+        return statC
+    except Exception:
+        logger.error('Unknown Error: Office.main()', exc_info=True)
 
 def main(pg):
     '''

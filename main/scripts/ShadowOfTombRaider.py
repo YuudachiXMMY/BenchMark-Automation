@@ -267,13 +267,13 @@ def start():
                 logger.warning(_TAB+'Screenshoot Created: %s'%screenShootName)
                 print("****** Something went wrong!!! Process Stopped ******\n")
                 return 0
-            try:
-                logger.info('Killing process: ShadowOfTombRaider.main()')
-                gameHD = win32gui.FindWindow("{GAME_NAME} {GAME_VERSION}".format(GAME_NAME=GAME_NAME, GAME_VERSION=GAME_VERSION))
-                if gameHD != 0:
-                    statC = utils.killProgress("SOTTR.exe")
-            except Exception:
-                logger.warning('Killing process: ShadowOfTombRaider.main()')
+            # try:
+            #     logger.info('Killing process: ShadowOfTombRaider.main()')
+            #     gameHD = win32gui.FindWindow("{GAME_NAME} {GAME_VERSION}".format(GAME_NAME=GAME_NAME, GAME_VERSION=GAME_VERSION))
+            #     if gameHD != 0:
+            #         statC = utils.killProgress("SOTTR.exe")
+            # except Exception:
+            #     logger.warning('Killing process: ShadowOfTombRaider.main()')
         logger.info("Finish ShadowOfTombRaider")
         print("###### Finish %s ######"%GAME_NAME)
         return statC
