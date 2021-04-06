@@ -3,7 +3,7 @@ import re
 from re import L
 import time, datetime
 import win32api
-import myLib.screenControl as myLib
+import lib.screen
 
 # Global Variable
 WORKING_DIRECTORY = os.getcwd()
@@ -24,7 +24,7 @@ def searchLog(DOCUMENT_ROOT, starting_time):
     c = starting_time
     while(c < datetime.datetime.now()):
         cur_time = ( c ).strftime("%Y%m%d-%H%M")
-        res = myLib.searchFile("{DOCUMENT_ROOT}//My Games//Sid Meier\'s Civilization VI//Logs//".format(DOCUMENT_ROOT=DOCUMENT_ROOT), "Benchmark-%s\d\d.csv"%(cur_time))
+        res = lib.screen.searchFile("{DOCUMENT_ROOT}//My Games//Sid Meier\'s Civilization VI//Logs//".format(DOCUMENT_ROOT=DOCUMENT_ROOT), "Benchmark-%s\d\d.csv"%(cur_time))
         if res:
             f.extend(res)
             return f
@@ -146,7 +146,7 @@ def startGame(DOCUMENT_ROOT, STEAM_DIRECTORY, GAME_VERSION, loop, reg):
     while tries != 0:
         startGame = win32api.ShellExecute(1, 'open', exeFile, '', '', 1)
         if tries == 1 and not startGame:
-            myLib.saveScreenShoot(GAME_NAME, "OpenLauncherFailed")
+            lib.screen.saveScreenShoot(GAME_NAME, "OpenLauncherFailed")
             print("****** Failed to open Game Launcher!!! Process stopped ******")
             return 0
         if startGame:
@@ -162,18 +162,18 @@ def startGame(DOCUMENT_ROOT, STEAM_DIRECTORY, GAME_VERSION, loop, reg):
     # return 0, if failed to apply ENTER key on he launcher
     # - otherwise, keep running the process
     tries = 0
-    while myLib.findWindow(GAME_NAME):
+    while lib.screen.findWindow(GAME_NAME):
         time.sleep(3)
 
         statC = launcherStart()
         time.sleep(10)
 
-        gameHD = myLib.findWindow(GAME_WINDOW_NAME)
+        gameHD = lib.screen.findWindow(GAME_WINDOW_NAME)
         if gameHD:
             tries = 0
             break
         elif tries > 10:
-            myLib.saveScreenShoot(GAME_NAME, "OpenGameFailed")
+            lib.screen.saveScreenShoot(GAME_NAME, "OpenGameFailed")
             print("****** Failed to open Game!!! Process stopped ******")
             return 0
         tries += 1
@@ -230,7 +230,7 @@ def startGame(DOCUMENT_ROOT, STEAM_DIRECTORY, GAME_VERSION, loop, reg):
         tries = 10
         while len(logs) == 0:
             if tries == 0:
-                myLib.saveScreenShoot(GAME_NAME, "BenchmarkingFailed")
+                lib.screen.saveScreenShoot(GAME_NAME, "BenchmarkingFailed")
                 print("****** Failed benchmarking!!! Retry to bench mark again ******")
                 if reg == 0:
                     startScripts = returnMenu_2k()
@@ -259,16 +259,16 @@ def main(DOCUMENT_ROOT, STEAM_DIRECTORY, loop = 3):
     # GAME_VERSION = findGameVersion(DOCUMENT_ROOT+GAME_NAME)
 
     # if not GAME_VERSION:
-    #     myLib.saveScreenShoot(GAME_NAME, "FineGameVersionFailed")
+    #     lib.screen.saveScreenShoot(GAME_NAME, "FineGameVersionFailed")
     #     print("****** Can't define Game version!!! Process Stopped ******")
     #     return 0
     i = 0
     statusCode = startGame(DOCUMENT_ROOT, STEAM_DIRECTORY, GAME_VERSION, loop, i)
     if not statusCode:
-        myLib.saveScreenShoot(GAME_NAME, "OverallError")
+        lib.screen.saveScreenShoot(GAME_NAME, "OverallError")
         print("****** Something went wrong!!! Process Stopped ******")
         return 0
-    statC = myLib.killProgress("CivilizationVI.exe")
+    statC = lib.screen.killProgress("CivilizationVI.exe")
 
     print("###### Finish %s ######\n"%GAME_NAME)
     return statC

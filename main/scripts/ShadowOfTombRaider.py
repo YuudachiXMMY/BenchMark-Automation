@@ -25,8 +25,8 @@ CONFIG_SETTINGS = [
     "resources/config_settings/Shadow_of_the_Tomb_Raider_1080p_ultra.reg"
     ]
 
+STEAM_DIRECTORY = ""
 DOCUMENT_ROOT = ""
-GAME_DIRECTORY = ""
 GAME_VERSION = ""
 LOOP_TIMES = 0
 PG = ProgramInfo.ProgramInfo(typeDeclear=True)

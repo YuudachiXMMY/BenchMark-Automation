@@ -27,7 +27,6 @@ GAME_NAME = "Fallout 4"
 
 DOCUMENT_ROOT = "" #NOT IN USE
 STEAM_DIRECTORY = ""
-GAME_VERSION = "" #NOT IN USE
 LOOP_TIMES = 0
 STRESS_TEST = False
 PG = ProgramInfo.ProgramInfo(typeDeclear=True)
