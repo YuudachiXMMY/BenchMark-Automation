@@ -191,9 +191,9 @@ def startGame(reg):
             tries = 10
             while len(logs) == 0:
                 if tries == 0:
-                    logger.warning(_TAB+'Benchmark Log Results NOT Found')
+                    logger.debug(_TAB+'Benchmark Log Results NOT Found')
                     screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "BenchmarkingFailed")
-                    logger.warning(_TAB+'Screenshoot Created: %s'%screenShootName)
+                    logger.debug(_TAB+'Screenshoot Created: %s'%screenShootName)
                     print("****** Failed benchmarking!!! Retry to bench mark again ******\n")
                     loop += 1
                     break
@@ -264,7 +264,7 @@ def start():
             if statusCode == 0:
                 logger.error('ShadowOfTombRaider: OpenLauncherFailed', exc_info=True)
                 screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "OverallError")
-                logger.warning(_TAB+'Screenshoot Created: %s'%screenShootName)
+                logger.debug(_TAB+'Screenshoot Created: %s'%screenShootName)
                 print("****** Something went wrong!!! Process Stopped ******\n")
                 return 0
             # try:
@@ -273,7 +273,7 @@ def start():
             #     if gameHD != 0:
             #         statC = utils.killProgress("SOTTR.exe")
             # except Exception:
-            #     logger.warning('Killing process: ShadowOfTombRaider.main()')
+            #     logger.debug('Killing process: ShadowOfTombRaider.main()')
         logger.info("Finish ShadowOfTombRaider")
         print("###### Finish %s ######"%GAME_NAME)
         return statC

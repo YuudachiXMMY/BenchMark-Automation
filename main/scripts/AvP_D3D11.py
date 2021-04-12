@@ -127,9 +127,9 @@ def startGame(loop=-1):
             tries = 10
             while len(logs) == 0:
                 if tries == 0:
-                    logger.warning(_TAB+'Benchmark Log Results NOT Found')
+                    logger.debug(_TAB+'Benchmark Log Results NOT Found')
                     screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "BenchmarkingFailed")
-                    logger.warning(_TAB+'Screenshoot Created: %s'%screenShootName)
+                    logger.debug(_TAB+'Screenshoot Created: %s'%screenShootName)
                     print("****** Failed benchmarking!!! Retry to bench mark again ******\n")
                     loop += 1
                     break
@@ -137,7 +137,7 @@ def startGame(loop=-1):
                 tries -= 1
                 time.sleep(2)
             if len(logs) != 0:
-                logger.warning(_TAB+'Benchmarking Succeed with log: %s'%logs)
+                logger.debug(_TAB+'Benchmarking Succeed with log: %s'%logs)
                 print("Succeed benchMarking!! Succeed logs: %s"%logs)
             logger.info('Loop times remained: %s'%loop)
             print("Loop times remained: %s\n"%loop)
@@ -171,7 +171,7 @@ def start():
             if statusCode == 0:
                 logger.error('AvP_D3D11: OpenLauncherFailed', exc_info=True)
                 screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "OverallError")
-                logger.warning(_TAB+'Screenshoot Created: %s'%screenShootName)
+                logger.debug(_TAB+'Screenshoot Created: %s'%screenShootName)
                 print("****** Something went wrong!!! Process Stopped ******\n")
                 return 0
             # try:
@@ -180,7 +180,7 @@ def start():
             #     if gameHD != 0:
             #         statC = utils.killProgress("%s"%GAME_EXECUTOR)
             # except Exception:
-            #     logger.warning('Killing process: AvP_D3D11.main()')
+            #     logger.debug('Killing process: AvP_D3D11.main()')
         logger.info("Finish AvP_D3D11")
         print("###### Finish %s ######"%GAME_NAME)
         return statC

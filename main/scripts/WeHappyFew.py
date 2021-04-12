@@ -21,24 +21,17 @@ stressTest = True
 
 # Global Variable
 WORKING_DIRECTORY = os.getcwd()
-GAME_DIRECTORY = ""
-GAME_EXECUTOR_LIST = [
-    "Word",
-    "PowerPoint",
-    "Excel"
-]
-GAME_EXECUTOR_LIST = utils.searchFile("resources/office", "")
-GAME_EXECUTOR = "Word"
-GAME_NAME = "Word"
+GAME_DIRECTORY = "WeHappyFew"
+GAME_EXECUTOR = "WeHappyFew.exe"
+GAME_NAME = "WeHappyFew"
 
 DOCUMENT_ROOT = "" #NOT IN USE
-GAME_DIRECTORY = ""
-GAME_VERSION = "" #NOT IN USE
+STEAM_DIRECTORY = ""
 LOOP_TIMES = 0
 STRESS_TEST = False
 PG = ProgramInfo.ProgramInfo(typeDeclear=True)
 
-logger = lib.logger.logger("Office", dir="scripts")
+logger = lib.logger.logger("WeHappyFew", dir="scripts")
 
 # Helper Methods
 def resetMouse():
@@ -54,8 +47,7 @@ def startGame():
     '''
     Scripts to start benchmarking
     '''
-    # exeFile = r'{GAME_DIRECTORY}//{GAME_EXECUTOR}'.format(GAME_DIRECTORY=GAME_DIRECTORY, GAME_EXECUTOR=GAME_EXECUTOR)
-    exeFile = r"%s"%GAME_EXECUTOR
+    exeFile = r'{STEAM_DIRECTORY}//{GAME_DIRECTORY}//GlimpseGame//Binaries//Win64//{GAME_EXECUTOR}'.format(STEAM_DIRECTORY=STEAM_DIRECTORY, GAME_DIRECTORY=GAME_DIRECTORY, GAME_EXECUTOR=GAME_EXECUTOR)
 
     ## Start game launcher
     # - return 0 and end the whole process, if failed
@@ -77,9 +69,35 @@ def startGame():
             tries -= 1
             time.sleep(1)
 
+    time.sleep(10)
+
+    # ## Apply ENTER on the launcher to start game
+    # # return 0, if failed to apply ENTER key on he launcher
+    # # - otherwise, keep running the process
+    # tries = 0
+    # while lib.screen.findWindow(GAME_NAME):
+
+    #     logger.info('Opening Game: %s'%GAME_NAME)
+    #     lib.input.clickLeft(1310, 385)
+
+    #     time.sleep(10)
+
+    #     gameHD = lib.screen.findWindow("We Happy Few (64-bit, PCD3D_SM5)")
+    #     if gameHD:
+    #         tries = 0
+    #         break
+    #     elif tries > 10:
+    #         screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "OpenGameFailed")
+    #         logger.error('Opening Game Failed! Screenshoot Created: %s'%screenShootName)
+    #         print("****** Failed to open Game!!! Process stopped ******\n")
+    #         return 0
+    #     tries += 1
+    #     time.sleep(3)
+
     logger.info(_TAB+'Waiting for game to start')
     ## Give 25 sec for the game to start
     print("Waiting for game to start...")
+    time.sleep(60)
 
     ####################################################################################
     # Start Game
@@ -87,22 +105,28 @@ def startGame():
     while(loop!=0):
         time.sleep(5)
 
-        # Create New
-        # tmp = 4
-        # while(tmp!=0):
-        #     time.sleep(0.5)
-        #     tmp = tmp - 1
-        #     lib.input.clickLeft(275, 210)
+        # Skip Press button to start
+        tmp = 10
+        while(tmp!=0):
+            time.sleep(0.5)
+            tmp = tmp - 1
+            lib.input.clickLeft(960, 540)
+
+        time.sleep(20)
+
+        lib.keyboardUtils.press_enter()
+        time.sleep(10)
+        lib.keyboardUtils.press_enter()
 
         logger.info(_TAB+'Starting Testing')
         print("Start Testing...")
 
         ## Perform random Character control for 5 min
-        # lib.keyboardUtils.randomTyping(10)
-        lib.keyboardUtils.randomRotate(60)
+        lib.keyboardUtils.randomCharacterControl(300)
 
         if loop == -1:
             break
+
         else:
             loop -= 1
         logger.info('Loop times remained: %s'%loop)
@@ -116,58 +140,51 @@ def startGame():
     time.sleep(10)
     # lib.keyboardUtils.press_alt_f4()
     lib.input.key_alt_f4()
-    time.sleep(2)
-    # lib.input.key_enter() #Save to default folder
 
     return startGame
 
 def initialize():
     '''
     '''
-    global GAME_DIRECTORY, LOOP_TIMES, STRESS_TEST
+    global STEAM_DIRECTORY, LOOP_TIMES, STRESS_TEST
 
-    GAME_DIRECTORY = PG.getDirectories().get("Office_Directory") + "//"
+    STEAM_DIRECTORY = PG.getSteamDir().get("1") + "//"
     LOOP_TIMES = int(PG.getLoopTimes())
     STRESS_TEST = int(PG.isStressTest())
 
 def start():
     '''
     '''
-    global GAME_EXECUTOR, GAME_NAME
-
+    statC = 0
     try:
-        for tar in GAME_EXECUTOR_LIST:
-            GAME_NAME = tar
-            GAME_EXECUTOR = tar
-            statC = 0
-            # Start Game
-            try:
-                statusCode = startGame()
-            except Exception:
-                logger.error('Unknown Error: Office.main()', exc_info=True)
-            else:
-                if statusCode == 0:
-                    logger.error('Office: OpenLauncherFailed', exc_info=True)
-                    screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "OverallError")
-                    logger.debug(_TAB+'Screenshoot Created: %s'%screenShootName)
-                    print("****** Something went wrong!!! Process Stopped ******\n")
-                    return 0
-                # try:
-                #     logger.info('Killing process: Office.main()')
-                #     gameHD = win32gui.FindWindow("{GAME_NAME}".format(GAME_NAME=GAME_NAME))
-                #     if gameHD != 0:
-                #         statC = utils.killProgress("launcher.exe")
-                # except Exception:
-                #     logger.debug('Killing process: Office.main()')
-        logger.info("Finish Office")
+        # Start Game
+        try:
+            statusCode = startGame()
+        except Exception:
+            logger.error('Unknown Error: WeHappyFew.main()', exc_info=True)
+        else:
+            if statusCode == 0:
+                logger.error('WeHappyFew: OpenLauncherFailed', exc_info=True)
+                screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "OverallError")
+                logger.debug(_TAB+'Screenshoot Created: %s'%screenShootName)
+                print("****** Something went wrong!!! Process Stopped ******\n")
+                return 0
+            # try:
+            #     logger.info('Killing process: WeHappyFew.main()')
+            #     gameHD = win32gui.FindWindow("{GAME_NAME}".format(GAME_NAME=GAME_NAME))
+            #     if gameHD != 0:
+            #         statC = utils.killProgress("launcher.exe")
+            # except Exception:
+            #     logger.debug('Killing process: WeHappyFew.main()')
+        logger.info("Finish WeHappyFew")
         print("###### Finish %s ######"%GAME_NAME)
         return statC
     except Exception:
-        logger.error('Unknown Error: Office.main()', exc_info=True)
+        logger.error('Unknown Error: WeHappyFew.main()', exc_info=True)
 
 def main(pg):
     '''
-    Main function for Office automation
+    Main function for WeHappyFew automation
     '''
     global PG
     PG = pg
