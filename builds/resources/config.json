@@ -18,7 +18,7 @@
         "Game_loop" : -1,
         "Stress_Test" : 1,
         "Run_List" : {
-            "8" : "Office"
+            "9" : "WeHappyFew"
         }
     },
 
@@ -32,7 +32,8 @@
             "5" : "BH Scripts",
             "6" : "Genshin Impact",
             "7" : "Fallout 4",
-            "8" : "Office"
+            "8" : "Office",
+            "9" : "WeHappyFew"
 
         },
         "bhGameList" : [
