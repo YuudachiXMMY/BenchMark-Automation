@@ -53,6 +53,7 @@ stressTest = True
 
 def CMDParam():
     '''
+    Parse parameters directly from Command Line and read them as the local variable.
     '''
     global ARGS
     parser = argparse.ArgumentParser(description='Manual to this script')
@@ -75,6 +76,7 @@ def initializeProgram():
 
 def startScripts():
     '''
+    Get game's run list and loop times and start games' scripts
     '''
     runList = PROGRAM.getGames()
     loop = PROGRAM.getOverAllLoopTimes()
