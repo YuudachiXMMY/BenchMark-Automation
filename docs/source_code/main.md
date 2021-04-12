@@ -15,15 +15,16 @@ Work as the main program, calling all other modules to work together.
 
 #### Functions
 
-`CMDParam()`
+### `CMDParam()`
 
 **TODO:** Parse parameters directly from Command Line and read them as the local variable.
 
-`initializeProgram()`
+### `initializeProgram()`
 
 Set the _global variable_ `PROGRAM` by constructing a [ProgramInfo](./main/ProgramInfo.py) object.
 
-`startScripts()`
+### `startScripts()`
+
 Get the current game's run list and loop times from `PROGRAM` and call functions to start scripts.
 
 ## [_m.py_](/m.py)
