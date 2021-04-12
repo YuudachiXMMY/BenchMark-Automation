@@ -46,7 +46,7 @@ A module that implements common mouse and keyboard actions. It also contains met
 
 A module that construct and return a [logging](https://docs.python.org/3.5/library/logging.html) Object that can be used to debug and log information during runtime.
 
-#### [_screen.py_](/docs/source_code/lib/screen.md)
+## [_screen.py_](/docs/source_code/lib/screen.md)
 
 A module that can take and save screenshots and also find whether a window is opened in _Windows System_.
 
