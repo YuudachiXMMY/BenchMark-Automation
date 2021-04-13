@@ -1,9 +1,12 @@
 import json
 import os, sys, subprocess, signal
 import time
+from typing import Tuple
 import psutil
 import win32gui
+import argparse #传参库
 
+# 程序基本库
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
 import lib.utils as utils
@@ -11,10 +14,15 @@ import lib.logger
 import lib.screen
 import main.ProgramInfo as ProgramInfo
 
+# 脚本模块
 import main.scripts.ShadowOfTombRaider as ShadowOfTombRaider
+import main.scripts.AvP_D3D11 as AvP_D3D11
 import main.scripts.SniperEliteV2 as SniperEliteV2
 import main.scripts.BHScripts as BHScripts
 import main.scripts.GenshinImpact as GenshinImpact
+import main.scripts.Fallout4 as Fallout4
+import main.scripts.Office as Office
+import main.scripts.WeHappyFew as WeHappyFew
 
 # HELPER FIELDS
 _TAB = "    "
@@ -29,6 +37,8 @@ AvP_D3D11_DIRECTORY = ""
 GenshinImpact_Directory = ""
 RUN_LIST = list()
 
+# Global Objects
+ARGS = None
 PROGRAM = None
 
 logger = lib.logger.logger("main")
@@ -41,6 +51,20 @@ overAllLoop = 1
 gameLoop = -1
 stressTest = True
 
+def CMDParam():
+    '''
+    Parse parameters directly from Command Line and read them as the local variable.
+    '''
+    global ARGS
+    parser = argparse.ArgumentParser(description='Manual to this script')
+    parser.add_argument('--bhMode',
+                        type=int,
+                        default=1,
+                        help="1, to directly run with local settings without user interface; \
+                            0, to show a user interface. \
+                            (default: show a user interface)")
+    ARGS = parser.parse_args() == 1
+
 def initializeProgram():
     '''
     Initialize ProgramInfo Object
@@ -52,6 +76,7 @@ def initializeProgram():
 
 def startScripts():
     '''
+    Get game's run list and loop times and start games' scripts
     '''
     runList = PROGRAM.getGames()
     loop = PROGRAM.getOverAllLoopTimes()
@@ -70,6 +95,12 @@ def startScripts():
             time.sleep(3420)
         if "6" in runList:
             startGenshinImpact()
+        if "7" in runList:
+            startFallout4()
+        if "8" in runList:
+            startOffice()
+        if "9" in runList:
+            startWeHappyFew()
 
     # Print Overall loop time remained
     if overAllLoop != 0:
@@ -103,7 +134,7 @@ def startSniperEliteV2():
     '''
     Start SniperEliteV2 Script
     '''
-    ## 古墓丽影暗影 2K+1090p Benchmarking
+    ## SniperEliteV2 Benchmarking
     try:
         logger.info("Starting SniperEliteV2 Script")
         statusCode = SniperEliteV2.main(PROGRAM)
@@ -125,10 +156,10 @@ def startAvP_D3D11():
     '''
     Start AvP_D3D11 Script
     '''
-    ## 古墓丽影暗影 2K+1090p Benchmarking
+    ## AvP Benchmarking
     try:
         logger.info("Starting AvP_D3D11 Script")
-        statusCode = SniperEliteV2.main(PROGRAM)
+        statusCode = AvP_D3D11.main(PROGRAM)
     except Exception:
         logger.error('Error in Runing AvP_D3D11.main()', exc_info=True)
     else:
@@ -153,13 +184,14 @@ def startBHScripts():
     except Exception:
         logger.error('Error in Runing BHScripts.main()', exc_info=True)
     else:
+        time.sleep(5400)
         return statusCode
 
 def startGenshinImpact():
     '''
     Start GenshinImpact Script
     '''
-    ## GenshinImpact
+    ## GenshinImpact Script
     try:
         logger.info("Starting GenshinImpact Script")
         statusCode = GenshinImpact.main(PROGRAM)
@@ -167,14 +199,74 @@ def startGenshinImpact():
         logger.error('Error in Runing GenshinImpact.main()', exc_info=True)
     else:
         try:
-            gameHD = lib.screen.findWindow("{GAME_DIRECTORY}".format(GAME_DIRECTORY="原神"))
+            gameHD = lib.screen.findWindow("{GAME_DIRECTORY}.exe".format(GAME_DIRECTORY="原神"))
             if gameHD != 0:
                 try:
                     statC = utils.killProgress("原神.exe")
+                    # statC = utils.killProgress("launcher.exe")
                 except Exception:
                     logger.warning('Killing process Error: GenshinImpact')
         except Exception:
             logger.warning('Error in Finding GenshinImpact Game Window', exc_info=True)
+        return statusCode
+
+def startFallout4():
+    '''
+    Start Fallout4 Script
+    '''
+    ## Fallout4 Script
+    try:
+        logger.info("Starting Fallout4 Script")
+        statusCode = Fallout4.main(PROGRAM)
+    except Exception:
+        logger.error('Error in Runing Fallout4.main()', exc_info=True)
+    else:
+        try:
+            gameHD = lib.screen.findWindow("{GAME_DIRECTORY}.exe".format(GAME_DIRECTORY="Fallout4"))
+            if gameHD != 0:
+                try:
+                    statC = utils.killProgress("Fallout4.exe")
+                    # statC = utils.killProgress("launcher.exe")
+                except Exception:
+                    logger.warning('Killing process Error: Fallout4')
+        except Exception:
+            logger.warning('Error in Finding Fallout4 Game Window', exc_info=True)
+        return statusCode
+
+def startOffice():
+    '''
+    Start Office Script
+    '''
+    ## Office Script
+    try:
+        logger.info("Starting Office Script")
+        statusCode = Office.main(PROGRAM)
+    except Exception:
+        logger.error('Error in Runing Office.main()', exc_info=True)
+    else:
+        return statusCode
+
+def startWeHappyFew():
+    '''
+    Start WeHappyFew Script
+    '''
+    ## Fallout4 Script
+    try:
+        logger.info("Starting WeHappyFew Script")
+        statusCode = WeHappyFew.main(PROGRAM)
+    except Exception:
+        logger.error('Error in Runing WeHappyFew.main()', exc_info=True)
+    else:
+        try:
+            gameHD = lib.screen.findWindow("{GAME_DIRECTORY}.exe".format(GAME_DIRECTORY="We Happy Few (64-bit, PCD3D_SM5)"))
+            if gameHD != 0:
+                try:
+                    statC = utils.killProgress("GlimpseGame.exe")
+                    # statC = utils.killProgress("launcher.exe")
+                except Exception:
+                    logger.warning('Killing process Error: WeHappyFew')
+        except Exception:
+            logger.warning('Error in Finding WeHappyFew Game Window', exc_info=True)
         return statusCode
 
 def main():
@@ -183,7 +275,10 @@ def main():
     '''
 
     try:
-        initializeProgram()
+        if ARGS:
+            initializeProgram(language="cn", readLocal=True)
+        else:
+            initializeProgram()
     except Exception:
         print("Error", exc_info=True)
 
@@ -191,7 +286,6 @@ def main():
         startScripts()
     except Exception:
         print("Error", exc_info=True)
-
     input("Press \'ENTER\' to quit:")
 
     # # ## 一个监视内存的小工具，暂时不用实装
@@ -201,8 +295,18 @@ def main():
     # # os.system("python main/runScript.py")
     # # as_cmd = os.system("python main/monitoringSys.py")
 
+
+
+# python cmd_parameter.py --string=python --int-input=10 --list-input=123
+
 if __name__ == "__main__":
-    main()
+    CMDParam()
+
+    try:
+        main()
+    except KeyboardInterrupt:
+        print()
+        print("*"*5+' Ctrl+C key input detected. Program Stopped! '+"*"*5)
 
     # Kill this program itself
-    os.kill(os.getpid(), signal.SIGKILL)
+    # os.kill(os.getpid(), signal.SIGKILL)

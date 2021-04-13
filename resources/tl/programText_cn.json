@@ -17,20 +17,21 @@
         "    4. 游戏内不会弹出更新内容等通知消息。\n",
 
         "内测功能:",
-        "    1. 目前可选择自动运行四款游戏的Benchmark；",
+        "    1. 目前可选择自动运行九款游戏的Benchmark；",
         "    2. 可选择每个游戏运行多少次；",
-        "    3. 目前支持的部分游戏会跑1080p和2k。",
-        "    4. 支持在data.json内保存脚本设置。\n",
+        "    3. 部分游戏支持跑1080p和2k。",
+        "    4. 支持在config.json内保存脚本设置",
+        "    5. 支持直接被CMD执行并且可传参运行（具体参考-h选项）\n",
 
         "【必看】运行此Automation脚本前需做：",
-        "    1. 必须先使用Notepad打开data.json，修改内部的本机文档路径和Steam路径",
+        "    1. 必须先使用Notepad打开config.json，修改内部的本机文档路径和Steam路径",
         "    2. 系统环境的分辨率为1080p",
         "    3. 每次运行【文明6】时，必须将初始设置为2k全屏模式，游戏性能可自行设置(后续追加优化；\n",
 
         "【自定义】",
         "    1. 修改本地文档、Steam路径和其他benchmark路径:",
         "        a.先到路径： 当前脚本路径",
-        "        b.用Notepad打开\"data.json\"",
+        "        b.用Notepad打开\"config.json\"",
         "        ** 注意！路径斜杠请使用双斜杠：\"/\"代替\"\\\""
     ],
 
@@ -62,6 +63,10 @@
         "输入 \"3\" 将 SniperEliteV2 Benchmark 加入队列",
         "输入 \"4\" 将 AlienVSPredictor_D3D11 Benchmark 加入队列",
         "输入 \"5\" 将 BloodHoundScripts 加入队列",
+        "输入 \"6\" 将 Genshin Impact 加入队列",
+        "输入 \"7\" 将 Fallout 4 加入队列",
+        "输入 \"8\" 将 Office 加入队列",
+        "输入 \"9\" 将 WeHappyFew 加入队列",
 
         "\n输入 \"r\" 进入下一步"
     ],
@@ -90,6 +95,10 @@
         "    2. Sid Meier's Civilization VI (Has BUGS,",
         "    3. SniperEliteV2 Benchmark",
         "    4. AlienVSPredictor_D3D11 Benchmark",
-        "    5. BloodHound Scripts"
+        "    5. BH Scripts",
+        "    6. Genshin Impact",
+        "    7. Fallout 4",
+        "    8. Office",
+        "    9. We Happy Few"
     ]
 }

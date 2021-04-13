@@ -58,7 +58,7 @@ class ProgramInfo():
                 self.chooseLanguage()
             else:
                 self._LANGUAGE = language
-            self._TEXTS = utils.read_json("./main/programText_%s.json"%self._LANGUAGE)
+            self._TEXTS = utils.read_json("./resources/tl/programText_%s.json"%self._LANGUAGE)
 
             self.printOpeningMessage()
 
