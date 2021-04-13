@@ -110,7 +110,7 @@ class ProgramInfo():
         Show a text screen to choose the program displayed language
         '''
 
-        print("Press \"0\" for English (DOES NOT support program info message so far)")
+        print("Press \"0\" for English")
         print("输入 \"1\" 使用中文 (推荐/RECOMMENDED)")
         t = int(input(_IN).strip())
         # while t != 0 or t != 1:

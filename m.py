@@ -38,7 +38,7 @@ GenshinImpact_Directory = ""
 RUN_LIST = list()
 
 # Global Objects
-ARGS = None
+ARGS_BH = None
 PROGRAM = None
 
 logger = lib.logger.logger("main")
@@ -55,24 +55,31 @@ def CMDParam():
     '''
     Parse parameters directly from Command Line and read them as the local variable.
     '''
-    global ARGS
+    global ARGS_BH, _LANGUAGE
     parser = argparse.ArgumentParser(description='Manual to this script')
     parser.add_argument('--bhMode',
                         type=int,
-                        default=1,
+                        default=0,
                         help="1, to directly run with local settings without user interface; \
                             0, to show a user interface. \
                             (default: show a user interface)")
-    ARGS = parser.parse_args() == 1
+    parser.add_argument('--language',
+                        default="en",
+                        help="\"en\" for English Interface; \
+                            \"cn\" for Chinese Interface. \
+                            (default: \"en\" English)")
+    args = parser.parse_args()
+    ARGS_BH = args.bhMode == 1
+    _LANGUAGE = args.language
 
-def initializeProgram():
+def initializeProgram(language=None, readLocal=None):
     '''
     Initialize ProgramInfo Object
     '''
     global PROGRAM
 
     # Init ProgramInfo object
-    PROGRAM = ProgramInfo.ProgramInfo()
+    PROGRAM = ProgramInfo.ProgramInfo(language=language, readLocal=readLocal)
 
 def startScripts():
     '''
@@ -275,17 +282,17 @@ def main():
     '''
 
     try:
-        if ARGS:
-            initializeProgram(language="cn", readLocal=True)
+        if ARGS_BH:
+            initializeProgram(language=_LANGUAGE, readLocal=ARGS_BH)
         else:
             initializeProgram()
     except Exception:
-        print("Error", exc_info=True)
+        print("Error")
 
     try:
         startScripts()
     except Exception:
-        print("Error", exc_info=True)
+        print("Error")
     input("Press \'ENTER\' to quit:")
 
     # # ## 一个监视内存的小工具，暂时不用实装

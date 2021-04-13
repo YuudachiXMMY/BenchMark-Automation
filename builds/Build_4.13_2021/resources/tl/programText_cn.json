@@ -1,0 +1,104 @@
+{
+    "opening_message" : [
+        "****************************************************************************************************",
+        "******************** ！！！！！！！！！！ 此程序仅供AMD内部使用 ！！！！！！！！！！********************",
+        "****************************************************************************************************",
+
+        "\n！！ 请确保电脑系统的分辨率环境为1080p ！！\n",
+
+        "运行游戏前请确保:",
+        "    1. 游戏已安装在下述路径内；",
+        "    2. 游戏完整且可以正常运行；",
+        "    3. 运行游戏时不会弹出steam云同步等其他内容，并且会直接居中跳出游戏启动器。\n",
+
+        "请确保运行过程中:",
+        "    1. 不要触碰电脑的鼠标和键盘；",
+        "    2. Steam不会被顶号；",
+        "    4. 游戏内不会弹出更新内容等通知消息。\n",
+
+        "内测功能:",
+        "    1. 目前可选择自动运行九款游戏的Benchmark；",
+        "    2. 可选择每个游戏运行多少次；",
+        "    3. 部分游戏支持跑1080p和2k。",
+        "    4. 支持在config.json内保存脚本设置",
+        "    5. 支持直接被CMD执行并且可传参运行（具体参考-h选项）\n",
+
+        "【必看】运行此Automation脚本前需做：",
+        "    1. 必须先使用Notepad打开config.json，修改内部的本机文档路径和Steam路径",
+        "    2. 系统环境的分辨率为1080p",
+        "    3. 每次运行【文明6】时，必须将初始设置为2k全屏模式，游戏性能可自行设置(后续追加优化；\n",
+
+        "【自定义】",
+        "    1. 修改本地文档、Steam路径和其他benchmark路径:",
+        "        a.先到路径： 当前脚本路径",
+        "        b.用Notepad打开\"config.json\"",
+        "        ** 注意！路径斜杠请使用双斜杠：\"/\"代替\"\\\""
+    ],
+
+    "chooseReadLocalSetting" : [
+        "是否读取本地.json内设置?",
+        "(\"0\"=\"No\"; \"1\"=\"Yes\")"
+    ],
+    "chooseDocumentDir" : [
+        "请输入本地Document路径",
+        "格式: C://Users//[USERNAME]//Documents//"
+    ],
+    "chooseSteamDir" : [
+        "请输入Steam 路径",
+        "格式: D://SteamLibrary//steamapps//common"
+    ],
+    "chooseOverAllLoopTimes" : [
+        "请输入脚本总共运行次数",
+        "(输入 \"-1\" 无限运行)"
+    ],
+    "chooseLoopTimes" : [
+        "请输入单个游戏每个Loop运行次数",
+        "(输入 \"-1\" 只跑单次且无论成功或失败（推荐）)"
+    ],
+    "chooseGame" : [
+        "****************************************************************************************************",
+        "输入 \"0\" 跑全部游戏",
+        "输入 \"1\" 将 Shadow of Tomb Raider 加入队列",
+        "输入 \"2\" 将 Sid Meier's Civilization VI 加入队列",
+        "输入 \"3\" 将 SniperEliteV2 Benchmark 加入队列",
+        "输入 \"4\" 将 AlienVSPredictor_D3D11 Benchmark 加入队列",
+        "输入 \"5\" 将 BloodHoundScripts 加入队列",
+        "输入 \"6\" 将 Genshin Impact 加入队列",
+        "输入 \"7\" 将 Fallout 4 加入队列",
+        "输入 \"8\" 将 Office 加入队列",
+        "输入 \"9\" 将 WeHappyFew 加入队列",
+
+        "\n输入 \"r\" 进入下一步"
+    ],
+    "deleteGameList" : [
+        "输入 \"d {NUMBER}\" 可从列表中删除游戏",
+        "例如 删除1号游戏 输入： d 1",
+        "例如 清空当前列表 输入： d 0"
+    ],
+    "currentList" : "当前列表: ",
+    "chooseStressTest" : [
+        "是否进行Stress Test?",
+        "(\"0\"=\"No\"; \"1\"=\"Yes\")"
+    ],
+
+    "printCurrentDirectories" : [
+        "本地文档路径：",
+        "Steam路径：",
+        "SniperEliteV2_Benchmark路径：",
+        "AlienVSPredictor_D3D11路径: ",
+        "GenshinImpact路径: ",
+
+        "目前可进行Automation的游戏:"
+    ],
+    "printAvailableGames" : [
+        "    1. Shadow of Tomb Raider",
+        "    2. Sid Meier's Civilization VI (Has BUGS,",
+        "    3. SniperEliteV2 Benchmark",
+        "    4. AlienVSPredictor_D3D11 Benchmark",
+        "    5. BH Scripts",
+        "    6. Genshin Impact",
+        "    7. Fallout 4",
+        "    8. Office",
+        "    9. We Happy Few"
+    ]
+}
