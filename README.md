@@ -1,11 +1,11 @@
 # BenchMark-Automation
 
-[![Latest Release - Downloads](https://img.shields.io/github/downloads/YuudachiXMMY/BenchMark-Automation/04_12_2021_1/total)](https://github.com/YuudachiXMMY/BenchMark-Automation/releases)
+[![Latest Release - Downloads](https://img.shields.io/github/downloads/YuudachiXMMY/BenchMark-Automation/4.13_2021/total)](https://github.com/YuudachiXMMY/BenchMark-Automation/releases)
 
 ## Release
 
 ### Latest
-Download: [Build.7z](https://github.com/YuudachiXMMY/BenchMark-Automation/archive/refs/tags/04_12_2021_1.tar.gz)
+Download: [Build_4.13_2021.7z](https://github.com/YuudachiXMMY/BenchMark-Automation/releases/download/4.13_2021/Build_4.13_2021.7z)
 
 
 ## How to use this program:
