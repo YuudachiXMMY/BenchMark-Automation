@@ -23,6 +23,6 @@ I recommend using 7zip to extract the main contents of this program.
 3. Follow the instructions in the program and have fun :)
 
 
-### [Application Usage](/docs/app/main.md)
+## [Application Usage](/docs/app/main.md)
 
-### [Source-Code Usage](/docs/source_code/main.md)
+## [Source-Code Usage](/docs/source_code/main.md)

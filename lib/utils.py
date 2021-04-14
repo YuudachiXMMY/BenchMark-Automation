@@ -1,4 +1,6 @@
 import os, sys, re, subprocess
+from os import path
+import datetime
 import json
 import logging
 
@@ -117,3 +119,34 @@ def printAll(data):
     else:
         for d in data:
             print(d)
+
+def detectCrashDumps():
+    '''
+    Detect whether the window's dump is generated
+
+    @RETURN:
+        - True - The dump file is detected
+        - False - otherwise, the file is not detected
+    '''
+    # path = "%LOCALAPPDATA%\CrashDumps"
+    p = path.expandvars(r'%LOCALAPPDATA%\CrashDumps')
+    tar = "MEMORY.DMP"
+    return searchFile(p, tar)
+
+def dealCrashDumps(p="C:\\WinDumps"):
+    '''
+    Copy the Windows dump file to the desired location and remove the dump in %LOCALAPPDATA%\CrashDumps
+
+    @param:
+        - p - the target path to copy to (default to "C:\WinDumps")
+    '''
+    while detectCrashDumps():
+        # Copy the dump file
+        tarFile = "MEMORY_" + datetime.datetime.now().strftime("%m.%d-%H%M-%Y")
+        if not p is None:
+            exe = 'copy %LOCALAPPDATA%\CrashDumps\MEMORY.DMP '+p+'\%s.DMP'%tarFile
+        else:
+            exe = 'copy %LOCALAPPDATA%\CrashDumps\MEMORY.DMP %s.DMP'%tarFile
+        os.system(exe)
+        if searchFile(p, tarFile):
+            os.system('del %LOCALAPPDATA%\CrashDumps\MEMORY.DMP')
