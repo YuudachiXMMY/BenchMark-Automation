@@ -1,9 +1,0 @@
-{
-    "DOCUMENT_ROOT" : "C:/Users//Navi//Documents",
-    "STEAM_DIRECTORY" : {
-        "1" : "E://SteamLibrary//steamapps//common",
-        "2" : "Doesn't support second Steam Library so Far!!!"
-    },
-    "SniperEliteV2_Benchmark_Directory" : "C://Program Files (x86)//Rebellion//SniperEliteV2 Benchmark//bin",
-    "AvP_D3D11_Directory" : "C://Program Files (x86)//Rebellion//AvP D3D11 Benchmark"
-}
