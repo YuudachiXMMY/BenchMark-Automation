@@ -3,7 +3,7 @@
         "POWERSHELL" : "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
         "DOCUMENT_ROOT" : "C:/Users//Navi//Documents",
         "STEAM_DIRECTORY" : {
-            "1" : "D:/SteamLibrary/steamapps/common",
+            "1" : "G:/SteamLibrary/steamapps/common",
             "2" : "Doesn't support second Steam Library so Far!!!"
         },
 
@@ -18,6 +18,9 @@
         "Game_loop" : -1,
         "Stress_Test" : 1,
         "Run_List" : {
+            "1" : "Shadow of Tomb Raider",
+            "7" : "Fallout 4",
+            "8" : "Office",
             "9" : "WeHappyFew"
         }
     },
