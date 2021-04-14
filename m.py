@@ -89,24 +89,42 @@ def startScripts():
     loop = PROGRAM.getOverAllLoopTimes()
     while(loop != 0):
         loop = loop - 1
+        # Shadow of Tomb Raider
         if "1" in runList:
+            dealWinDumps()
             startShadowOfTombRaider()
+        # Sid Meier's Civilization VI
         if "2" in runList:
+            dealWinDumps()
             pass
+        # SniperEliteV2 Benchmark
         if "3" in runList:
+            dealWinDumps()
             startSniperEliteV2()
+        # AlienVSPredictor_D3D11 Benchmark
         if "4" in runList:
+            dealWinDumps()
             startAvP_D3D11()
+        # BH Scripts
         if "5" in runList:
+            dealWinDumps()
             startBHScripts()
             time.sleep(3420)
+        # Genshin Impact
         if "6" in runList:
+            dealWinDumps()
             startGenshinImpact()
+        # Fallout 4
         if "7" in runList:
+            dealWinDumps()
             startFallout4()
+        # Office
         if "8" in runList:
+            dealWinDumps()
             startOffice()
+        # We Happy Few
         if "9" in runList:
+            dealWinDumps()
             startWeHappyFew()
 
     # Print Overall loop time remained
@@ -114,6 +132,15 @@ def startScripts():
         logger.info("Total Loop time remained: %s"%loop)
         print("Total Loop time remained: %s"%loop)
         print("*"*100 + "\n")
+
+def dealWinDumps():
+    '''
+    Deal and log Windows' dump files
+    '''
+    if utils.detectCrashDumps():
+        logger.info("Crash Dump Detected!")
+        dump = utils.dealCrashDumps()
+        logger.info("Crash Dump Copied to: %s"%dump)
 
 def startShadowOfTombRaider():
     '''

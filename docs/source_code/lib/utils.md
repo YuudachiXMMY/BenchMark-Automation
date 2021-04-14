@@ -61,3 +61,21 @@ Over-write the .json file with input data.
 ## `printAll(data)`
 
 Print everything in the data Object
+
+## `detectCrashDumps()`
+
+Detect whether the window's dump is generated under `%LOCALAPPDATA%\CrashDumps`
+
+#### Return:
+- `True` - The dump file is detected
+- `False` - otherwise, the file is not detected
+
+## `dealCrashDumps(p="C:\\WinDumps")`
+
+Copy the Windows dump file to the desired location and remove the dump files under `%LOCALAPPDATA%\CrashDumps`
+
+#### Parameter:
+- `p` - the target path to copy to (default to "C:\WinDumps")
+
+#### Return:
+- a copied file name with full path

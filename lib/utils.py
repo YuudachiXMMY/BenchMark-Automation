@@ -122,7 +122,7 @@ def printAll(data):
 
 def detectCrashDumps():
     '''
-    Detect whether the window's dump is generated
+    Detect whether the window's dump is generated under %LOCALAPPDATA%\CrashDumps
 
     @RETURN:
         - True - The dump file is detected
@@ -135,18 +135,24 @@ def detectCrashDumps():
 
 def dealCrashDumps(p="C:\\WinDumps"):
     '''
-    Copy the Windows dump file to the desired location and remove the dump in %LOCALAPPDATA%\CrashDumps
+    Copy the Windows dump file to the desired location and remove the dump files under %LOCALAPPDATA%\CrashDumps
 
     @param:
         - p - the target path to copy to (default to "C:\WinDumps")
+
+    @RETURN:
+        - a copied file name with full path
     '''
     while detectCrashDumps():
         # Copy the dump file
         tarFile = "MEMORY_" + datetime.datetime.now().strftime("%m.%d-%H%M-%Y")
         if not p is None:
             exe = 'copy %LOCALAPPDATA%\CrashDumps\MEMORY.DMP '+p+'\%s.DMP'%tarFile
+            res = p+'\%s.DMP'%tarFile
         else:
             exe = 'copy %LOCALAPPDATA%\CrashDumps\MEMORY.DMP %s.DMP'%tarFile
+            res = '\%s.DMP'%tarFile
         os.system(exe)
         if searchFile(p, tarFile):
             os.system('del %LOCALAPPDATA%\CrashDumps\MEMORY.DMP')
+            return res
