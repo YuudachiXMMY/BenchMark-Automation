@@ -72,7 +72,7 @@ def findWindow(windowName):
             winHD = win32gui.FindWindow(None, windowName)
             if tries > 5:
                 saveScreenShoot(windowName, "FindWindowFailed")
-                logger.warning("Failed to Find Window: %s"%windowName)
+                # logger.warning("Failed to Find Window: %s"%windowName)
                 return 0
             tries += 1
         return winHD
