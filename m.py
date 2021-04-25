@@ -23,6 +23,7 @@ import main.scripts.GenshinImpact as GenshinImpact
 import main.scripts.Fallout4 as Fallout4
 import main.scripts.Office as Office
 import main.scripts.WeHappyFew as WeHappyFew
+import main.scripts.ApexLegends as ApexLegends
 
 # HELPER FIELDS
 _TAB = "    "
@@ -126,6 +127,10 @@ def startScripts():
         if "9" in runList:
             dealWinDumps()
             startWeHappyFew()
+        # Apex Legends
+        if "10" in runList:
+            dealWinDumps()
+            startApexLegends()
 
     # Print Overall loop time remained
     if overAllLoop != 0:
@@ -284,7 +289,7 @@ def startWeHappyFew():
     '''
     Start WeHappyFew Script
     '''
-    ## Fallout4 Script
+    ## WeHappyFew Script
     try:
         logger.info("Starting WeHappyFew Script")
         statusCode = WeHappyFew.main(PROGRAM)
@@ -301,6 +306,29 @@ def startWeHappyFew():
         #             logger.warning('Killing process Error: WeHappyFew')
         # except Exception:
         #     logger.warning('Error in Finding WeHappyFew Game Window', exc_info=True)
+        return statusCode
+
+def startApexLegends():
+    '''
+    Start ApexLegends Script
+    '''
+    ## ApexLegends Script
+    try:
+        logger.info("Starting ApexLegends Script")
+        statusCode = ApexLegends.main(PROGRAM)
+    except Exception:
+        logger.error('Error in Runing ApexLegends.main()', exc_info=True)
+    else:
+        # try:
+        #     gameHD = lib.screen.findWindow("{GAME_DIRECTORY}.exe".format(GAME_DIRECTORY="Apex Legends"))
+        #     if gameHD != 0:
+        #         try:
+        #             statC = utils.killProgress("GlimpseGame.exe")
+        #             # statC = utils.killProgress("launcher.exe")
+        #         except Exception:
+        #             logger.warning('Killing process Error: ApexLegends')
+        # except Exception:
+        #     logger.warning('Error in Finding ApexLegends Game Window', exc_info=True)
         return statusCode
 
 def main():

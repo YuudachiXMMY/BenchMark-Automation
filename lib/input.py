@@ -190,3 +190,28 @@ def getMouse(t=0):
             os.system('cls')  # 执行系统清屏指令
     except KeyboardInterrupt:
         print('end')
+
+def getMouseLogging(t=0):
+    '''
+    Get the mouse position and print in the console
+
+    @param:
+        - t - period to get the mouse position
+
+    @RETURN:
+        - (x, y) - a tuple which x represent the x-position of the mouse and y represent the y-position of the mouse.
+    '''
+    try:
+        x, y = pag.position()  # 返回鼠标的坐标
+        while True:
+            screenWidth, screenHeight = pag.size()  # 获取屏幕的尺寸
+            xNew, yNew = pag.position()  # 返回鼠标的坐标
+            if xNew != x and yNew != y:
+                print("Screen size: (%s %s),  Position : (%s, %s)\n" % (screenWidth, screenHeight, x, y))  # 打印坐标
+                x, y = (xNew, yNew)
+
+    except KeyboardInterrupt:
+        os.system('cls')  # 执行系统清屏指令
+        print('end')
+
+# getMouseLogging()

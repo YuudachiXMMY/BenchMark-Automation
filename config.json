@@ -6,6 +6,10 @@
             "1" : "G:/SteamLibrary/steamapps/common",
             "2" : "Doesn't support second Steam Library so Far!!!"
         },
+        "ORIGIN_DIRECTORY" : {
+            "1" : "D:/Origin Games",
+            "2" : "Doesn't support second Steam Library so Far!!!"
+        },
 
         "SniperEliteV2_Benchmark_Directory" : "C://Program Files (x86)//Rebellion//SniperEliteV2 Benchmark//bin",
         "AvP_D3D11_Directory" : "C://Program Files (x86)//Rebellion//AvP D3D11 Benchmark",
@@ -18,9 +22,7 @@
         "Game_loop" : -1,
         "Stress_Test" : 1,
         "Run_List" : {
-            "6" : "Genshin Impact",
-            "7" : "Fallout 4",
-            "9" : "We Happy Few"
+            "10": "Apex Legends"
         }
     },
 
@@ -35,7 +37,8 @@
             "6" : "Genshin Impact",
             "7" : "Fallout 4",
             "8" : "Office",
-            "9" : "We Happy Few"
+            "9" : "We Happy Few",
+            "10": "Apex Legends"
 
         },
         "bhGameList" : [
