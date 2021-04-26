@@ -5,13 +5,13 @@ from typing import List
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
-import lib.utils as utils
-import lib.logger
+import utils.sysUtils as u
+import utils.logger
 
 _TAB = "    "
 _IN = "> "
 
-logger = lib.logger.logger("ProgramInfo", dir='main')
+logger = utils.logger.logger("ProgramInfo", dir='main')
 
 # Available Games
 SCRIPT_LIST = {
@@ -51,14 +51,14 @@ class ProgramInfo():
         '''
         if not typeDeclear:
             # Logger
-            self.logger = lib.logger.logger("programSetup", dir='lib')
+            self.logger = utils.logger.logger("ProgramInfo", dir='main')
 
             # Language
             if language is None:
                 self.chooseLanguage()
             else:
                 self._LANGUAGE = language
-            self._TEXTS = utils.read_json("./resources/tl/programText_%s.json"%self._LANGUAGE)
+            self._TEXTS = u.read_json("./resources/tl/programText_%s.json"%self._LANGUAGE)
 
             self.printOpeningMessage()
 
@@ -84,7 +84,7 @@ class ProgramInfo():
         '''
         Print the Opening Message of this program
         '''
-        utils.printAll(self._TEXTS["opening_message"])
+        u.printAll(self._TEXTS["opening_message"])
 
     def initialLogging(self):
         '''
@@ -103,7 +103,7 @@ class ProgramInfo():
         '''
         Read local settings in the settings.json
         '''
-        self.writeData(utils.read_json("config.json"))
+        self.writeData(u.read_json("config.json"))
 
     def chooseLanguage(self):
         '''
@@ -136,7 +136,7 @@ class ProgramInfo():
         '''
         Show a text screen to choose whether to read local setting in settings.json.
         '''
-        utils.printAll(self._TEXTS["chooseReadLocalSetting"])
+        u.printAll(self._TEXTS["chooseReadLocalSetting"])
 
         tmp = int(input(_IN).strip())
         self._READ_LOCAL = tmp == 1
@@ -145,7 +145,7 @@ class ProgramInfo():
         '''
         Show a text screen to input the local Document direcotry
         '''
-        utils.printAll(self._TEXTS["chooseDocumentDir"])
+        u.printAll(self._TEXTS["chooseDocumentDir"])
         res = input(_IN).strip()+ "//"
         self.setDocumentDir(res)
 
@@ -177,7 +177,7 @@ class ProgramInfo():
         '''
         A text screen to input the local Steam direcotry
         '''
-        utils.printAll(self._TEXTS["chooseSteamDir"])
+        u.printAll(self._TEXTS["chooseSteamDir"])
         res =  input(_IN).strip() + "//"
         self.setSteamDir(res)
 
@@ -211,7 +211,7 @@ class ProgramInfo():
         '''
         A text screen to input overall looped times for the whole script
         '''
-        utils.printAll(self._TEXTS["chooseOverAllLoopTimes"])
+        u.printAll(self._TEXTS["chooseOverAllLoopTimes"])
         res = int(input(_IN).strip())
         self.setOverAllLoopTimes(res)
 
@@ -243,7 +243,7 @@ class ProgramInfo():
         '''
         A text screen to input looped times for each game
         '''
-        utils.printAll(self._TEXTS["chooseLoopTimes"])
+        u.printAll(self._TEXTS["chooseLoopTimes"])
         res = int(input(_IN).strip())
         self.setLoopTimes(res)
 
@@ -307,9 +307,9 @@ class ProgramInfo():
         tmp = 1
         while(int(tmp) > -1):
             self.printAvailableGames()
-            utils.printAll(self._TEXTS["chooseGame"])
-            utils.printAll(self._TEXTS["deleteGameList"])
-            utils.printAll(self._TEXTS["currentList"])
+            u.printAll(self._TEXTS["chooseGame"])
+            u.printAll(self._TEXTS["deleteGameList"])
+            u.printAll(self._TEXTS["currentList"])
             print(self.getGames())
 
             res =  str.lower(input(_IN).strip())
@@ -400,7 +400,7 @@ class ProgramInfo():
         Show a text screen to choose whether to perform Stress Test
         '''
         print("\n"+"*"*100)
-        utils.printAll(self._TEXTS["chooseStressTest"])
+        u.printAll(self._TEXTS["chooseStressTest"])
         res = int(input(_IN).strip())
 
         self.setStressTest(res)
@@ -441,7 +441,7 @@ class ProgramInfo():
         @RETURN:
             - a latest Json Object in data.json
         '''
-        return utils.read_json("data.json")
+        return u.read_json("data.json")
 
     def writeData(self, data):
         '''
@@ -450,24 +450,24 @@ class ProgramInfo():
         @RETURN:
             - a latest Json Object in data.json
         '''
-        utils.write_json("data.json", data)
+        u.write_json("data.json", data)
 
     def printAvailableGames(self):
         '''
         Print current available games for automation
         '''
-        utils.printAll(self._TEXTS["printAvailableGames"])
+        u.printAll(self._TEXTS["printAvailableGames"])
 
     def printCurrentDirectories(self):
         '''
         Print current directories in local settings
         '''
-        utils.printAll(self._TEXTS["printAvailableGames"][0] + self.getDocumentDir())
-        utils.printAll(self._TEXTS["printAvailableGames"][1] + self.getSteamDir())
-        utils.printAll(self._TEXTS["printAvailableGames"][2] + "Not Available")
-        utils.printAll(self._TEXTS["printAvailableGames"][3] + "Not Available")
-        utils.printAll(self._TEXTS["printAvailableGames"][4] + "Not Available")
-        utils.printAll(self._TEXTS["printAvailableGames"][5])
+        u.printAll(self._TEXTS["printAvailableGames"][0] + self.getDocumentDir())
+        u.printAll(self._TEXTS["printAvailableGames"][1] + self.getSteamDir())
+        u.printAll(self._TEXTS["printAvailableGames"][2] + "Not Available")
+        u.printAll(self._TEXTS["printAvailableGames"][3] + "Not Available")
+        u.printAll(self._TEXTS["printAvailableGames"][4] + "Not Available")
+        u.printAll(self._TEXTS["printAvailableGames"][5])
         self.printAvailableGames()
 
     def chooseGameProfile(self):

@@ -1,17 +1,15 @@
 import os, sys, subprocess, psutil
-import re
 from re import L
 import time, datetime
 import win32api, win32gui, win32con
-import logging
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
-import lib.utils as utils
-import lib.logger
-import lib.screen
-import lib.input
-import lib.keyboardUtils
+import utils.sysUtils as u
+import utils.logger
+import utils.screen
+import utils.input
+import utils.keyboardUtils
 import main.ProgramInfo as ProgramInfo
 
 _TAB = "    "
@@ -30,16 +28,7 @@ LOOP_TIMES = 0
 STRESS_TEST = False
 PG = ProgramInfo.ProgramInfo(typeDeclear=True)
 
-logger = lib.logger.logger("Apex Legends", dir="scripts")
-
-# Helper Methods
-def resetMouse():
-    '''
-    Reset the mouse position to top-left, by calling the .exe file in "keyassist" folder made by tinytask
-    - return 0, if failed
-    - return 1, if succeed
-    '''
-    return win32api.ShellExecute(1, 'open', '%s/keyassist/reset_mouse.exe'%WORKING_DIRECTORY, '', '', 1)
+logger = utils.logger.logger("Apex Legends", dir="scripts")
 
 # Main
 def startGame():
@@ -54,7 +43,7 @@ def startGame():
         logger.info("Opening Game")
         startGame = win32api.ShellExecute(1, 'open', exeFile, '', '', 1)
         if tries == 1 and not startGame:
-            screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "OpenGameFailed")
+            screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "OpenGameFailed")
             logger.error('Opening Game Failed! Screenshoot Created: %s'%screenShootName)
             print("****** Failed to open Game!!! Process stopped ******\n")
             return 0
@@ -84,17 +73,17 @@ def startGame():
         while(tmp!=0):
             time.sleep(0.5)
             tmp = tmp - 1
-            lib.input.clickLeft(960, 540)
+            utils.input.clickLeft(960, 540)
 
         time.sleep(30)
 
         # Change to training mode
-        lib.input.clickLeft(195, 805)
+        utils.input.clickLeft(195, 805)
         time.sleep(10)
-        lib.input.clickLeft(195, 805)
+        utils.input.clickLeft(195, 805)
 
         # Start
-        lib.input.clickLeft(220, 945)
+        utils.input.clickLeft(220, 945)
 
         time.sleep(60)
 
@@ -102,7 +91,7 @@ def startGame():
         print("Start Testing...")
 
         ## Perform random Character control for 5 min
-        lib.keyboardUtils.randomCharacterControl(300)
+        utils.keyboardUtils.randomCharacterControl(300)
 
         if loop == -1:
             break
@@ -118,8 +107,8 @@ def startGame():
 
     # Quit Game
     time.sleep(10)
-    # lib.keyboardUtils.press_alt_f4()
-    lib.input.key_alt_f4()
+    # utils.keyboardUtils.press_alt_f4()
+    utils.input.key_alt_f4()
 
     return startGame
 
@@ -145,7 +134,7 @@ def start():
         else:
             if statusCode == 0:
                 logger.error('Apex Legends: OpenLauncherFailed', exc_info=True)
-                screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "OverallError")
+                screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "OverallError")
                 logger.debug(_TAB+'Screenshoot Created: %s'%screenShootName)
                 print("****** Something went wrong!!! Process Stopped ******\n")
                 return 0
@@ -153,7 +142,7 @@ def start():
             #     logger.info('Killing process: ApexLegends.main()')
             #     gameHD = win32gui.FindWindow("{GAME_NAME}".format(GAME_NAME=GAME_NAME))
             #     if gameHD != 0:
-            #         statC = utils.killProgress("launcher.exe")
+            #         statC = u.killProgress("launcher.exe")
             # except Exception:
             #     logger.debug('Killing process: ApexLegends.main()')
         logger.info("Finish Apex Legends")

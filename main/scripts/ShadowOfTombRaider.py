@@ -3,14 +3,13 @@ import re
 from re import L
 import time, datetime
 import win32api, win32gui
-import logging
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
-import lib.utils as utils
-import lib.logger
-import lib.screen
-import lib.keyboardUtils
+import utils.sysUtils as u
+import utils.logger
+import utils.screen
+import utils.keyboardUtils
 import main.ProgramInfo as ProgramInfo
 
 _TAB = "    "
@@ -31,7 +30,7 @@ GAME_VERSION = ""
 LOOP_TIMES = 0
 PG = ProgramInfo.ProgramInfo(typeDeclear=True)
 
-logger = lib.logger.logger("ShadowOfTombRaider", dir="scripts")
+logger = utils.logger.logger("ShadowOfTombRaider", dir="scripts")
 
 # Helper Methodes
 def searchLog(starting_time):
@@ -44,7 +43,7 @@ def searchLog(starting_time):
     c = starting_time
     while(c < datetime.datetime.now()):
         cur_time = ( c ).strftime("%Y-%m-%d_%H.%M")
-        res = utils.searchFile("{DOCUMENT_ROOT}//{GAME_NAME}//".format(DOCUMENT_ROOT=DOCUMENT_ROOT, GAME_NAME=GAME_NAME), "SOTTR_X_%s.*.txt"%(cur_time))
+        res = u.searchFile("{DOCUMENT_ROOT}//{GAME_NAME}//".format(DOCUMENT_ROOT=DOCUMENT_ROOT, GAME_NAME=GAME_NAME), "SOTTR_X_%s.*.txt"%(cur_time))
         if res:
             f.extend(res)
             return f
@@ -97,7 +96,7 @@ def startGame(reg):
         logger.info("Opening Game Launcher")
         startGame = win32api.ShellExecute(1, 'open', exeFile, '', '', 1)
         if tries == 1 and not startGame:
-            screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "OpenLauncherFailed")
+            screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "OpenLauncherFailed")
             logger.error('Opening Game Launcher Failed! Screenshoot Created: %s'%screenShootName)
             print("****** Failed to open Game Launcher!!! Process stopped ******\n")
             return 0
@@ -115,16 +114,16 @@ def startGame(reg):
     # return 0, if failed to apply ENTER key on he launcher
     # - otherwise, keep running the process
     tries = 0
-    while lib.screen.findWindow(GAME_NAME):
+    while utils.screen.findWindow(GAME_NAME):
         time.sleep(3)
-        lib.keyboardUtils.press_enter()
+        utils.keyboardUtils.callTinyTask("enter")
 
-        gameHD = lib.screen.findWindow("{GAME_NAME} {GAME_VERSION}".format(GAME_NAME=GAME_NAME, GAME_VERSION=GAME_VERSION))
+        gameHD = utils.screen.findWindow("{GAME_NAME} {GAME_VERSION}".format(GAME_NAME=GAME_NAME, GAME_VERSION=GAME_VERSION))
         if gameHD:
             tries = 0
             break
         elif tries > 10:
-            screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "OpenGameFailed")
+            screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "OpenGameFailed")
             logger.error('Opening Game Failed! Screenshoot Created: %s'%screenShootName)
             print("****** Failed to open Game!!! Process stopped ******\n")
             return 0
@@ -136,7 +135,7 @@ def startGame(reg):
     time.sleep(35)
 
     logger.info(_TAB+'Resetting Mouse Position')
-    lib.keyboardUtils.resetMouse()
+    utils.keyboardUtils.tinytask_resetMouse()
 
     time.sleep(5)
 
@@ -158,13 +157,13 @@ def startGame(reg):
 
         # 3. Press "r" key to start benchmarking
         print("Start Benchmarking...")
-        startScripts = lib.keyboardUtils.press_r()
+        startScripts = utils.keyboardUtils.callTinyTask("r")
         time.sleep(1)
-        startScripts = lib.keyboardUtils.press_r()
+        startScripts = utils.keyboardUtils.callTinyTask("r")
         time.sleep(1)
-        startScripts = lib.keyboardUtils.press_r()
+        startScripts = utils.keyboardUtils.callTinyTask("r")
         time.sleep(1)
-        startScripts = lib.keyboardUtils.press_r()
+        startScripts = utils.keyboardUtils.callTinyTask("r")
         logger.info(_TAB+'Starting Benchmarking')
 
 
@@ -192,7 +191,7 @@ def startGame(reg):
             while len(logs) == 0:
                 if tries == 0:
                     logger.debug(_TAB+'Benchmark Log Results NOT Found')
-                    screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "BenchmarkingFailed")
+                    screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "BenchmarkingFailed")
                     logger.debug(_TAB+'Screenshoot Created: %s'%screenShootName)
                     print("****** Failed benchmarking!!! Retry to bench mark again ******\n")
                     loop += 1
@@ -211,9 +210,9 @@ def startGame(reg):
 
     # Quit Game
     time.sleep(10)
-    lib.keyboardUtils.press_alt_f4()
+    utils.keyboardUtils.callTinyTask("alt_f4")
     time.sleep(10)
-    lib.keyboardUtils.press_enter()
+    utils.keyboardUtils.callTinyTask("enter")
 
     return startGame
 
@@ -233,7 +232,7 @@ def initialize():
     print("\n")
 
     if not GAME_VERSION:
-        screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "FineGameVersionFailed")
+        screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "FineGameVersionFailed")
         logger.error('Find Game Version Failed! Screenshoot Created: %s'%screenShootName)
         print("****** Can't define Game version!!! Process Stopped ******")
         return 0
@@ -263,7 +262,7 @@ def start():
         else:
             if statusCode == 0:
                 logger.error('ShadowOfTombRaider: OpenLauncherFailed', exc_info=True)
-                screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "OverallError")
+                screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "OverallError")
                 logger.debug(_TAB+'Screenshoot Created: %s'%screenShootName)
                 print("****** Something went wrong!!! Process Stopped ******\n")
                 return 0
@@ -271,7 +270,7 @@ def start():
             #     logger.info('Killing process: ShadowOfTombRaider.main()')
             #     gameHD = win32gui.FindWindow("{GAME_NAME} {GAME_VERSION}".format(GAME_NAME=GAME_NAME, GAME_VERSION=GAME_VERSION))
             #     if gameHD != 0:
-            #         statC = utils.killProgress("SOTTR.exe")
+            #         statC = u.killProgress("SOTTR.exe")
             # except Exception:
             #     logger.debug('Killing process: ShadowOfTombRaider.main()')
         logger.info("Finish ShadowOfTombRaider")

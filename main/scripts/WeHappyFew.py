@@ -3,15 +3,14 @@ import re
 from re import L
 import time, datetime
 import win32api, win32gui, win32con
-import logging
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
-import lib.utils as utils
-import lib.logger
-import lib.screen
-import lib.input
-import lib.keyboardUtils
+import utils.sysUtils as u
+import utils.logger
+import utils.screen
+import utils.input
+import utils.keyboardUtils
 import main.ProgramInfo as ProgramInfo
 
 _TAB = "    "
@@ -31,16 +30,7 @@ LOOP_TIMES = 0
 STRESS_TEST = False
 PG = ProgramInfo.ProgramInfo(typeDeclear=True)
 
-logger = lib.logger.logger("WeHappyFew", dir="scripts")
-
-# Helper Methods
-def resetMouse():
-    '''
-    Reset the mouse position to top-left, by calling the .exe file in "keyassist" folder made by tinytask
-    - return 0, if failed
-    - return 1, if succeed
-    '''
-    return win32api.ShellExecute(1, 'open', '%s/keyassist/reset_mouse.exe'%WORKING_DIRECTORY, '', '', 1)
+logger = utils.logger.logger("WeHappyFew", dir="scripts")
 
 # Main
 def startGame():
@@ -57,7 +47,7 @@ def startGame():
         logger.info("Opening Game Launcher")
         startGame = win32api.ShellExecute(1, 'open', exeFile, '', '', 1)
         if tries == 1 and not startGame:
-            screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "OpenLauncherFailed")
+            screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "OpenLauncherFailed")
             logger.error('Opening Game Launcher Failed! Screenshoot Created: %s'%screenShootName)
             print("****** Failed to open Game Launcher!!! Process stopped ******\n")
             return 0
@@ -75,19 +65,19 @@ def startGame():
     # # return 0, if failed to apply ENTER key on he launcher
     # # - otherwise, keep running the process
     # tries = 0
-    # while lib.screen.findWindow(GAME_NAME):
+    # while utils.screen.findWindow(GAME_NAME):
 
     #     logger.info('Opening Game: %s'%GAME_NAME)
-    #     lib.input.clickLeft(1310, 385)
+    #     utils.input.clickLeft(1310, 385)
 
     #     time.sleep(10)
 
-    #     gameHD = lib.screen.findWindow("We Happy Few (64-bit, PCD3D_SM5)")
+    #     gameHD = utils.screen.findWindow("We Happy Few (64-bit, PCD3D_SM5)")
     #     if gameHD:
     #         tries = 0
     #         break
     #     elif tries > 10:
-    #         screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "OpenGameFailed")
+    #         screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "OpenGameFailed")
     #         logger.error('Opening Game Failed! Screenshoot Created: %s'%screenShootName)
     #         print("****** Failed to open Game!!! Process stopped ******\n")
     #         return 0
@@ -110,19 +100,19 @@ def startGame():
         while(tmp!=0):
             time.sleep(0.5)
             tmp = tmp - 1
-            lib.input.clickLeft(960, 540)
+            utils.input.clickLeft(960, 540)
 
         time.sleep(20)
 
-        lib.keyboardUtils.press_enter()
+        utils.keyboardUtils.callTinyTask("enter")
         time.sleep(10)
-        lib.keyboardUtils.press_enter()
+        utils.keyboardUtils.callTinyTask("enter")
 
         logger.info(_TAB+'Starting Testing')
         print("Start Testing...")
 
         ## Perform random Character control for 5 min
-        lib.keyboardUtils.randomCharacterControl(300)
+        utils.keyboardUtils.randomCharacterControl(300)
 
         if loop == -1:
             break
@@ -138,8 +128,8 @@ def startGame():
 
     # Quit Game
     time.sleep(10)
-    # lib.keyboardUtils.press_alt_f4()
-    lib.input.key_alt_f4()
+    # utils.keyboardUtils.press_alt_f4()
+    utils.input.key_alt_f4()
 
     return startGame
 
@@ -165,7 +155,7 @@ def start():
         else:
             if statusCode == 0:
                 logger.error('WeHappyFew: OpenLauncherFailed', exc_info=True)
-                screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "OverallError")
+                screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "OverallError")
                 logger.debug(_TAB+'Screenshoot Created: %s'%screenShootName)
                 print("****** Something went wrong!!! Process Stopped ******\n")
                 return 0
@@ -173,7 +163,7 @@ def start():
             #     logger.info('Killing process: WeHappyFew.main()')
             #     gameHD = win32gui.FindWindow("{GAME_NAME}".format(GAME_NAME=GAME_NAME))
             #     if gameHD != 0:
-            #         statC = utils.killProgress("launcher.exe")
+            #         statC = u.killProgress("launcher.exe")
             # except Exception:
             #     logger.debug('Killing process: WeHappyFew.main()')
         logger.info("Finish WeHappyFew")

@@ -1,0 +1,97 @@
+{
+    "opening_message" : [
+        "****************************************************************************************************",
+        "****************** ！！！！！！！！！！ AMD Internal Use ONLY ！！！！！！！！！！******************",
+        "****************************************************************************************************",
+
+        "\n！！ Make sure the system's screen resolution is 1080p ！！\n",
+
+        "Before Running Game Scripts, Make Sure that:",
+        "    1. The game has been installed under the correct directory in settings;",
+        "    2. Game can be ran without any error or cloud syncing;",
+
+        "While Running Game Scripts, Make Sure that:",
+        "    1. Do NOT move your mouse or present any keyboard inputs;",
+        "    2. Steam accounts can be kept login-in",
+        "    4. There won't pop out any notifications\n",
+
+        "Beta Function:",
+        "    1. There are 9 automation scripts so far;",
+        "    2. Can choose each game's looping times",
+        "    3. Several games support to run in both 1080p and 2k resolution",
+        "    4. Can save automation settings in config.json",
+        "    5. Can run the program m.exe directly by calling the command line and parse parameters(Details please us -h option in cmd)\n",
+
+        "【MUST DO】",
+        "    1. Use Notepad to open config.json and modify the local Document and Steam Directory location",
+        "    2. Change the system resolution to 1080p"
+
+    ],
+
+    "chooseReadLocalSetting" : [
+        "Read Local Settings in config.json?",
+        "(\"0\"=\"No\"; \"1\"=\"Yes\")"
+    ],
+    "chooseDocumentDir" : [
+        "Please ENTER Document Directory",
+        "Format: C://Users//[USERNAME]//Documents//"
+    ],
+    "chooseSteamDir" : [
+        "Please ENTER Steam Directory",
+        "Format: D://SteamLibrary//steamapps//common"
+    ],
+    "chooseOverAllLoopTimes" : [
+        "Pease ENTER Overall Looping Times",
+        "(ENTER \"-1\" for Infinite Looping)"
+    ],
+    "chooseLoopTimes" : [
+        "Pease ENTER Each Game's Looping Times",
+        "(ENTER \"-1\" to run only once regarding failure(RECOMMENDED))"
+    ],
+    "chooseGame" : [
+        "****************************************************************************************************",
+        "ENTER \"0\" - All Games",
+        "ENTER \"1\" - Add Shadow of Tomb Raider",
+        "ENTER \"2\" - Add Sid Meier's Civilization VI",
+        "ENTER \"3\" - Add SniperEliteV2 Benchmark",
+        "ENTER \"4\" - Add AlienVSPredictor_D3D11 Benchmark",
+        "ENTER \"5\" - Add BHScripts",
+        "ENTER \"6\" - Add Genshin Impact",
+        "ENTER \"7\" - Add Fallout 4",
+        "ENTER \"8\" - Add Office",
+        "ENTER \"9\" - Add We Happy Few",
+
+        "\nENTER \"r\" to CONTINUE"
+    ],
+    "deleteGameList" : [
+        "ENTER \"d {NUMBER}\" to REMOVE a game from the list",
+        "Example - To remove Shadow of Tomb Raider. Enter: d 1",
+        "Example - To clear the whole run list. Enter d 0"
+    ],
+    "currentList" : "Current Run List: ",
+    "chooseStressTest" : [
+        "To perform a Stress Test?",
+        "(\"0\"=\"No\"; \"1\"=\"Yes\")"
+    ],
+
+    "printCurrentDirectories" : [
+        "Local Document Directory:",
+        "Steam Directory:",
+        "SniperEliteV2_Benchmark Directory:",
+        "AlienVSPredictor_D3D11 Directory:",
+        "GenshinImpact Directory:",
+
+        "Games that support automation so far:"
+    ],
+    "printAvailableGames" : [
+        "    1. Shadow of Tomb Raider",
+        "    2. Sid Meier's Civilization VI (Has BUGS,",
+        "    3. SniperEliteV2 Benchmark",
+        "    4. AlienVSPredictor_D3D11 Benchmark",
+        "    5. BH Scripts",
+        "    6. Genshin Impact",
+        "    7. Fallout 4",
+        "    8. Office",
+        "    9. We Happy Few"
+    ]
+}

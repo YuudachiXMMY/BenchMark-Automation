@@ -1,16 +1,14 @@
 import os, sys, subprocess, psutil
-import re
 from re import L
 import time, datetime
 import win32api, win32gui
-import logging
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
-import lib.utils as utils
-import lib.logger
-import lib.screen
-import lib.keyboardUtils
+import utils.sysUtils as u
+import utils.logger
+import utils.screen
+import utils.keyboardUtils
 import main.ProgramInfo as ProgramInfo
 
 _TAB = "    "
@@ -29,7 +27,7 @@ BENCH_DIRECTORY = ""
 LOOP_TIMES = 0
 PG = ProgramInfo.ProgramInfo(typeDeclear=True)
 
-logger = lib.logger.logger("SniperEliteV2", dir="scripts")
+logger = utils.logger.logger("SniperEliteV2", dir="scripts")
 
 # Helper Methodes
 def searchLog(starting_time):
@@ -42,7 +40,7 @@ def searchLog(starting_time):
     c = starting_time
     while(c < datetime.datetime.now()):
         cur_time = ( c ).strftime("%Y-%m-%d__%H-%M")
-        res = utils.searchFile("{DOCUMENT_ROOT}//{GAME_DIRECTORY}//".format(DOCUMENT_ROOT=DOCUMENT_ROOT, GAME_DIRECTORY=GAME_DIRECTORY), "SEV2__%s.txt"%(cur_time))
+        res = u.searchFile("{DOCUMENT_ROOT}//{GAME_DIRECTORY}//".format(DOCUMENT_ROOT=DOCUMENT_ROOT, GAME_DIRECTORY=GAME_DIRECTORY), "SEV2__%s.txt"%(cur_time))
         if res:
             f.extend(res)
             return f
@@ -57,7 +55,7 @@ def startGame():
     try:
         gameHD = win32gui.FindWindow(None, "{GAME_DIRECTORY}".format(GAME_DIRECTORY=GAME_DIRECTORY))
         if gameHD != 0:
-            statC = utils.killProgress("%s"%GAME_EXECUTOR)
+            statC = u.killProgress("%s"%GAME_EXECUTOR)
     except:
         pass
 
@@ -71,7 +69,7 @@ def startGame():
     while tries != 0:
         startGame = win32api.ShellExecute(1, 'open', exeFile, '', '', 1)
         if tries == 1 and not startGame:
-            screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "OpenLauncherFailed")
+            screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "OpenLauncherFailed")
             logger.error(_TAB+'OpenLauncherFailed! Screenshoot Created: %s'%screenShootName)
             print("****** Failed to open Game Launcher!!! Process stopped ******\n")
             return 0
@@ -89,7 +87,7 @@ def startGame():
     time.sleep(4)
 
     logger.info(_TAB+'Resetting Mouse Position')
-    lib.keyboardUtils.resetMouse()
+    utils.keyboardUtils.tinytask_resetMouse()
 
     ####################################################################################
     # Start benchmarking
@@ -107,10 +105,10 @@ def startGame():
         # Benchmarking
         if STRESS_TEST:
             logger.info(_TAB+'Performing Stress Test')
-            lib.keyboardUtils.stressBenchmarking(100)
+            utils.keyboardUtils.stressBenchmarking(100)
         else:
             logger.info(_TAB+'Performing Normal Test')
-            lib.keyboardUtils.normBenchmarking(100)
+            utils.keyboardUtils.normBenchmarking(100)
 
         if loop == -1:
             break
@@ -128,7 +126,7 @@ def startGame():
             while len(logs) == 0:
                 if tries == 0:
                     logger.debug(_TAB+'Benchmark Log Results NOT Found')
-                    screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "BenchmarkingFailed")
+                    screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "BenchmarkingFailed")
                     logger.debug(_TAB+'Screenshoot Created: %s'%screenShootName)
                     print("****** Failed benchmarking!!! Retry to bench mark again ******\n")
                     loop += 1
@@ -170,7 +168,7 @@ def start():
         else:
             if statusCode == 0:
                 logger.error('SniperEliteV2: OpenLauncherFailed', exc_info=True)
-                screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "OverallError")
+                screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "OverallError")
                 logger.debug(_TAB+'Screenshoot Created: %s'%screenShootName)
                 print("****** Something went wrong!!! Process Stopped ******\n")
                 return 0
@@ -178,7 +176,7 @@ def start():
             #     logger.info('Killing process: SniperEliteV2.main()')
             #     gameHD = win32gui.FindWindow("{GAME_NAME}".format(GAME_NAME=GAME_NAME))
             #     if gameHD != 0:
-            #         statC = utils.killProgress("%s"%GAME_EXECUTOR)
+            #         statC = u.killProgress("%s"%GAME_EXECUTOR)
             # except Exception:
             #     logger.debug('Killing process: SniperEliteV2.main()')
         logger.info("Finish SniperEliteV2")

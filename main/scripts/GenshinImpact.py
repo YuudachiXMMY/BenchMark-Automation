@@ -1,17 +1,15 @@
 import os, sys, subprocess, psutil
-import re
 from re import L
 import time, datetime
 import win32api, win32gui, win32con
-import logging
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
-import lib.utils as utils
-import lib.logger
-import lib.screen
-import lib.input
-import lib.keyboardUtils
+import utils.sysUtils as u
+import utils.logger
+import utils.screen
+import utils.input
+import utils.keyboardUtils
 import main.ProgramInfo as ProgramInfo
 
 _TAB = "    "
@@ -32,7 +30,7 @@ LOOP_TIMES = 0
 STRESS_TEST = False
 PG = ProgramInfo.ProgramInfo(typeDeclear=True)
 
-logger = lib.logger.logger("GenshinImpact", dir="scripts")
+logger = utils.logger.logger("GenshinImpact", dir="scripts")
 
 # Helper Methods
 def resetMouse():
@@ -58,7 +56,7 @@ def startGame():
         logger.info("Opening Game Launcher")
         startGame = win32api.ShellExecute(1, 'open', exeFile, '', '', 1)
         if tries == 1 and not startGame:
-            screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "OpenLauncherFailed")
+            screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "OpenLauncherFailed")
             logger.error('Opening Game Launcher Failed! Screenshoot Created: %s'%screenShootName)
             print("****** Failed to open Game Launcher!!! Process stopped ******\n")
             return 0
@@ -76,19 +74,19 @@ def startGame():
     # return 0, if failed to apply ENTER key on he launcher
     # - otherwise, keep running the process
     tries = 0
-    while lib.screen.findWindow("原神"):
+    while utils.screen.findWindow("原神"):
 
         logger.info('Opening Game: %s'%GAME_NAME)
-        lib.input.clickLeft(1309, 771)
+        utils.input.clickLeft(1309, 771)
 
         time.sleep(10)
 
-        gameHD = lib.screen.findWindow("原神")
+        gameHD = utils.screen.findWindow("原神")
         if gameHD:
             tries = 0
             break
         elif tries > 10:
-            screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "OpenGameFailed")
+            screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "OpenGameFailed")
             logger.error('Opening Game Failed! Screenshoot Created: %s'%screenShootName)
             print("****** Failed to open Game!!! Process stopped ******\n")
             return 0
@@ -101,7 +99,7 @@ def startGame():
     time.sleep(60)
 
     logger.info(_TAB+'Resetting Mouse Position')
-    lib.keyboardUtils.resetMouse()
+    utils.keyboardUtils.tinytask_resetMouse()
 
     time.sleep(2)
 
@@ -116,7 +114,7 @@ def startGame():
         while(tmp!=0):
             time.sleep(0.5)
             tmp = tmp - 1
-            lib.input.clickLeft(960, 540)
+            utils.input.clickLeft(960, 540)
 
         time.sleep(20)
 
@@ -124,7 +122,7 @@ def startGame():
         print("Start Testing...")
 
         ## Perform random Character control for 5 min
-        lib.keyboardUtils.randomCharacterControl(300)
+        utils.keyboardUtils.randomCharacterControl(300)
 
         if loop == -1:
             break
@@ -139,8 +137,8 @@ def startGame():
 
     # Quit Game
     time.sleep(10)
-    # lib.keyboardUtils.press_alt_f4()
-    lib.input.key_alt_f4()
+    # utils.keyboardUtils.press_alt_f4()
+    utils.input.key_alt_f4()
 
     return startGame
 
@@ -166,7 +164,7 @@ def start():
         else:
             if statusCode == 0:
                 logger.error('GenshinImpact: OpenLauncherFailed', exc_info=True)
-                screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "OverallError")
+                screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "OverallError")
                 logger.debug(_TAB+'Screenshoot Created: %s'%screenShootName)
                 print("****** Something went wrong!!! Process Stopped ******\n")
                 return 0
@@ -174,7 +172,7 @@ def start():
             #     logger.info('Killing process: GenshinImpact.main()')
             #     gameHD = win32gui.FindWindow("{GAME_NAME}".format(GAME_NAME=GAME_NAME))
             #     if gameHD != 0:
-            #         statC = utils.killProgress("launcher.exe")
+            #         statC = u.killProgress("launcher.exe")
             # except Exception:
             #     logger.debug('Killing process: GenshinImpact.main()')
         logger.info("Finish GenshinImpact")

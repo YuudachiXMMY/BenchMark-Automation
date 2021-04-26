@@ -1,17 +1,15 @@
 import os, sys, subprocess, psutil
-import re
 from re import L
 import time, datetime
 import win32api, win32gui, win32con
-import logging
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
-import lib.utils as utils
-import lib.logger
-import lib.screen
-import lib.input
-import lib.keyboardUtils
+import utils.sysUtils as u
+import utils.logger
+import utils.screen
+import utils.input
+import utils.keyboardUtils
 import main.ProgramInfo as ProgramInfo
 
 _TAB = "    "
@@ -27,7 +25,7 @@ GAME_EXECUTOR_LIST = [
     "PowerPoint",
     "Excel"
 ]
-GAME_EXECUTOR_LIST = utils.searchFile("resources/office", "")
+GAME_EXECUTOR_LIST = u.searchFile("resources/office", "")
 GAME_EXECUTOR = "Word"
 GAME_NAME = "Word"
 
@@ -38,7 +36,7 @@ LOOP_TIMES = 0
 STRESS_TEST = False
 PG = ProgramInfo.ProgramInfo(typeDeclear=True)
 
-logger = lib.logger.logger("Office", dir="scripts")
+logger = utils.logger.logger("Office", dir="scripts")
 
 # Helper Methods
 def resetMouse():
@@ -65,7 +63,7 @@ def startGame():
         logger.info("Opening Game Launcher")
         startGame = win32api.ShellExecute(1, 'open', exeFile, '', '', 1)
         if tries == 1 and not startGame:
-            screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "OpenLauncherFailed")
+            screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "OpenLauncherFailed")
             logger.error('Opening Game Launcher Failed! Screenshoot Created: %s'%screenShootName)
             print("****** Failed to open Game Launcher!!! Process stopped ******\n")
             return 0
@@ -92,14 +90,14 @@ def startGame():
         # while(tmp!=0):
         #     time.sleep(0.5)
         #     tmp = tmp - 1
-        #     lib.input.clickLeft(275, 210)
+        #     utils.input.clickLeft(275, 210)
 
         logger.info(_TAB+'Starting Testing')
         print("Start Testing...")
 
         ## Perform random Character control for 5 min
-        # lib.keyboardUtils.randomTyping(10)
-        lib.keyboardUtils.randomRotate(60)
+        # utils.keyboardUtils.randomTyping(10)
+        utils.keyboardUtils.randomRotate(60)
 
         if loop == -1:
             break
@@ -114,10 +112,10 @@ def startGame():
 
     # Quit Game
     time.sleep(10)
-    # lib.keyboardUtils.press_alt_f4()
-    lib.input.key_alt_f4()
+    # utils.keyboardUtils.press_alt_f4()
+    utils.input.key_alt_f4()
     time.sleep(2)
-    # lib.input.key_enter() #Save to default folder
+    # utils.input.key_enter() #Save to default folder
 
     return startGame
 
@@ -148,7 +146,7 @@ def start():
             else:
                 if statusCode == 0:
                     logger.error('Office: OpenLauncherFailed', exc_info=True)
-                    screenShootName=lib.screen.saveScreenShoot(GAME_NAME, "OverallError")
+                    screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "OverallError")
                     logger.debug(_TAB+'Screenshoot Created: %s'%screenShootName)
                     print("****** Something went wrong!!! Process Stopped ******\n")
                     return 0
@@ -156,7 +154,7 @@ def start():
                 #     logger.info('Killing process: Office.main()')
                 #     gameHD = win32gui.FindWindow("{GAME_NAME}".format(GAME_NAME=GAME_NAME))
                 #     if gameHD != 0:
-                #         statC = utils.killProgress("launcher.exe")
+                #         statC = u.killProgress("launcher.exe")
                 # except Exception:
                 #     logger.debug('Killing process: Office.main()')
         logger.info("Finish Office")
