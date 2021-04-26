@@ -23,7 +23,6 @@ import main.scripts.GenshinImpact as GenshinImpact
 import main.scripts.Fallout4 as Fallout4
 import main.scripts.Office as Office
 import main.scripts.WeHappyFew as WeHappyFew
-import main.scripts.ApexLegends as ApexLegends
 
 # HELPER FIELDS
 _TAB = "    "
@@ -39,7 +38,7 @@ GenshinImpact_Directory = ""
 RUN_LIST = list()
 
 # Global Objects
-ARGS_BH = None
+ARGS = None
 PROGRAM = None
 
 logger = lib.logger.logger("main")
@@ -56,31 +55,24 @@ def CMDParam():
     '''
     Parse parameters directly from Command Line and read them as the local variable.
     '''
-    global ARGS_BH, _LANGUAGE
+    global ARGS
     parser = argparse.ArgumentParser(description='Manual to this script')
     parser.add_argument('--bhMode',
                         type=int,
-                        default=0,
+                        default=1,
                         help="1, to directly run with local settings without user interface; \
                             0, to show a user interface. \
                             (default: show a user interface)")
-    parser.add_argument('--language',
-                        default="en",
-                        help="\"en\" for English Interface; \
-                            \"cn\" for Chinese Interface. \
-                            (default: \"en\" English)")
-    args = parser.parse_args()
-    ARGS_BH = args.bhMode == 1
-    _LANGUAGE = args.language
+    ARGS = parser.parse_args() == 1
 
-def initializeProgram(language=None, readLocal=None):
+def initializeProgram():
     '''
     Initialize ProgramInfo Object
     '''
     global PROGRAM
 
     # Init ProgramInfo object
-    PROGRAM = ProgramInfo.ProgramInfo(language=language, readLocal=readLocal)
+    PROGRAM = ProgramInfo.ProgramInfo()
 
 def startScripts():
     '''
@@ -90,62 +82,31 @@ def startScripts():
     loop = PROGRAM.getOverAllLoopTimes()
     while(loop != 0):
         loop = loop - 1
-        # Shadow of Tomb Raider
         if "1" in runList:
-            dealWinDumps()
             startShadowOfTombRaider()
-        # Sid Meier's Civilization VI
         if "2" in runList:
-            dealWinDumps()
             pass
-        # SniperEliteV2 Benchmark
         if "3" in runList:
-            dealWinDumps()
             startSniperEliteV2()
-        # AlienVSPredictor_D3D11 Benchmark
         if "4" in runList:
-            dealWinDumps()
             startAvP_D3D11()
-        # BH Scripts
         if "5" in runList:
-            dealWinDumps()
             startBHScripts()
             time.sleep(3420)
-        # Genshin Impact
         if "6" in runList:
-            dealWinDumps()
             startGenshinImpact()
-        # Fallout 4
         if "7" in runList:
-            dealWinDumps()
             startFallout4()
-        # Office
         if "8" in runList:
-            dealWinDumps()
             startOffice()
-        # We Happy Few
         if "9" in runList:
-            dealWinDumps()
             startWeHappyFew()
-        # Apex Legends
-        if "10" in runList:
-            dealWinDumps()
-            startApexLegends()
 
     # Print Overall loop time remained
     if overAllLoop != 0:
         logger.info("Total Loop time remained: %s"%loop)
         print("Total Loop time remained: %s"%loop)
         print("*"*100 + "\n")
-
-def dealWinDumps():
-    '''
-    Deal and log Windows' dump files
-    '''
-    if utils.detectCrashDumps():
-        logger.info("Crash Dump Detected!")
-        dump = utils.dealCrashDumps()
-        logger.info("Crash Dump Copied to: %s"%dump)
 
 def startShadowOfTombRaider():
     '''
@@ -158,15 +119,15 @@ def startShadowOfTombRaider():
     except Exception:
         logger.error('Error in Runing ShadowOfTombRaider.main()', exc_info=True)
     else:
-        # try:
-        #     gameHD = lib.screen.findWindow("{GAME_DIRECTORY}".format(GAME_DIRECTORY="Shadow of the Tomb Raider"))
-        #     if gameHD != 0:
-        #         try:
-        #             statC = utils.killProgress("SOTTR.exe")
-        #         except Exception:
-        #             logger.warning('Killing process Error: ShadowOfTombRaider')
-        # except Exception:
-        #     logger.warning('Error in Finding ShadowOfTombRaider Game Window', exc_info=True)
+        try:
+            gameHD = lib.screen.findWindow("{GAME_DIRECTORY}".format(GAME_DIRECTORY="Shadow of the Tomb Raider"))
+            if gameHD != 0:
+                try:
+                    statC = utils.killProgress("SOTTR.exe")
+                except Exception:
+                    logger.warning('Killing process Error: ShadowOfTombRaider')
+        except Exception:
+            logger.warning('Error in Finding ShadowOfTombRaider Game Window', exc_info=True)
         return statusCode
 
 def startSniperEliteV2():
@@ -180,15 +141,15 @@ def startSniperEliteV2():
     except Exception:
         logger.error('Error in Runing SniperEliteV2.main()', exc_info=True)
     else:
-        # try:
-        #     gameHD = lib.screen.findWindow("{GAME_DIRECTORY}".format(GAME_DIRECTORY="SniperEliteV2 Benchmark"))
-        #     if gameHD != 0:
-        #         try:
-        #             statC = utils.killProgress("SniperEliteV2.exe")
-        #         except Exception:
-        #             logger.warning('Killing process Error: SniperEliteV2')
-        # except Exception:
-        #     logger.warning('Error in Finding SniperEliteV2 Game Window', exc_info=True)
+        try:
+            gameHD = lib.screen.findWindow("{GAME_DIRECTORY}".format(GAME_DIRECTORY="SniperEliteV2 Benchmark"))
+            if gameHD != 0:
+                try:
+                    statC = utils.killProgress("SniperEliteV2.exe")
+                except Exception:
+                    logger.warning('Killing process Error: SniperEliteV2')
+        except Exception:
+            logger.warning('Error in Finding SniperEliteV2 Game Window', exc_info=True)
         return statusCode
 
 def startAvP_D3D11():
@@ -202,15 +163,15 @@ def startAvP_D3D11():
     except Exception:
         logger.error('Error in Runing AvP_D3D11.main()', exc_info=True)
     else:
-        # try:
-        #     gameHD = lib.screen.findWindow("{GAME_DIRECTORY}".format(GAME_DIRECTORY="AvP"))
-        #     if gameHD != 0:
-        #         try:
-        #             statC = utils.killProgress("AvP_D3D11.exe")
-        #         except Exception:
-        #             logger.warning('Killing process Error: AvP_D3D11')
-        # except Exception:
-        #     logger.warning('Error in Finding AvP_D3D11 Game Window', exc_info=True)
+        try:
+            gameHD = lib.screen.findWindow("{GAME_DIRECTORY}".format(GAME_DIRECTORY="AvP"))
+            if gameHD != 0:
+                try:
+                    statC = utils.killProgress("AvP_D3D11.exe")
+                except Exception:
+                    logger.warning('Killing process Error: AvP_D3D11')
+        except Exception:
+            logger.warning('Error in Finding AvP_D3D11 Game Window', exc_info=True)
         return statusCode
 
 def startBHScripts():
@@ -237,16 +198,16 @@ def startGenshinImpact():
     except Exception:
         logger.error('Error in Runing GenshinImpact.main()', exc_info=True)
     else:
-        # try:
-        #     gameHD = lib.screen.findWindow("{GAME_DIRECTORY}.exe".format(GAME_DIRECTORY="原神"))
-        #     if gameHD != 0:
-        #         try:
-        #             statC = utils.killProgress("原神.exe")
-        #             # statC = utils.killProgress("launcher.exe")
-        #         except Exception:
-        #             logger.warning('Killing process Error: GenshinImpact')
-        # except Exception:
-        #     logger.warning('Error in Finding GenshinImpact Game Window', exc_info=True)
+        try:
+            gameHD = lib.screen.findWindow("{GAME_DIRECTORY}.exe".format(GAME_DIRECTORY="原神"))
+            if gameHD != 0:
+                try:
+                    statC = utils.killProgress("原神.exe")
+                    # statC = utils.killProgress("launcher.exe")
+                except Exception:
+                    logger.warning('Killing process Error: GenshinImpact')
+        except Exception:
+            logger.warning('Error in Finding GenshinImpact Game Window', exc_info=True)
         return statusCode
 
 def startFallout4():
@@ -260,16 +221,16 @@ def startFallout4():
     except Exception:
         logger.error('Error in Runing Fallout4.main()', exc_info=True)
     else:
-        # try:
-        #     gameHD = lib.screen.findWindow("{GAME_DIRECTORY}.exe".format(GAME_DIRECTORY="Fallout4"))
-        #     if gameHD != 0:
-        #         try:
-        #             statC = utils.killProgress("Fallout4.exe")
-        #             # statC = utils.killProgress("launcher.exe")
-        #         except Exception:
-        #             logger.warning('Killing process Error: Fallout4')
-        # except Exception:
-        #     logger.warning('Error in Finding Fallout4 Game Window', exc_info=True)
+        try:
+            gameHD = lib.screen.findWindow("{GAME_DIRECTORY}.exe".format(GAME_DIRECTORY="Fallout4"))
+            if gameHD != 0:
+                try:
+                    statC = utils.killProgress("Fallout4.exe")
+                    # statC = utils.killProgress("launcher.exe")
+                except Exception:
+                    logger.warning('Killing process Error: Fallout4')
+        except Exception:
+            logger.warning('Error in Finding Fallout4 Game Window', exc_info=True)
         return statusCode
 
 def startOffice():
@@ -289,46 +250,23 @@ def startWeHappyFew():
     '''
     Start WeHappyFew Script
     '''
-    ## WeHappyFew Script
+    ## Fallout4 Script
     try:
         logger.info("Starting WeHappyFew Script")
         statusCode = WeHappyFew.main(PROGRAM)
     except Exception:
         logger.error('Error in Runing WeHappyFew.main()', exc_info=True)
     else:
-        # try:
-        #     gameHD = lib.screen.findWindow("{GAME_DIRECTORY}.exe".format(GAME_DIRECTORY="We Happy Few (64-bit, PCD3D_SM5)"))
-        #     if gameHD != 0:
-        #         try:
-        #             statC = utils.killProgress("GlimpseGame.exe")
-        #             # statC = utils.killProgress("launcher.exe")
-        #         except Exception:
-        #             logger.warning('Killing process Error: WeHappyFew')
-        # except Exception:
-        #     logger.warning('Error in Finding WeHappyFew Game Window', exc_info=True)
-        return statusCode
-
-def startApexLegends():
-    '''
-    Start ApexLegends Script
-    '''
-    ## ApexLegends Script
-    try:
-        logger.info("Starting ApexLegends Script")
-        statusCode = ApexLegends.main(PROGRAM)
-    except Exception:
-        logger.error('Error in Runing ApexLegends.main()', exc_info=True)
-    else:
-        # try:
-        #     gameHD = lib.screen.findWindow("{GAME_DIRECTORY}.exe".format(GAME_DIRECTORY="Apex Legends"))
-        #     if gameHD != 0:
-        #         try:
-        #             statC = utils.killProgress("GlimpseGame.exe")
-        #             # statC = utils.killProgress("launcher.exe")
-        #         except Exception:
-        #             logger.warning('Killing process Error: ApexLegends')
-        # except Exception:
-        #     logger.warning('Error in Finding ApexLegends Game Window', exc_info=True)
+        try:
+            gameHD = lib.screen.findWindow("{GAME_DIRECTORY}.exe".format(GAME_DIRECTORY="We Happy Few (64-bit, PCD3D_SM5)"))
+            if gameHD != 0:
+                try:
+                    statC = utils.killProgress("GlimpseGame.exe")
+                    # statC = utils.killProgress("launcher.exe")
+                except Exception:
+                    logger.warning('Killing process Error: WeHappyFew')
+        except Exception:
+            logger.warning('Error in Finding WeHappyFew Game Window', exc_info=True)
         return statusCode
 
 def main():
@@ -337,17 +275,17 @@ def main():
     '''
 
     try:
-        if ARGS_BH:
-            initializeProgram(language=_LANGUAGE, readLocal=ARGS_BH)
+        if ARGS:
+            initializeProgram(language="cn", readLocal=True)
         else:
             initializeProgram()
     except Exception:
-        print("Error")
+        print("Error", exc_info=True)
 
     try:
         startScripts()
     except Exception:
-        print("Error")
+        print("Error", exc_info=True)
     input("Press \'ENTER\' to quit:")
 
     # # ## 一个监视内存的小工具，暂时不用实装
