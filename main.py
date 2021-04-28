@@ -54,6 +54,7 @@ overAllLoop = 1
 gameLoop = -1
 stressTest = True
 
+CRASHDUMP_LOC = u.read_json("config.json")["DIRECTORIES"]["CRASHDUMP_LOC"]
 
 ################################################################################
 ############################### Basic Functions ################################
@@ -92,10 +93,11 @@ def dealWinDumps():
     '''
     Move and log Windows' dump files
     '''
-    if u.detectCrashDumps():
+    src = u.detectCrashDumps()
+    if src != []:
         logger.info("Crash Dump Detected!")
-        dump = u.dealCrashDumps()
-        logger.info("Crash Dump Copied to: %s"%dump)
+        dump = u.dealCrashDumps("")
+        logger.info("Crash Dump Copied to: %s"%CRASHDUMP_LOC)
 
 def startScripts():
     '''

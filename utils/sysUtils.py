@@ -100,7 +100,7 @@ def printAll(data):
         for d in data:
             print(d)
 
-def detectCrashDumps():
+def detectCrashDumps(tar="MEMORY.DMP"):
     '''
     Detect whether the window's dump is generated under %LOCALAPPDATA%\CrashDumps
 
@@ -109,30 +109,63 @@ def detectCrashDumps():
         - False - otherwise, the file is not detected
     '''
     # path = "%LOCALAPPDATA%\CrashDumps"
-    p = path.expandvars(r'%LOCALAPPDATA%\CrashDumps')
-    tar = "MEMORY.DMP"
-    return searchFile(p, tar)
+    src1 = path.expandvars(r'%LOCALAPPDATA%\CrashDumps')
+    src2= path.expandvars(r'C:\Windows')
+    return searchFile(src1, tar), searchFile(src2, "MEMORY.DMP")
 
-def dealCrashDumps(p="C:\\WinDumps"):
+def dealCrashDumps(tar="C:\\WinDumps"):
     '''
     Copy the Windows dump file to the desired location and remove the dump files under %LOCALAPPDATA%\CrashDumps
 
     @param:
-        - p - the target path to copy to (default to "C:\WinDumps")
+        - tar - the target path to copy to (default to "C:\WinDumps")
 
     @RETURN:
         - a copied file name with full path
     '''
-    while detectCrashDumps():
-        # Copy the dump file
-        tarFile = "MEMORY_" + datetime.datetime.now().strftime("%m.%d-%H%M-%Y")
-        if not p is None:
-            exe = 'copy %LOCALAPPDATA%\CrashDumps\MEMORY.DMP '+p+'\%s.DMP'%tarFile
-            res = p+'\%s.DMP'%tarFile
-        else:
-            exe = 'copy %LOCALAPPDATA%\CrashDumps\MEMORY.DMP %s.DMP'%tarFile
-            res = '\%s.DMP'%tarFile
-        os.system(exe)
-        if searchFile(p, tarFile):
-            os.system('del %LOCALAPPDATA%\CrashDumps\MEMORY.DMP')
-            return res
+    src = path.expandvars(r'%LOCALAPPDATA%\CrashDumps')
+    dst = tar
+    files1, files2 = detectCrashDumps()
+    while files1 + files2:
+
+        ######################################################
+        ## New Code
+        for src in [r'%LOCALAPPDATA%\CrashDumps', r'C:\Windows']:
+            if src == r'C:\Windows':
+                dst += 'Windows'
+            if not os.path.isdir(src):
+                return None
+
+            for files in os.listdir(src):
+                if files == "MEMORY.DMP":
+                    dst_name = os.path.join(dst, "MEMORY_%s.DMP"%datetime.datetime.now().strftime("%m.%d-%H%M-%Y"))
+                else:
+                    dst_name = os.path.join(dst, files)
+                src_name = os.path.join(src, files)
+                if os.path.isfile(src_name):
+                    exe = 'copy ' + src_name +' %s'%dst_name
+                    os.system(exe)
+                    if searchFile(src, files):
+                        os.system('del '+src+"\%s"%files)
+                else:
+                    print("TAR is not a file!")
+            # TODO: cmd command=> xcopy /s/e "D:\A_FOLDER" "E:\B_FOLDER\"
+        files1, files2 = detectCrashDumps()
+
+
+    ######################################################
+    ## Past Code
+    # # Copy the dump file
+    # tarFile = "MEMORY_" + datetime.datetime.now().strftime("%m.%d-%H%M-%Y")
+    # if not tar is None:
+    #     exe = 'copy %LOCALAPPDATA%\CrashDumps\MEMORY.DMP '+tar+'\%s.DMP'%tarFile
+    #     res = tar+'\%s.DMP'%tarFile
+    # else:
+    #     exe = 'copy %LOCALAPPDATA%\CrashDumps\MEMORY.DMP %s.DMP'%tarFile
+    #     res = '\%s.DMP'%tarFile
+    # os.system(exe)
+    # if searchFile(tar, tarFile):
+    #     os.system('del %LOCALAPPDATA%\CrashDumps\MEMORY.DMP')
+    #     return res
+
+dealCrashDumps()

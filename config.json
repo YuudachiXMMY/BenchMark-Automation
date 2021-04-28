@@ -1,6 +1,7 @@
 {
     "DIRECTORIES" : {
         "POWERSHELL" : "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+        "CRASHDUMP_LOC" : "C:\\WinDumps",
         "DOCUMENT_ROOT" : "C:/Users//Navi//Documents",
         "STEAM_DIRECTORY" : {
             "1" : "G:/SteamLibrary/steamapps/common",
