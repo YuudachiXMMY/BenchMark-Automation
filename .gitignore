@@ -14,6 +14,10 @@ BloodHoundScripts/*
 */BloodHoundScripts.7z
 BloodHoundScripts.7z
 
+# Releases NOT IN ZIP
+builds/release
+builds/releases
+
 # Distribution / packaging
 .Python
 build/
