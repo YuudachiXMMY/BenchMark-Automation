@@ -11,11 +11,6 @@ BloodHoundScripts/
 */BloodHoundScripts/
 BloodHoundScripts/*
 
-# builds/*/BloodHoundScripts/
-# builds/buildTest/BloodHoundScripts/
-# builds/resources/BloodHoundScripts/
-# builds/Build_*/BloodHoundScripts/
-
 */BloodHoundScripts.7z
 BloodHoundScripts.7z
 
@@ -27,7 +22,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-## lib/
+lib/
 lib64/
 parts/
 sdist/

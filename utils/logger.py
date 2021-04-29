@@ -32,7 +32,7 @@ def logger(logName, dir=''):
             os.makedirs(log_path)
 
         fh = logging.FileHandler(log_path + "_" + logName + '.log', mode='w')
-        fh.setLevel(logging.ERROR) # 输出到file的log等级的开关
+        fh.setLevel(logging.INFO) # 输出到file的log等级的开关
         ch = logging.StreamHandler()
         ch.setLevel(logging.WARNING)  # 输出到console的log等级的开关
         # 第三步，定义handler的输出格式
