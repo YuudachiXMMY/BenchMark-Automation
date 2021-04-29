@@ -93,10 +93,10 @@ def dealWinDumps():
     '''
     Move and log Windows' dump files
     '''
-    src = u.detectCrashDumps()
-    if src != []:
+    src1, src2 = u.detectCrashDumps()
+    if src1+src2 != []:
         logger.info("Crash Dump Detected!")
-        dump = u.dealCrashDumps("")
+        dump = u.dealCrashDumps()
         logger.info("Crash Dump Copied to: %s"%CRASHDUMP_LOC)
 
 def startScripts():
