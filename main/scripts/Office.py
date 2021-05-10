@@ -79,6 +79,8 @@ def startGame():
     ## Give 25 sec for the game to start
     print("Waiting for game to start...")
 
+    time.sleep(50)
+
     ####################################################################################
     # Start Game
     loop = LOOP_TIMES
@@ -158,7 +160,7 @@ def start():
                 # except Exception:
                 #     logger.debug('Killing process: Office.main()')
         logger.info("Finish Office")
-        print("###### Finish %s ######"%GAME_NAME)
+        print("###### Finish Office ######")
         return statC
     except Exception:
         logger.error('Unknown Error: Office.main()', exc_info=True)
