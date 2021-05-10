@@ -1,6 +1,6 @@
 # BenchMark-Automation
 
-[![Latest Release - Downloads](https://img.shields.io/github/downloads/YuudachiXMMY/BenchMark-Automation/v4.14.2021-beta.1/total)](https://github.com/YuudachiXMMY/BenchMark-Automation/releases)
+[![Latest Release - Downloads](https://img.shields.io/github/downloads/YuudachiXMMY/BenchMark-Automation/v4.29.2021-beta.2/total)](https://github.com/YuudachiXMMY/BenchMark-Automation/releases)
 
 ## Release
 
