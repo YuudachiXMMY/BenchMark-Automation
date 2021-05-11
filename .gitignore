@@ -18,9 +18,8 @@ BloodHoundScripts.7z
 builds/release
 builds/releases
 
-Logs/
-resources/testFiles/
-resources/office/
+Logs/*
+resources/office/*
 
 # Distribution / packaging
 .Python

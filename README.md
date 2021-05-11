@@ -15,7 +15,7 @@ Download: [Build_4.14_2021.7z](https://github.com/YuudachiXMMY/BenchMark-Automat
 2. Make sure *Python 3* and pip have been added to the system environment.
 
 ### Unpacking:
-I recommend using 7zip to extract the main contents of this program.
+I recommend using [7zip](https://www.7-zip.org/) to extract the main contents of this program.
 
 ### Run program:
 1. Edit `config.json` using any text editor ;
