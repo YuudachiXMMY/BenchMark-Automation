@@ -5,5 +5,8 @@
     "spellright.documentTypes": [
         "markdown",
         "latex"
+    ],
+    "cSpell.words": [
+        "sotr"
     ]
 }

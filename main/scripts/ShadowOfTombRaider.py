@@ -3,6 +3,7 @@ import re
 from re import L
 import time, datetime
 import win32api, win32gui
+import uiautomation as auto
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
@@ -114,11 +115,19 @@ def startGame(reg):
     # return 0, if failed to apply ENTER key on he launcher
     # - otherwise, keep running the process
     tries = 0
+    tmp_gameWindow = "{GAME_NAME} {GAME_VERSION}".format(GAME_NAME=GAME_NAME, GAME_VERSION=GAME_VERSION)
     while utils.screen.findWindow(GAME_NAME):
-        time.sleep(3)
-        utils.keyboardUtils.callTinyTask("enter")
 
-        gameHD = utils.screen.findWindow("{GAME_NAME} {GAME_VERSION}".format(GAME_NAME=GAME_NAME, GAME_VERSION=GAME_VERSION))
+        logger.info('Opening Game: %s'%GAME_NAME)
+
+        sotr = auto.PaneControl(searchDepth=1,Name=GAME_NAME)
+        sotr.SetTopmost(True)
+        time.sleep(3)
+
+        utils.keyboardUtils.callTinyTask("enter")
+        time.sleep(10)
+
+        gameHD = utils.screen.findWindow(tmp_gameWindow)
         if gameHD:
             tries = 0
             break
@@ -128,6 +137,7 @@ def startGame(reg):
             print("****** Failed to open Game!!! Process stopped ******\n")
             return 0
         tries += 1
+        time.sleep(3)
 
     logger.info(_TAB+'Waiting for game to start')
     ## Give 25 sec for the game to start

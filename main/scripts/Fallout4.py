@@ -2,6 +2,7 @@ import os, sys, subprocess, psutil
 from re import L
 import time, datetime
 import win32api, win32gui, win32con
+import uiautomation as auto
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
@@ -67,7 +68,11 @@ def startGame():
     while utils.screen.findWindow(GAME_NAME):
 
         logger.info('Opening Game: %s'%GAME_NAME)
-        utils.input.clickLeft(1310, 385)
+        # utils.input.clickLeft(1310, 385)
+
+        fallout4 = auto.WindowControl(searchDepth=1,Name='Fallout 4')
+        fallout4.SetTopmost(True)
+        fallout4.ImageControl(foundIndex=4, Name='').Click()
 
         time.sleep(10)
 
