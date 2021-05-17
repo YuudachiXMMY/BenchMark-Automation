@@ -4,8 +4,7 @@
 
 ## Release
 
-### Latest
-Download: [Release_4.29.2021.7z](https://github.com/YuudachiXMMY/BenchMark-Automation/releases/download/v4.29.2021-beta.2/Release_4.29.2021.7z)
+### Latest: [Release_4.29.2021.7z](https://github.com/YuudachiXMMY/BenchMark-Automation/releases/download/v4.29.2021-beta.2/Release_4.29.2021.7z)
 
 
 ## How to use this program:
@@ -21,6 +20,6 @@ Use an unpacking software to extract the build files ([7zip](https://www.7-zip.o
 5. Follow the instructions in the program and have fun :)
 
 
-## [Application Usage](/docs/app/main.md)
+### [Application Usage](/docs/app.MD)
 
-## [Source-Code Usage](/docs/source_code/main.md)
+### [Source-Code Usage](/docs/code.MD)

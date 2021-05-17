@@ -7,6 +7,10 @@
         "latex"
     ],
     "cSpell.words": [
-        "sotr"
+        "sotr",
+        "utils"
+    ],
+    "cSpell.ignoreWords": [
+        "json"
     ]
 }

@@ -1,5 +1,5 @@
-import json
 import os, sys, subprocess, signal
+import json
 import time
 from typing import Tuple
 import psutil
@@ -27,6 +27,7 @@ import main.scripts.Fallout4 as Fallout4
 import main.scripts.Office as Office
 import main.scripts.WeHappyFew as WeHappyFew
 import main.scripts.ApexLegends as ApexLegends
+import main.scripts.DMC5 as DMC5
 
 
 ################################################################################
@@ -82,7 +83,11 @@ def CommandLineParser():
 
 def initializeProgram(language=None, readLocal=None):
     '''
-    Initialize ProgramInfo Object
+    Initialize the global variable PROGRAM by constructing a ProgramInfo Object
+
+    @param:
+        - language - Language to be displayed.
+        - readLocal - True to read local settings; otherwise, use inputted preference.
     '''
     global PROGRAM
 
@@ -151,6 +156,10 @@ def startScripts():
         if "10" in runList:
             dealWinDumps()
             startApexLegends()
+        # Devil May Cry 5
+        if "11" in runList:
+            dealWinDumps()
+            startDMC5()
 
     # Print Overall loop time remained
     if overAllLoop != 0:
@@ -276,6 +285,19 @@ def startApexLegends():
         statusCode = ApexLegends.main(PROGRAM)
     except Exception:
         logger.error('Error in Runing ApexLegends.main()', exc_info=True)
+    else:
+        return statusCode
+
+def startDMC5():
+    '''
+    Start Devil May Cry 5
+    '''
+    ## ApexLegends Script
+    try:
+        logger.info("Starting Devil May Cry 5 Script")
+        statusCode = DMC5.main(PROGRAM)
+    except Exception:
+        logger.error('Error in Runing DMC5.main()', exc_info=True)
     else:
         return statusCode
 

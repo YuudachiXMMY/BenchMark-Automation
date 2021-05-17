@@ -8,7 +8,6 @@ import time
 wc=auto.PaneControl(searchDepth=1,Name="Shadow of the Tomb Raider")
 #设置为顶层
 wc.SetTopmost(True)
-print(a)
 # wc.WindowControl(foundIndex=3, ControlType='Image(50006)', Name='Property does not exist')
 # wc.ButtonControl(Name='7').Click()
 # wc.ButtonControl(Name='加').Click()

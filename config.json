@@ -23,7 +23,7 @@
         "Game_loop" : -1,
         "Stress_Test" : 1,
         "Run_List" : {
-            "1" : "Shadow of Tomb Raider"
+            "11": "Devil May Cry 5"
         }
     },
 
@@ -39,7 +39,8 @@
             "7" : "Fallout 4",
             "8" : "Office",
             "9" : "We Happy Few",
-            "10": "Apex Legends"
+            "10": "Apex Legends",
+            "11": "Devil May Cry 5"
 
         },
         "bhGameList" : [

@@ -20,9 +20,9 @@ stressTest = True
 
 # Global Variable
 WORKING_DIRECTORY = os.getcwd()
-GAME_DIRECTORY = "SSTTEEAAMM"
-GAME_EXECUTOR = "SSTTEEAAMM.exe"
-GAME_NAME = "SSTTEEAAMM"
+GAME_DIRECTORY = "Devil May Cry 5"
+GAME_EXECUTOR = "DevilMayCry5.exe"
+GAME_NAME = "Devil May Cry 5"
 
 DOCUMENT_ROOT = "" #NOT IN USE
 STEAM_DIRECTORY = ""
@@ -30,16 +30,7 @@ LOOP_TIMES = 0
 STRESS_TEST = False
 PG = ProgramInfo.ProgramInfo(typeDeclear=True)
 
-logger = utils.logger.logger("SSTTEEAAMM", dir="scripts")
-
-# Helper Methods
-def resetMouse():
-    '''
-    Reset the mouse position to top-left, by calling the .exe file in "keyassist" folder made by tinytask
-    - return 0, if failed
-    - return 1, if succeed
-    '''
-    return win32api.ShellExecute(1, 'open', '%s/keyassist/reset_mouse.exe'%WORKING_DIRECTORY, '', '', 1)
+logger = utils.logger.logger("Devil May Cry 5", dir="scripts")
 
 # Main
 def startGame():
@@ -48,50 +39,27 @@ def startGame():
     '''
     exeFile = r'{STEAM_DIRECTORY}//{GAME_DIRECTORY}//{GAME_EXECUTOR}'.format(STEAM_DIRECTORY=STEAM_DIRECTORY, GAME_DIRECTORY=GAME_DIRECTORY, GAME_EXECUTOR=GAME_EXECUTOR)
 
-    ## Start game launcher
+    ## Start game
     # - return 0 and end the whole process, if failed
     # - otherwise, keep running the process
     tries = 10
     while tries != 0:
-        logger.info("Opening Game Launcher")
+        logger.info("Opening Game")
         startGame = win32api.ShellExecute(1, 'open', exeFile, '', '', 1)
         if tries == 1 and not startGame:
-            screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "OpenLauncherFailed")
-            logger.error('Opening Game Launcher Failed! Screenshoot Created: %s'%screenShootName)
-            print("****** Failed to open Game Launcher!!! Process stopped ******\n")
+            screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "OpenGameFailed")
+            logger.error('Opening Game Failed! Screenshoot Created: %s'%screenShootName)
+            print("****** Failed to open Game!!! Process stopped ******\n")
             return 0
         if startGame:
-            logger.info("Open Game Launcher Succeed")
-            print("Open Game Launcher Succeed!!")
+            logger.info("Open Game Succeed")
+            print("Open Game Succeed!!")
             break
         else:
             tries -= 1
             time.sleep(1)
 
     time.sleep(10)
-
-    ## Apply ENTER on the launcher to start game
-    # return 0, if failed to apply ENTER key on he launcher
-    # - otherwise, keep running the process
-    tries = 0
-    while utils.screen.findWindow(GAME_NAME):
-
-        logger.info('Opening Game: %s'%GAME_NAME)
-        utils.input.clickLeft(1310, 385)
-
-        time.sleep(10)
-
-        gameHD = utils.screen.findWindow("SSTTEEAAMM")
-        if gameHD:
-            tries = 0
-            break
-        elif tries > 10:
-            screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "OpenGameFailed")
-            logger.error('Opening Game Failed! Screenshoot Created: %s'%screenShootName)
-            print("****** Failed to open Game!!! Process stopped ******\n")
-            return 0
-        tries += 1
-        time.sleep(3)
 
     logger.info(_TAB+'Waiting for game to start')
     ## Give 25 sec for the game to start
@@ -104,18 +72,10 @@ def startGame():
     while(loop!=0):
         time.sleep(5)
 
-        # Skip Press button to start
-        tmp = 10
-        while(tmp!=0):
-            time.sleep(0.5)
-            tmp = tmp - 1
-            utils.input.clickLeft(960, 540)
-
-        time.sleep(20)
-
         utils.keyboardUtils.press_enter()
         time.sleep(10)
         utils.keyboardUtils.press_enter()
+        time.sleep(60)
 
         logger.info(_TAB+'Starting Testing')
         print("Start Testing...")
@@ -160,30 +120,30 @@ def start():
         try:
             statusCode = startGame()
         except Exception:
-            logger.error('Unknown Error: SSTTEEAAMM.main()', exc_info=True)
+            logger.error('Unknown Error: Devil May Cry 5.main()', exc_info=True)
         else:
             if statusCode == 0:
-                logger.error('SSTTEEAAMM: OpenLauncherFailed', exc_info=True)
+                logger.error('Devil May Cry 5: OpenLauncherFailed', exc_info=True)
                 screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "OverallError")
                 logger.debug(_TAB+'Screenshoot Created: %s'%screenShootName)
                 print("****** Something went wrong!!! Process Stopped ******\n")
                 return 0
             # try:
-            #     logger.info('Killing process: SSTTEEAAMM.main()')
+            #     logger.info('Killing process: Devil May Cry 5.main()')
             #     gameHD = win32gui.FindWindow("{GAME_NAME}".format(GAME_NAME=GAME_NAME))
             #     if gameHD != 0:
             #         statC = u.killProgress("launcher.exe")
             # except Exception:
-            #     logger.debug('Killing process: SSTTEEAAMM.main()')
-        logger.info("Finish SSTTEEAAMM")
+            #     logger.debug('Killing process: Devil May Cry 5.main()')
+        logger.info("Finish Devil May Cry 5")
         print("###### Finish %s ######"%GAME_NAME)
         return statC
     except Exception:
-        logger.error('Unknown Error: SSTTEEAAMM.main()', exc_info=True)
+        logger.error('Unknown Error: Devil May Cry 5.main()', exc_info=True)
 
 def main(pg):
     '''
-    Main function for SSTTEEAAMM automation
+    Main function for Devil May Cry 5 automation
     '''
     global PG
     PG = pg
