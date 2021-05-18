@@ -64,7 +64,7 @@ def startGame():
     logger.info(_TAB+'Waiting for game to start')
     ## Give 25 sec for the game to start
     print("Waiting for game to start...")
-    time.sleep(60)
+    time.sleep(120)
 
     ####################################################################################
     # Start Game
