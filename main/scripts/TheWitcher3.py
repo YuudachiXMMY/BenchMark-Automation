@@ -90,7 +90,8 @@ def startGame():
         utils.keyboardUtils.callTinyTask("space")
         time.sleep(5)
         utils.keyboardUtils.callTinyTask("e")
-        time.sleep(5)
+
+        time.sleep(30)
 
         logger.info(_TAB+'Starting Testing')
         print("Start Testing...")

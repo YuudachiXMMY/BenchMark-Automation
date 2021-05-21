@@ -36,10 +36,11 @@ RANDOM_KEY_LIST = [
     "s",
     "d",
     "e",
-    "spacebar",
+    "space",
     "left_click",
     "right_click"
 ]
+    # "spacebar",
 
 MOUSE_LIST = [
     "left_click",
@@ -176,7 +177,9 @@ def keyCharacterControl(action, keyTime):
         - action: action to perform
         - keyTime: duration to perform the key time
     '''
-    utils.input.key_input(action, keyTime)
+    # utils.input.key_input(action, keyTime)
+    callTinyTask(action)
+    time.sleep(keyTime)
     return keyTime
 
 def callTinyTask(TinyTaskFile):

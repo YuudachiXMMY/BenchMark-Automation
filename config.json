@@ -23,7 +23,7 @@
         "Game_loop" : -1,
         "Stress_Test" : 1,
         "Run_List" : {
-            "12": "The Witcher 3"
+            "13": "The Elder Scrolls 5: Skyrim"
         }
     },
 
@@ -41,7 +41,8 @@
             "9" : "We Happy Few",
             "10": "Apex Legends",
             "11": "Devil May Cry 5",
-            "12": "The Witcher 3"
+            "12": "The Witcher 3",
+            "13": "The Elder Scrolls 5: Skyrim"
 
         },
         "bhGameList" : [

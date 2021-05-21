@@ -1,7 +1,7 @@
-import os, sys, subprocess, psutil
+import os, sys
 from re import L
-import time, datetime
-import win32api, win32gui, win32con
+import time
+import win32api
 import uiautomation as auto
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

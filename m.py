@@ -29,6 +29,7 @@ import main.scripts.WeHappyFew as WeHappyFew
 import main.scripts.ApexLegends as ApexLegends
 import main.scripts.DMC5 as DMC5
 import main.scripts.TheWitcher3 as Witcher3
+import main.scripts.ElderScrolls5 as Skyrim
 
 
 ################################################################################
@@ -165,6 +166,10 @@ def startScripts():
         if "12" in runList:
             dealWinDumps()
             startWitcher3()
+        # THe Elder Scrolls 5
+        if "13" in runList:
+            dealWinDumps()
+            startSkyrim()
 
     # Print Overall loop time remained
     if overAllLoop != 0:
@@ -297,7 +302,6 @@ def startDMC5():
     '''
     Start Devil May Cry 5
     '''
-    ## ApexLegends Script
     try:
         logger.info("Starting Devil May Cry 5 Script")
         statusCode = DMC5.main(PROGRAM)
@@ -310,12 +314,23 @@ def startWitcher3():
     '''
     Start The Witcher 3
     '''
-    ## ApexLegends Script
     try:
         logger.info("Starting The Witcher 3 Script")
         statusCode = Witcher3.main(PROGRAM)
     except Exception:
         logger.error('Error in Runing Witcher3.main()', exc_info=True)
+    else:
+        return statusCode
+
+def startSkyrim():
+    '''
+    Start The Elder Scrolls 5
+    '''
+    try:
+        logger.info("Starting The Elder Scrolls 5 Script")
+        statusCode = Skyrim.main(PROGRAM)
+    except Exception:
+        logger.error('Error in Runing Skyrim.main()', exc_info=True)
     else:
         return statusCode
 
