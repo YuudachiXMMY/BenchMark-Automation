@@ -114,7 +114,7 @@ def startGame():
 
     # Quit Game
     time.sleep(10)
-    # utils.keyboardUtils.press_alt_f4()
+    # utils.input.key_alt_f4()
     utils.input.key_alt_f4()
     time.sleep(2)
     # utils.input.key_enter() #Save to default folder

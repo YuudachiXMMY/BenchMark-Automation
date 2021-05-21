@@ -69,6 +69,24 @@ def key_space(t=0.5):
     '''
     key_input("spacebar", t)
 
+def key_esc(t=0.5):
+    '''
+    Perform a key action of ENTER.
+
+    @param:
+        - t - time period in second between pressdown and pressup (default to 0.05).
+    '''
+    key_input("esc", t)
+
+def key_up(t=0.5):
+    '''
+    Perform a key action of ENTER.
+
+    @param:
+        - t - time period in second between pressdown and pressup (default to 0.05).
+    '''
+    key_input("up_arrow", t)
+
 def key_alt_tab(t=0.5):
     '''
     Perform a key action of ALT + TAB.

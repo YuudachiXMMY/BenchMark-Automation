@@ -72,9 +72,9 @@ def startGame():
     while(loop!=0):
         time.sleep(5)
 
-        utils.keyboardUtils.press_enter()
+        utils.input.key_enter()
         time.sleep(10)
-        utils.keyboardUtils.press_enter()
+        utils.input.key_enter()
         time.sleep(60)
 
         logger.info(_TAB+'Starting Testing')
@@ -97,7 +97,7 @@ def startGame():
 
     # Quit Game
     time.sleep(10)
-    # utils.keyboardUtils.press_alt_f4()
+    # utils.input.key_alt_f4()
     utils.input.key_alt_f4()
 
     return startGame

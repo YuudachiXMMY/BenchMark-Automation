@@ -4,7 +4,7 @@
         "CRASHDUMP_LOC" : "C:\\WinDumps",
         "DOCUMENT_ROOT" : "C:/Users//Navi//Documents",
         "STEAM_DIRECTORY" : {
-            "1" : "G:/SteamLibrary/steamapps/common",
+            "1" : "F:/SteamLibrary/steamapps/common",
             "2" : "Doesn't support second Steam Library so Far!!!"
         },
         "ORIGIN_DIRECTORY" : {
@@ -23,7 +23,7 @@
         "Game_loop" : -1,
         "Stress_Test" : 1,
         "Run_List" : {
-            "11": "Devil May Cry 5"
+            "12": "The Witcher 3"
         }
     },
 
@@ -40,7 +40,8 @@
             "8" : "Office",
             "9" : "We Happy Few",
             "10": "Apex Legends",
-            "11": "Devil May Cry 5"
+            "11": "Devil May Cry 5",
+            "12": "The Witcher 3"
 
         },
         "bhGameList" : [

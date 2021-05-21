@@ -28,6 +28,7 @@ import main.scripts.Office as Office
 import main.scripts.WeHappyFew as WeHappyFew
 import main.scripts.ApexLegends as ApexLegends
 import main.scripts.DMC5 as DMC5
+import main.scripts.TheWitcher3 as Witcher3
 
 
 ################################################################################
@@ -160,6 +161,10 @@ def startScripts():
         if "11" in runList:
             dealWinDumps()
             startDMC5()
+        # The Witcher 3
+        if "12" in runList:
+            dealWinDumps()
+            startWitcher3()
 
     # Print Overall loop time remained
     if overAllLoop != 0:
@@ -298,6 +303,19 @@ def startDMC5():
         statusCode = DMC5.main(PROGRAM)
     except Exception:
         logger.error('Error in Runing DMC5.main()', exc_info=True)
+    else:
+        return statusCode
+
+def startWitcher3():
+    '''
+    Start The Witcher 3
+    '''
+    ## ApexLegends Script
+    try:
+        logger.info("Starting The Witcher 3 Script")
+        statusCode = Witcher3.main(PROGRAM)
+    except Exception:
+        logger.error('Error in Runing Witcher3.main()', exc_info=True)
     else:
         return statusCode
 

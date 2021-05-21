@@ -113,9 +113,9 @@ def startGame():
 
         time.sleep(20)
 
-        utils.keyboardUtils.press_enter()
+        utils.input.key_enter()
         time.sleep(10)
-        utils.keyboardUtils.press_enter()
+        utils.input.key_enter()
 
         logger.info(_TAB+'Starting Testing')
         print("Start Testing...")
@@ -137,7 +137,7 @@ def startGame():
 
     # Quit Game
     time.sleep(10)
-    # utils.keyboardUtils.press_alt_f4()
+    # utils.input.key_alt_f4()
     utils.input.key_alt_f4()
 
     return startGame
