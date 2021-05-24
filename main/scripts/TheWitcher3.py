@@ -46,7 +46,6 @@ def startGame():
     '''
     Scripts to start benchmarking
     '''
-    print(BASE_DIR)
     # exeFile = r'{STEAM_DIRECTORY}//{GAME_DIRECTORY}//bin//x64//{GAME_EXECUTOR}'.format(STEAM_DIRECTORY=STEAM_DIRECTORY, GAME_DIRECTORY=GAME_DIRECTORY, GAME_EXECUTOR=GAME_EXECUTOR)
     exeFile = '{STEAM_DIRECTORY}//{GAME_DIRECTORY}//bin//x64//'.format(STEAM_DIRECTORY=STEAM_DIRECTORY, GAME_DIRECTORY=GAME_DIRECTORY)
 
@@ -54,24 +53,24 @@ def startGame():
     # - return 0 and end the whole process, if failed
     # - otherwise, keep running the process
     tries = 10
-    while tries != 0:
-        logger.info("Opening Game")
-        os.chdir(exeFile)
-        os.system(GAME_EXECUTOR)
-        break
-        # startGame = win32api.ShellExecute(1, 'open', exeFile, '', '', 1)
-        if tries == 1:
-            screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "OpenFailed")
-            logger.error('Opening Game Failed! Screenshoot Created: %s'%screenShootName)
-            print("****** Failed to open Game!!! Process stopped ******\n")
-            return 0
-        if startGame:
-            logger.info("Open Game Succeed")
-            print("Open Game Succeed!!")
-            break
-        else:
-            tries -= 1
-            time.sleep(1)
+    logger.info("Opening Game")
+    os.chdir(exeFile)
+    os.system("start %s"%GAME_EXECUTOR)
+    # while tries != 0:
+    #     logger.info("Opening Game")
+    #     startGame = win32api.ShellExecute(1, 'open', exeFile, '', '', 1)
+    #     if tries == 1:
+    #         screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "OpenFailed")
+    #         logger.error('Opening Game Failed! Screenshoot Created: %s'%screenShootName)
+    #         print("****** Failed to open Game!!! Process stopped ******\n")
+    #         return 0
+    #     if startGame:
+    #         logger.info("Open Game Succeed")
+    #         print("Open Game Succeed!!")
+    #         break
+    #     else:
+    #         tries -= 1
+    #         time.sleep(1)
 
     logger.info(_TAB+'Waiting for game to start')
     ## Give 25 sec for the game to start
