@@ -30,6 +30,9 @@ import main.scripts.ApexLegends as ApexLegends
 import main.scripts.DMC5 as DMC5
 import main.scripts.TheWitcher3 as Witcher3
 import main.scripts.ElderScrolls5 as Skyrim
+import main.scripts.FFXIV2 as FFXIV2
+import main.scripts.FFXIV3 as FFXIV3
+import main.scripts.FFXIV4 as FFXIV4
 
 
 ################################################################################
@@ -170,6 +173,18 @@ def startScripts():
         if "13" in runList:
             dealWinDumps()
             startSkyrim()
+        # FINAL FANTASY XIV: 2
+        if "14" in runList:
+            dealWinDumps()
+            startFFXIV2()
+        # FINAL FANTASY XIV: Heavensward Benchmark
+        if "15" in runList:
+            dealWinDumps()
+            startFFXIV3()
+        # FINAL FANTASY XIV: Stormblood Benchmark
+        if "16" in runList:
+            dealWinDumps()
+            startFFXIV4()
 
     # Print Overall loop time remained
     if overAllLoop != 0:
@@ -331,6 +346,42 @@ def startSkyrim():
         statusCode = Skyrim.main(PROGRAM)
     except Exception:
         logger.error('Error in Runing Skyrim.main()', exc_info=True)
+    else:
+        return statusCode
+
+def startFFXIV2():
+    '''
+    Start FINAL FANTASY XIV: 2
+    '''
+    try:
+        logger.info("Starting FINAL FANTASY XIV: 2 Script")
+        statusCode = FFXIV2.main(PROGRAM)
+    except Exception:
+        logger.error('Error in Runing FFXIV2.main()', exc_info=True)
+    else:
+        return statusCode
+
+def startFFXIV3():
+    '''
+    Start FINAL FANTASY XIV: Heavensward Benchmark
+    '''
+    try:
+        logger.info("Starting FINAL FANTASY XIV: Heavensward Benchmark Script")
+        statusCode = FFXIV3.main(PROGRAM)
+    except Exception:
+        logger.error('Error in Runing FFXIV3.main()', exc_info=True)
+    else:
+        return statusCode
+
+def startFFXIV4():
+    '''
+    Start FINAL FANTASY XIV: Stormblood Benchmark
+    '''
+    try:
+        logger.info("Starting FINAL FANTASY XIV: Stormblood Benchmark Script")
+        statusCode = FFXIV4.main(PROGRAM)
+    except Exception:
+        logger.error('Error in Runing FFXIV4.main()', exc_info=True)
     else:
         return statusCode
 

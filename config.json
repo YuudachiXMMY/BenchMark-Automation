@@ -15,7 +15,11 @@
         "SniperEliteV2_Benchmark_Directory" : "C://Program Files (x86)//Rebellion//SniperEliteV2 Benchmark//bin",
         "AvP_D3D11_Directory" : "C://Program Files (x86)//Rebellion//AvP D3D11 Benchmark",
         "GenshinImpact_Directory" : "C://Program Files//Genshin Impact",
-        "Office_Directory" : "C://ProgramData//Microsoft//Windows//Start Menu//Programs"
+        "Office_Directory" : "C://ProgramData//Microsoft//Windows//Start Menu//Programs",
+        "FFXIV2_Directory" : "C://Users//Navi//Desktop//FFXIVBenchmark",
+        "FFXIV3_Directory" : "C://Users//Navi//Desktop//Final Fantasy XIV - Heavensward Benchmark",
+        "FFXIV4_Directory" : "C://Users//Navi//Desktop//ffxiv-bench",
+        "FFXIV5_Directory" : "C://Users//Navi//Desktop//ffxiv-bench"
     },
 
     "RUN" : {
@@ -23,8 +27,9 @@
         "Game_loop" : -1,
         "Stress_Test" : 1,
         "Run_List" : {
-            "12": "The Witcher 3",
-            "13": "The Elder Scrolls 5: Skyrim"
+            "14": "FINAL FANTASY XIV: 2 Benchmark",
+            "15": "FINAL FANTASY XIV: Heavensward Benchmark",
+            "16": "FINAL FANTASY XIV: Stormblood Benchmark"
         }
     },
 
@@ -43,7 +48,11 @@
             "10": "Apex Legends",
             "11": "Devil May Cry 5 (Banned by Steam AntiCheat)",
             "12": "The Witcher 3",
-            "13": "The Elder Scrolls 5: Skyrim"
+            "13": "The Elder Scrolls 5: Skyrim",
+            "14": "FINAL FANTASY XIV: 2 Benchmark",
+            "15": "FINAL FANTASY XIV: Heavensward Benchmark",
+            "16": "FINAL FANTASY XIV: Stormblood Benchmark",
+            "17": "FINAL FANTASY XIV: Shadow"
 
         },
         "bhGameList" : [

@@ -19,7 +19,11 @@ builds/release
 builds/releases
 
 Logs/*
-resources/office/*
+
+# Office Files
+*.csv
+*.xlsx
+*.docx
 
 # Distribution / packaging
 .Python

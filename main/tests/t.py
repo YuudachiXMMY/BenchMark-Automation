@@ -5,9 +5,9 @@ import time
 
 #打开计算器进程
 #定位窗口
-wc=auto.PaneControl(searchDepth=1,Name="Shadow of the Tomb Raider")
-#设置为顶层
-wc.SetTopmost(True)
+FFXIV3 = auto.PaneControl(searchDepth=1,Name='FINAL FANTASY XIV: Heavensward Benchmark')
+FFXIV3.SetTopmost(True)
+FFXIV3.ButtonControl(foundIndex=16, Name='').Click()
 # wc.WindowControl(foundIndex=3, ControlType='Image(50006)', Name='Property does not exist')
 # wc.ButtonControl(Name='7').Click()
 # wc.ButtonControl(Name='加').Click()
