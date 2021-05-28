@@ -88,7 +88,7 @@ def startGame():
         print("Start Testing...")
 
         ## Perform normal Character control for 5 min
-        utils.keyboardUtils.normBenchmarking(20)
+        utils.keyboardUtils.normBenchmarking(300)
 
         if loop == -1:
             break
