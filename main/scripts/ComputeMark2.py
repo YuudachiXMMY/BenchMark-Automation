@@ -3,6 +3,7 @@ import re
 from re import L
 import time, datetime
 import win32api, win32gui, win32con
+import uiautomation as auto
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
@@ -20,9 +21,8 @@ stressTest = True
 
 # Global Variable
 WORKING_DIRECTORY = os.getcwd()
-GAME_DIRECTORY = "SSTTEEAAMM"
-GAME_EXECUTOR = "SSTTEEAAMM.exe"
-GAME_NAME = "SSTTEEAAMM"
+GAME_EXECUTOR = "ComputeMark.exe"
+GAME_NAME = "ComputeMark"
 
 DOCUMENT_ROOT = "" #NOT IN USE
 STEAM_DIRECTORY = ""
@@ -30,7 +30,7 @@ LOOP_TIMES = 0
 STRESS_TEST = False
 PG = ProgramInfo.ProgramInfo(typeDeclear=True)
 
-logger = utils.logger.logger("SSTTEEAAMM", dir="scripts")
+logger = utils.logger.logger("ComputeMark", dir="scripts")
 
 # Helper Methods
 def resetMouse():
@@ -46,7 +46,7 @@ def startGame():
     '''
     Scripts to start benchmarking
     '''
-    exeFile = r'{STEAM_DIRECTORY}//{GAME_DIRECTORY}//{GAME_EXECUTOR}'.format(STEAM_DIRECTORY=STEAM_DIRECTORY, GAME_DIRECTORY=GAME_DIRECTORY, GAME_EXECUTOR=GAME_EXECUTOR)
+    exeFile = r'{STEAM_DIRECTORY}//{GAME_EXECUTOR}'.format(STEAM_DIRECTORY=STEAM_DIRECTORY, GAME_EXECUTOR=GAME_EXECUTOR)
 
     ## Start game launcher
     # - return 0 and end the whole process, if failed
@@ -68,31 +68,6 @@ def startGame():
             tries -= 1
             time.sleep(1)
 
-    time.sleep(10)
-
-    ## Apply ENTER on the launcher to start game
-    # return 0, if failed to apply ENTER key on he launcher
-    # - otherwise, keep running the process
-    tries = 0
-    while utils.screen.findWindow(GAME_NAME):
-
-        logger.info('Opening Game: %s'%GAME_NAME)
-        utils.input.clickLeft(1310, 385)
-
-        time.sleep(10)
-
-        gameHD = utils.screen.findWindow("SSTTEEAAMM")
-        if gameHD:
-            tries = 0
-            break
-        elif tries > 10:
-            screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "OpenGameFailed")
-            logger.error('Opening Game Failed! Screenshoot Created: %s'%screenShootName)
-            print("****** Failed to open Game!!! Process stopped ******\n")
-            return 0
-        tries += 1
-        time.sleep(3)
-
     logger.info(_TAB+'Waiting for game to start')
     ## Give 25 sec for the game to start
     print("Waiting for game to start...")
@@ -104,12 +79,23 @@ def startGame():
     while(loop!=0):
         time.sleep(5)
 
-        # Skip Press button to start
-        tmp = 10
-        while(tmp!=0):
-            time.sleep(0.5)
-            tmp = tmp - 1
-            utils.input.clickLeft(960, 540)
+        cm = auto.WindowControl(searchDepth=1,Name='ComputeMark')
+        cm.SetTopmost(True)
+
+        # Choose Resolution: 1920x1080
+        cm.ComboBoxControl(foundIndex=1, Name='').Click()
+        cm.ListControl(foundIndex=1, Name='').Click()
+
+        cm.SetTopmost(True)
+        # Choose Preset: Extreme
+        cm.ComboBoxControl(foundIndex=2, Name='').Click()
+        cm.ListControl(foundIndex=1, Name='').Click()
+
+        # Choose Fullscreen
+        cm.CheckBoxControl(Name='Fullscreen').Click()
+
+        # Run
+        cm.ButtonControl(Name='Run benchmark').Click()
 
         time.sleep(20)
 
@@ -123,7 +109,7 @@ def startGame():
         print("Start Testing...")
 
         ## Perform random Character control for 5 min
-        utils.keyboardUtils.randomCharacterControl(300)
+        utils.keyboardUtils.normBenchmarking(300)
 
         if loop == -1:
             break
@@ -139,8 +125,9 @@ def startGame():
 
     # Quit Game
     time.sleep(10)
-    # utils.input.key_alt_f4()
-    utils.input.key_alt_f4()
+    utils.input.key_esc()
+    time.sleep(10)
+    utils.input.key_esc()
 
     return startGame
 
@@ -162,30 +149,30 @@ def start():
         try:
             statusCode = startGame()
         except Exception:
-            logger.error('Unknown Error: SSTTEEAAMM.main()', exc_info=True)
+            logger.error('Unknown Error: ComputeMark.main()', exc_info=True)
         else:
             if statusCode == 0:
-                logger.error('SSTTEEAAMM: OpenLauncherFailed', exc_info=True)
+                logger.error('ComputeMark: OpenLauncherFailed', exc_info=True)
                 screenShootName=utils.screen.saveScreenShoot(GAME_NAME, "OverallError")
                 logger.debug(_TAB+'Screenshoot Created: %s'%screenShootName)
                 print("****** Something went wrong!!! Process Stopped ******\n")
                 return 0
             # try:
-            #     logger.info('Killing process: SSTTEEAAMM.main()')
+            #     logger.info('Killing process: ComputeMark.main()')
             #     gameHD = win32gui.FindWindow("{GAME_NAME}".format(GAME_NAME=GAME_NAME))
             #     if gameHD != 0:
             #         statC = u.killProgress("launcher.exe")
             # except Exception:
-            #     logger.debug('Killing process: SSTTEEAAMM.main()')
-        logger.info("Finish SSTTEEAAMM")
+            #     logger.debug('Killing process: ComputeMark.main()')
+        logger.info("Finish ComputeMark")
         print("###### Finish %s ######"%GAME_NAME)
         return statC
     except Exception:
-        logger.error('Unknown Error: SSTTEEAAMM.main()', exc_info=True)
+        logger.error('Unknown Error: ComputeMark.main()', exc_info=True)
 
 def main(pg):
     '''
-    Main function for SSTTEEAAMM automation
+    Main function for ComputeMark automation
     '''
     global PG
     PG = pg

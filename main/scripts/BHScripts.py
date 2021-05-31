@@ -6,7 +6,7 @@ overallScript = r"\\RunBloodHound.ps1"
 scripts = (script_path+r"Scripts\\")
 POWERSHELL = r"C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"
 
-Borderlands3 = r"Borderlands3_Benchmark.ps1"
+Borderlands3 = r"Borderlands3.ps1"
 Civilization6 = r"Civilization6.ps1"
 CSGO = r"CounterStrikeGo.ps1"
 DoomEternal = r"DoomEternal.ps1"

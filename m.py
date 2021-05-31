@@ -33,6 +33,7 @@ import main.scripts.ElderScrolls5 as Skyrim
 import main.scripts.FFXIV2 as FFXIV2
 import main.scripts.FFXIV3 as FFXIV3
 import main.scripts.FFXIV4 as FFXIV4
+import main.scripts.ComputeMark2 as ComputeMark2
 
 
 ################################################################################
@@ -185,6 +186,14 @@ def startScripts():
         if "16" in runList:
             dealWinDumps()
             startFFXIV4()
+        # FINAL FANTASY XIV: Shadow
+        if "17" in runList:
+            dealWinDumps()
+            # startFFXIV4()
+        # ComputeMark2
+        if "18" in runList:
+            dealWinDumps()
+            startCM2()
 
     # Print Overall loop time remained
     if overAllLoop != 0:
@@ -382,6 +391,18 @@ def startFFXIV4():
         statusCode = FFXIV4.main(PROGRAM)
     except Exception:
         logger.error('Error in Runing FFXIV4.main()', exc_info=True)
+    else:
+        return statusCode
+
+def startCM2():
+    '''
+    Start ComputeMark2
+    '''
+    try:
+        logger.info("Starting ComputeMark2")
+        statusCode = ComputeMark2.main(PROGRAM)
+    except Exception:
+        logger.error('Error in Runing ComputeMark2.main()', exc_info=True)
     else:
         return statusCode
 

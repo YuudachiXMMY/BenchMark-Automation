@@ -7,12 +7,7 @@ __pycache__/
 *.so
 
 # AMD Confidential
-BloodHoundScripts/
-*/BloodHoundScripts/
-BloodHoundScripts/*
-
-*/BloodHoundScripts.7z
-BloodHoundScripts.7z
+BHScripts.py
 
 # Releases NOT IN ZIP
 builds/release

@@ -4,6 +4,20 @@
 import uiautomation as auto
 
 
-fallout4 = auto.PaneControl(searchDepth=1,Name='FINAL FANTASY XIV: Stormblood Benchmark')
-fallout4.SetTopmost(True)
-fallout4.ButtonControl(foundIndex=16, Name='').Click()
+cm = auto.WindowControl(searchDepth=1,Name='ComputeMark')
+cm.SetTopmost(True)
+
+# Choose Resolution: 1920x1080
+cm.ComboBoxControl(foundIndex=1, Name='').Click()
+cm.ListControl(foundIndex=1, Name='').Click()
+
+cm.SetTopmost(True)
+# Choose Preset: Extreme
+cm.ComboBoxControl(foundIndex=2, Name='').Click()
+cm.ListControl(foundIndex=1, Name='').Click()
+
+# Choose Fullscreen
+cm.CheckBoxControl(Name='Fullscreen').Click()
+
+# Run
+cm.ButtonControl(Name='Run benchmark').Click()

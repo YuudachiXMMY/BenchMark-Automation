@@ -9,3 +9,4 @@
 2021-05-24 16:20:24.700 ElderScrolls5.py[86] startGame -> Find Control Timeout: {Name: '', ControlType: ImageControl}
 2021-05-24 16:21:17.784 ElderScrolls5.py[86] startGame -> Find Control Timeout: {Name: '', ControlType: ImageControl}
 2021-05-27 16:18:22.868 t.py[8] <module> -> Find Control Timeout: {Name: 'FINAL FANTASY XIV: Stormblood Benchmark', ControlType: WindowControl}
+2021-05-31 12:58:11.995 t.py[17] <module> -> Find Control Timeout: {Name: '', ControlType: ListItemControl}
