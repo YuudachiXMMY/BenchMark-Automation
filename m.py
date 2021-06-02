@@ -34,6 +34,8 @@ import main.scripts.FFXIV2 as FFXIV2
 import main.scripts.FFXIV3 as FFXIV3
 import main.scripts.FFXIV4 as FFXIV4
 import main.scripts.ComputeMark2 as ComputeMark2
+## TODO: Import your New Game's script
+# import main.scripts.GameName as GameName
 
 
 ################################################################################
@@ -194,6 +196,14 @@ def startScripts():
         if "18" in runList:
             dealWinDumps()
             startCM2()
+
+        ## TODO: For new Games
+        ## Please replace the "GameName"
+        ## "NUMBER" is the number in the values of ["RUN"]["Run_List"] in config.json
+        # GameName
+        # if "NUMBER" in runList:
+        #     dealWinDumps()
+        #     startGameName()
 
     # Print Overall loop time remained
     if overAllLoop != 0:
@@ -403,6 +413,20 @@ def startCM2():
         statusCode = ComputeMark2.main(PROGRAM)
     except Exception:
         logger.error('Error in Runing ComputeMark2.main()', exc_info=True)
+    else:
+        return statusCode
+
+## TODO: For new Games
+## Please replace the "GameName"
+def startGameName():
+    '''
+    Start GameName
+    '''
+    try:
+        logger.info("Starting GameName")
+        statusCode = GameName.main(PROGRAM)
+    except Exception:
+        logger.error('Error in Runing GameName.main()', exc_info=True)
     else:
         return statusCode
 

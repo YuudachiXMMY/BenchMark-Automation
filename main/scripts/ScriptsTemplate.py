@@ -9,7 +9,8 @@ from uiautomation.uiautomation import DocumentControl
 import win32api
 import uiautomation as auto
 
-## import re, subprocess, psutil, datetime
+# Optional Libraries
+import re, subprocess, psutil, datetime
 import win32gui, win32con
 
 # To recognize the path of local libraries
@@ -167,7 +168,7 @@ def startGame():
         ## [Method 3] Call a combination of actions recorded by TinyTask
         # The combination of actions should be an ".exe" file
         # under the folder ".\resources\tinytask\"
-        utils.keyboardUtils.callTinyTask("xxx")
+        utils.keyboardUtils.callTinyTask("")
 
 
         ## [Method 4] Detect the buttons Position by using UIAutomation
@@ -260,6 +261,8 @@ def startGame():
     ## TODO: Actions need to be taken to Quit Game
     # Can use alternative methods, just like we've did above for Game Launcher
     utils.input.key_alt_f4()
+    utils.input.key_
+    utils.input.key_enter()
     # utils.keyboardUtils.callTinyTask("alt_f4")
 
     return startGame

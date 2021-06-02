@@ -27,14 +27,6 @@
         "Game_loop" : -1,
         "Stress_Test" : 1,
         "Run_List" : {
-            "2" : "Sid Meier's Civilization VI",
-            "3" : "SniperEliteV2 Benchmark",
-            "5" : "BH Scripts",
-            "6" : "Genshin Impact",
-            "7" : "Fallout 4",
-            "14": "FINAL FANTASY XIV: 2 Benchmark",
-            "15": "FINAL FANTASY XIV: Heavensward Benchmark",
-            "16": "FINAL FANTASY XIV: Stormblood Benchmark"
         }
     },
 
@@ -58,7 +50,8 @@
             "15": "FINAL FANTASY XIV: Heavensward Benchmark",
             "16": "FINAL FANTASY XIV: Stormblood Benchmark",
             "17": "FINAL FANTASY XIV: Shadow",
-            "18": "ComputeMark2"
+            "18": "ComputeMark2",
+            "19": "ComputeMark2"
 
         },
         "bhGameList" : [
