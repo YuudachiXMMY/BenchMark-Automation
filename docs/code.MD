@@ -38,7 +38,8 @@ Work as the main program, calling other modules and scripts to work together.
 ## Structure
 
 
-```mermaidgraph LR
+```mermaidgraph
+    graph LR
     A["__main__"] --> B["CommandLineParser()"]
     B --> C{if CMD_readLocal};
     C -->|Yes| D["initializeProgram(language=_LANGUAGE, readLocal=CMD_readLocal)"];
