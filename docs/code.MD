@@ -20,38 +20,50 @@ pip install ImageGrab
 ```
 
 
-# [_main.py_](/main.py)
+# [_m.py_](/main.py)
 
-Work as the main program, calling other modules to work together.
+Work as the main program, calling other modules and scripts to work together.
 
 ### Modules Utilized
 
 #### Python Modules:
-`os`, `sys`, `subprocess`, `signal`, `json`, `time`, `typing`,
-`win32gui`, `psutil`, `argparse`
-
-```
-import os, sys, subprocess, signal
-import json
-import time
-from typing import Tuple
-import psutil
-import win32gui
-import argparse #传参库
-```
+`os`, `sys`, `time`, `argparse`
 
 #### Local Modules:
 `utils.logger`, `utils.screen`, `utils.sysUtils`, `utils.ProgramInfo`
 
-#### Scripts Modules
-`main.scripts.ShadowOfTombRaider`, `main.scripts.AvP_D3D11`, `main.scripts.SniperEliteV2`, `main.scripts.BHScripts`, `main.scripts.GenshinImpact`,
-`main.scripts.Fallout4`, `main.scripts.Office`, `main.scripts.WeHappyFew`, `main.scripts.ApexLegends`, `main.scripts.DMC5`
+#### Scripts
+`ShadowOfTombRaider`, `AvP_D3D11`, `SniperEliteV2`, `BHScripts`, `GenshinImpact`, `Fallout4`, `Office`, `WeHappyFew`, `ApexLegends`, `DMC5`, `Witcher3`, `Skyrim`, `FFXIV2`, `FFXIV3`, `FFXIV4`, `FFXIV3`, `ComputeMark2`
+
+## Structure
+
+```flow
+st=>start: "__main__"
+op=>operation: `CommandLineParser()`
+op=>operation: `main()`
+
+cond=>condition: if CMD_readLocal
+sub1=>subroutine: initializeProgram（language=_LANGUAGE, readLocal=CMD_readLocal)
+sub2=>subroutine: initializeProgram()
+
+op=>operation: `startScripts()`
+
+st(right)->op(right)->cond->op(right)
+cond(yes)->sub1(top)->op
+cond(no)->sub2(bottom)->op
+```
+<!-- io=>inputoutput: 输入输出框 -->
+<!-- e=>end: 结束框 -->
 
 ## Functions
 
 ### `CommandLineParser()`
 
 Parse parameters directly from Command Line and read them as the local variable.
+
+Set Global Variable:
+- `CMD_readLocal` - used in `main(): initializeProgram(readLocal=CMD_readLocal)`
+- `_LANGUAGE` - used in `main(): initializeProgram(language=_LANGUAGE)`
 
 ### `initializeProgram(language=None, readLocal=None)`
 
@@ -60,6 +72,9 @@ Initialize the _global variable_ `PROGRAM` by constructing a [ProgramInfo](./mai
 #### Parameter:
 1. `language` - Language to be displayed.
 2. `readLocal` - `True` to read local settings; otherwise, use inputted preference.
+
+Set Global Variable:
+- `PROGRAM` - used in as a ProgramInfo Object to parse all Program information
 
 ### `dealWinDumps()`
 

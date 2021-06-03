@@ -20,6 +20,8 @@ Use an unpacking software to extract the build files ([7zip](https://www.7-zip.o
 5. Follow the instructions in the program and have fun :)
 
 
-### [Application Usage](/docs/app.MD)
+### [To use the Application](/docs/app.MD)
 
-### [Source-Code Usage](/docs/code.MD)
+### [To add a new Script](/docs/script.MD)
+
+### [To read the Source-Code](/docs/code.MD)

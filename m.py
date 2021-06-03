@@ -1,14 +1,22 @@
-import os, sys, subprocess, signal
-import json
+
+################################################################################
+############################### Global Variables ###############################
+################################################################################
+## Vital Libraries
+import os, sys
 import time
-from typing import Tuple
-import psutil
-import win32gui
 import argparse #传参库
 
-# 程序基本库
+# Optional Libraries
+import json, subprocess, signal
+import psutil
+import win32gui
+from typing import Tuple
+
+# To recognize the path of local libraries
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
+## Local Libraries
 import utils.logger
 import utils.screen
 import utils.sysUtils as u
@@ -49,9 +57,6 @@ _LANGUAGE = 0
 # Local Variables
 DOCUMENT_ROOT =  ""
 STEAM_DIRECTORY = ""
-SniperElite_DIRECTORY = ""
-AvP_D3D11_DIRECTORY = ""
-GenshinImpact_Directory = ""
 RUN_LIST = list()
 
 # Command Line Variables
@@ -61,7 +66,6 @@ CMD_readLocal = None
 PROGRAM = None
 overAllLoop = 1
 gameLoop = -1
-stressTest = True
 
 CRASHDUMP_LOC = u.read_json("config.json")["DIRECTORIES"]["CRASHDUMP_LOC"]
 
@@ -109,11 +113,9 @@ def dealWinDumps():
     src1, src2 = u.detectCrashDumps()
     if src1+src2 != []:
         logger.warning("Crash Dump Detected!")
-        print("Crash Dump Detected:")
-        print(src1+src2)
+        print(_TAB+src1+src2)
         dump = u.dealCrashDumps()
         logger.warning("Crash Dump Copied to: %s"%CRASHDUMP_LOC)
-        print("Crash Dump Copied to: %s"%CRASHDUMP_LOC)
 
 def startScripts():
     '''
@@ -208,7 +210,6 @@ def startScripts():
     # Print Overall loop time remained
     if overAllLoop != 0:
         logger.info("Total Loop time remained: %s"%loop)
-        print("Total Loop time remained: %s"%loop)
         print("*"*100 + "\n")
 
 
@@ -418,17 +419,17 @@ def startCM2():
 
 ## TODO: For new Games
 ## Please replace the "GameName"
-def startGameName():
-    '''
-    Start GameName
-    '''
-    try:
-        logger.info("Starting GameName")
-        statusCode = GameName.main(PROGRAM)
-    except Exception:
-        logger.error('Error in Runing GameName.main()', exc_info=True)
-    else:
-        return statusCode
+# def startGameName():
+#     '''
+#     Start GameName
+#     '''
+#     try:
+#         logger.info("Starting GameName")
+#         statusCode = GameName.main(PROGRAM)
+#     except Exception:
+#         logger.error('Error in Runing GameName.main()', exc_info=True)
+#     else:
+#         return statusCode
 
 
 ################################################################################
@@ -437,6 +438,7 @@ def startGameName():
 def main():
     '''
     Main program of the script
+    If any exception occurred, exit with 0; otherwise, exit with 1.
     '''
 
     try:
@@ -447,15 +449,20 @@ def main():
     except Exception:
         logger.error("Unknown Error occurred during Initializing")
         print("Unknown Error occurred during Initializing")
+        print("*"*50)
+        input("Press \'ENTER\' to quit:")
+        exit(0)
 
     try:
         startScripts()
     except Exception:
         logger.error("Unknown Error occurred during Running Scripts")
         print("Unknown Error occurred during Running Scripts")
+        print("*"*50)
+        input("Press \'ENTER\' to quit:")
+        exit(0)
 
-    print("*"*50)
-    input("Press \'ENTER\' to quit:")
+    exit(1)
 
 if __name__ == "__main__":
     CommandLineParser()
@@ -465,6 +472,7 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print()
         print("*"*5+' Ctrl+C key input detected. Program Stopped! '+"*"*5)
+        exit(1)
 
     # Kill this program itself
     # os.kill(os.getpid(), signal.SIGKILL)

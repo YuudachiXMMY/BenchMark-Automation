@@ -152,7 +152,7 @@ def dealCrashDumps(tar="C:\\WinDumps"):
                 if searchFile(src, "MEMORY.DMP"):
                     os.system('del '+src_name)
 
-        # TODO: cmd command=> xcopy /s/e "D:\A_FOLDER" "E:\B_FOLDER\"
+        # TODO optional: cmd command=> xcopy /s/e "D:\A_FOLDER" "E:\B_FOLDER\"
         files1, files2 = detectCrashDumps()
 
     ######################################################
