@@ -39,27 +39,20 @@ Work as the main program, calling other modules and scripts to work together.
 
 
 ```mermaid
-graph TD;
-  A-->B;
+graph LR
+    A["__main__"] --> B[`CommandLineParser()`]
+    B --> C{if `CMD_readLocal`};
+    C -->|Yes| D[`initializeProgram(language=_LANGUAGE, readLocal=CMD_readLocal)`];
+    C -->|No| E[`initializeProgram()`];
+    D --> F[startScripts()];
+    E --> F;
+
+    F --> G{except Exception};
+    G -->|Yes| H[`exit 0`];
+    G -->|No| I{except KeyboardInterrupt};
+    I -->|Yes| K[`exit 1`];
+    J -->|No| K[`exit 1`];
 ```
-
-<!-- ```flow
-st=>start: "__main__"
-op=>operation: `CommandLineParser()`
-op=>operation: `main()`
-
-cond=>condition: if CMD_readLocal
-sub1=>subroutine: initializeProgram（language=_LANGUAGE, readLocal=CMD_readLocal)
-sub2=>subroutine: initializeProgram()
-
-op=>operation: `startScripts()`
-
-st(right)->op(right)->cond->op(right)
-cond(yes)->sub1(top)->op
-cond(no)->sub2(bottom)->op
-``` -->
-<!-- io=>inputoutput: 输入输出框 -->
-<!-- e=>end: 结束框 -->
 
 ## Functions
 
