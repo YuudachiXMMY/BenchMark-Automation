@@ -40,11 +40,11 @@ Work as the main program, calling other modules and scripts to work together.
 
 ```mermaid
 graph LR
-    A["__main__"] --> B[`CommandLineParser\(\)`]
+    A["__main__"] --> B[`CommandLineParser`]
     B --> C{if `CMD_readLocal`};
     C -->|Yes| D[`initializeProgram(language=_LANGUAGE, readLocal=CMD_readLocal)`];
-    C -->|No| E[`initializeProgram()`];
-    D --> F[startScripts()];
+    C -->|No| E[`initializeProgram`];
+    D --> F[startScripts];
     E --> F;
 
     F --> G{except Exception};
