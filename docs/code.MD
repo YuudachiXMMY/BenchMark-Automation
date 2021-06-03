@@ -72,7 +72,7 @@ Set Global Variable:
 
 ### `initializeProgram(language=None, readLocal=None)`
 
-Initialize the _global variable_ `PROGRAM` by constructing a [ProgramInfo](./main/ProgramInfo.py) object.
+Initialize the _global variable_ `PROGRAM` by constructing a [ProgramInfo](/main/ProgramInfo.py) object.
 
 #### Parameter:
 1. `language` - Language to be displayed.
