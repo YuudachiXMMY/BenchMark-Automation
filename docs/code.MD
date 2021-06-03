@@ -40,7 +40,7 @@ Work as the main program, calling other modules and scripts to work together.
 
 ```mermaid
     graph LR
-    A["__main__"] --> B["CommandLineParser()"]
+    A[""__main__""] --> B["CommandLineParser()"]
     B --> C{if CMD_readLocal};
     C -->|Yes| D["initializeProgram(language=_LANGUAGE, readLocal=CMD_readLocal)"];
     C -->|No| E["initializeProgram()"];
@@ -50,7 +50,7 @@ Work as the main program, calling other modules and scripts to work together.
     G -->|Yes| H[exit 0];
     G -->|No| I{except KeyboardInterrupt};
     I -->|Yes| K[exit 1];
-    J -->|No| K[exit 1];
+    I -->|No| K;
 ```
 
 ## Functions
