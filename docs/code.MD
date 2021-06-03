@@ -37,7 +37,13 @@ Work as the main program, calling other modules and scripts to work together.
 
 ## Structure
 
-```flow
+
+```mermaid
+graph TD;
+  A-->B;
+```
+
+<!-- ```flow
 st=>start: "__main__"
 op=>operation: `CommandLineParser()`
 op=>operation: `main()`
@@ -51,7 +57,7 @@ op=>operation: `startScripts()`
 st(right)->op(right)->cond->op(right)
 cond(yes)->sub1(top)->op
 cond(no)->sub2(bottom)->op
-```
+``` -->
 <!-- io=>inputoutput: 输入输出框 -->
 <!-- e=>end: 结束框 -->
 
