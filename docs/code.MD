@@ -38,42 +38,18 @@ Work as the main program, calling other modules and scripts to work together.
 ## Structure
 
 
-```mermaid
-    classDiagram
-        class CommandLineParser{
-            <<Function>>
-            CommandLineParser()
-        }
-
-        class initializeProgram{
-            <<Function>>
-            initializeProgram()
-            language=_LANGUAGE
-            readLocal=CMD_readLocal
-        }
-
-        class initializeProgramNone{
-            <<Function>>
-            initializeProgram()
-        }
-
-        class startScripts{
-            <<Function>>
-            startScripts()
-        }
-
-    A["__main__"] --> CommandLineParser
-    CommandLineParser --> C{if CMD_readLocal};
-    C -->|Yes| initializeProgram;
-    C -->|No| initializeProgramNone;
-    D --> startScripts;
+```mermaidgraph LR
+    A["__main__"] --> B["CommandLineParser()"]
+    B --> C{if CMD_readLocal};
+    C -->|Yes| D["initializeProgram(language=_LANGUAGE, readLocal=CMD_readLocal)"];
+    C -->|No| E["initializeProgram()"];
+    D --> F["startScripts()"];
     E --> F;
-
     F --> G{except Exception};
     G -->|Yes| H[exit 0];
     G -->|No| I{except KeyboardInterrupt};
-    I -->|Yes| J[exit 1];
-    I -->|No| J;
+    I -->|Yes| K[exit 1];
+    J -->|No| K[exit 1];
 ```
 
 ## Functions
