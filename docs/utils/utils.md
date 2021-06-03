@@ -1,4 +1,4 @@
-# [_utils.py_](/lib/utils.py)
+# [_sysUtils.py_](/lib/utils.py)
 
 #### Modules Utilized
 
@@ -60,4 +60,15 @@ Over-write the .json file with input data.
 
 ## `printAll(data)`
 
-Print everything in the data Object
+Print everything in the data Object. Should only used inside the ProgramInfo Object
+
+## `detectCrashDumps(tar="MEMORY.DMP")`
+
+Detect whether the window's dump is generated under _%LOCALAPPDATA%\CrashDumps_
+
+#### Parameter:
+- `tar` - the target path to copy to (default to _C:\WinDumps_)
+
+#### Return:
+- `True` - The dump file is detected
+- `False` - otherwise, the file is not detected

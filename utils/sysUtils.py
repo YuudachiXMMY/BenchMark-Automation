@@ -104,6 +104,9 @@ def detectCrashDumps(tar="MEMORY.DMP"):
     '''
     Detect whether the window's dump is generated under %LOCALAPPDATA%\CrashDumps
 
+    @param:
+        - tar - the target path to copy to (default to "C:\WinDumps")
+
     @RETURN:
         - True - The dump file is detected
         - False - otherwise, the file is not detected

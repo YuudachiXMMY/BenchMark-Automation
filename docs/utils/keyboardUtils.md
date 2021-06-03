@@ -64,81 +64,20 @@ A method called by randomCharacterControl() to perform keyboard control for char
 1. `action`: action to perform
 2. `keyTime`: duration to perform the key time
 
-## `press_s()`
+## `callTinyTask(TinyTaskFile)`
 
-Execute s key, by calling the .exe file in "keyassist" folder made by tinytask
+Calling the .exe file under _./resources/tinytask/_ folder made by TinyTask
 
-#### Return:
-- `0` - failed
-- `1` - succeed
-
-## `press_alt_f4()`
-
-Execute ALT+F4 key, by calling the .exe file in "keyassist" folder made by tinytask
+#### Parameter:
+1. `TinyTaskFile`: a TinyTask File Name to be performed
 
 #### Return:
 - `0` - failed
 - `1` - succeed
 
-## `press_enter()`
+## `tinytask_resetMouse()`
 
-Execute enter key, by calling the .exe file in "keyassist" folder made by tinytask
-
-#### Return:
-- `0` - failed
-- `1` - succeed
-
-## `press_r()`
-
-Execute r key, by calling the .exe file in "keyassist" folder made by tinytask
-
-#### Return:
-- `0` - failed
-- `1` - succeed
-
-## `press_w()`
-
-Execute w key, by calling the .exe file in "keyassist" folder made by tinytask
-
-#### Return:
-- `0` - failed
-- `1` - succeed
-
-## `press_moveUpWard()`
-
-Upward move mouse, by calling the .exe file in "keyassist" folder made by tinytask
-
-#### Return:
-- `0` - failed
-- `1` - succeed
-
-## `press_moveDownWard()`
-
-Downward move mouse, by calling the .exe file in "keyassist" folder made by tinytask
-
-#### Return:
-- `0` - failed
-- `1` - succeed
-
-## `press_moveLeftWard()`
-
-Leftward move mouse, by calling the .exe file in "keyassist" folder made by tinytask
-
-#### Return:
-- `0` - failed
-- `1` - succeed
-
-## `press_moveRightWard()`
-
-Rightward move mouse, by calling the .exe file in "keyassist" folder made by tinytask
-
-#### Return:
-- `0` - failed
-- `1` - succeed
-
-## `resetMouse()`
-
-Reset the mouse position to top-left, by calling the .exe file in "keyassist" folder made by tinytask
+Reset the mouse position to top-left, by calling _./resources/tinytask/mouse/reset_mouse.exe_ file made by TinyTask
 
 #### Return:
 - `0` - failed

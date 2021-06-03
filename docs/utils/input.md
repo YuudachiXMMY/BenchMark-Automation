@@ -3,8 +3,7 @@
 #### Modules Utilized
 
 ##### External modules:
-`os`, `sys`, `subprocess`, `re`, `time`, `random`,
-`win32gui`, `win32api`, `win32con`, `pyautogui as pag`
+`os`, `sys`, `subprocess`, `re`, `time`, `random`, `win32api`, `win32con`, `pyautogui as pag`
 
 ##### Local modules:
 `lib.logger`, `lib.VK_CODE`
@@ -95,6 +94,16 @@ Perform a mouse action of clicking on screen position at (x, y).
 ## `getMouse(t=0)`
 
 Get the mouse position and print in the console
+
+#### Parameter:
+1. `t` - period to get the mouse position
+
+#### Return:
+- `(x, y)` - a tuple which x represent the x-position of the mouse and y represent the y-position of the mouse.
+
+## `getMouseLogging(t=0)`
+
+Get the mouse position and print in the console only when the mouse position changes
 
 #### Parameter:
 1. `t` - period to get the mouse position

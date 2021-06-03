@@ -184,10 +184,10 @@ def keyCharacterControl(action, keyTime):
 
 def callTinyTask(TinyTaskFile):
     '''
-    Calling the .exe file in "keyassist" folder made by tinytask
+    Calling the .exe file under "./resources/tinytask/" folder made by TinyTask
 
     @param:
-        - TinyTaskFile: TinyTask File to be performed
+        - TinyTaskFile: a TinyTask File Name to be performed
 
     @RETURN:
         - 0 - failed
@@ -198,7 +198,7 @@ def callTinyTask(TinyTaskFile):
 
 def tinytask_resetMouse():
     '''
-    Reset the mouse position to top-left, by calling the .exe file in "keyassist" folder made by tinytask
+    Reset the mouse position to top-left, by calling "./resources/tinytask/mouse/reset_mouse.exe" file made by TinyTask
 
     @RETURN:
         - 0 - failed
