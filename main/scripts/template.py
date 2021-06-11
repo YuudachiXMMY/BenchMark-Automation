@@ -261,7 +261,6 @@ def startGame():
     ## TODO: Actions need to be taken to Quit Game
     # Can use alternative methods, just like we've did above for Game Launcher
     utils.input.key_alt_f4()
-    utils.input.key_
     utils.input.key_enter()
     # utils.keyboardUtils.callTinyTask("alt_f4")
 

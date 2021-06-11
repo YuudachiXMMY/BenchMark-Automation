@@ -1,6 +1,6 @@
 import os, sys
-import time, random
-import win32gui, win32api, win32con
+import time
+import win32api, win32con
 import pyautogui as pag
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

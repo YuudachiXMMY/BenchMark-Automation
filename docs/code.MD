@@ -44,7 +44,6 @@ Work as the main program, calling other modules and scripts to work together.
 
 ## Structure
 
-
 ```mermaid
     graph LR
     A[""__main__""] --> B["CommandLineParser()"]
