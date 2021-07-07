@@ -19,5 +19,6 @@
     ],
     "cSpell.ignoreWords": [
         "json"
-    ]
+    ],
+    "python.pythonPath": "C:\\Users\\Navi\\AppData\\Local\\Programs\\Python\\Python38\\python.exe"
 }
